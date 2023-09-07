@@ -11,18 +11,20 @@
 #include <string.h>
 #include <unistd.h>
 
+#define TX_GPIO_NUM 27
 #define PD_GPIO_NUM 35
-#define SIGNALING_DURATION 25
+#define VLC_BAUD_RATE 256000
+
+#define PAYLOAD_LEN_BYTES 59
 
 #define SYMBOLS_BUFFER_SIZE 130
 #define MESSAGE_BUFFER_SIZE 6000
-#define TEST_BUFFER_SIZE 6000
 
 MessageBufferHandle_t MessageBuffer = NULL;
 
 void vtask_read(void *ptParam)
 {
-    demodulator_config(27,35,256000);
+    demodulator_config(TX_GPIO_NUM,PD_GPIO_NUM,VLC_BAUD_RATE);
     uint8_t send_buffer[SYMBOLS_BUFFER_SIZE];
     int send_bytes=0;
     while(1)
@@ -47,7 +49,7 @@ void vtask_operate(void *ptParam)
 
     uint8_t symbols_buffer[SYMBOLS_BUFFER_SIZE];
     uint8_t temp_buffer[SYMBOLS_BUFFER_SIZE];
-    uint8_t tx_output[59];
+    uint8_t tx_output[PAYLOAD_LEN_BYTES];
     int recv_bytes=0;
     while(1)
     {
@@ -77,8 +79,8 @@ void vtask_operate(void *ptParam)
         // printf("\n");
 
 
-        decode_manchester(temp_buffer,tx_output,118);
-        for(int i=0;i<59;i++)
+        decode_manchester(temp_buffer,tx_output,PAYLOAD_LEN_BYTES*2);
+        for(int i=0;i<PAYLOAD_LEN_BYTES;i++)
         {
             printf("%x ",tx_output[i]);
         }
