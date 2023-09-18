@@ -15,7 +15,7 @@
 #define PD_GPIO_NUM 35
 #define VLC_BAUD_RATE 256000
 
-#define PAYLOAD_LEN_BYTES 59
+#define PAYLOAD_LEN_BYTES 60
 
 #define SYMBOLS_BUFFER_SIZE 130
 #define MESSAGE_BUFFER_SIZE 6000
@@ -78,11 +78,11 @@ void vtask_operate(void *ptParam)
         // }
         // printf("\n");
 
-
         decode_manchester(temp_buffer,tx_output,PAYLOAD_LEN_BYTES*2);
-        for(int i=0;i<PAYLOAD_LEN_BYTES;i++)
+        printf("%x:",tx_output[0]);
+        for(int i=1;i<PAYLOAD_LEN_BYTES;i++)
         {
-            printf("%x ",tx_output[i]);
+            printf("%c",tx_output[i]);
         }
         printf("\n");
         }

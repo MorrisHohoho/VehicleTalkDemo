@@ -67,6 +67,7 @@ void demodulator_receive(uint8_t *buffer)
     {
         if(get_header_detect_state())
         {
+            uart_write_bytes(UART_NUM_2,"0",1);
             uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, buffer, FRAME_IN_BYTES, portMAX_DELAY);
             // uart_write_bytes(UART_NUM_2,"2",1);

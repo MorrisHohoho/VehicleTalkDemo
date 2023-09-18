@@ -41,7 +41,7 @@ extern "C" {
 #define LED_Pin GPIO_PIN_1
 #define LED_GPIO_Port GPIOB
 
-#define PAYLOAD_LEN 59 
+#define PAYLOAD_LEN 59
 #define FRAME_LEN (PAYLOAD_LEN+1)
 #define VLC_BUAD_RATE 256000
 /* USER CODE END ET */
