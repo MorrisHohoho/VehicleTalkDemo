@@ -13,7 +13,7 @@
 
 #define TX_GPIO_NUM 27
 #define PD_GPIO_NUM 35
-#define VLC_BAUD_RATE 256000
+#define VLC_BAUD_RATE 115200
 
 #define PAYLOAD_LEN_BYTES 60
 

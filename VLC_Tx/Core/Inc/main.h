@@ -43,7 +43,7 @@ extern "C" {
 
 #define PAYLOAD_LEN 59
 #define FRAME_LEN (PAYLOAD_LEN+1)
-#define VLC_BUAD_RATE 256000
+#define VLC_BUAD_RATE 115200
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
