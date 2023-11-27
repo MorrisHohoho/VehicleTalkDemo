@@ -1,11 +1,7 @@
 #ifndef __TEST_H__
 #define __TEST_H__
 
-#include "clock.h"
 
-
-#include "demodulator.h"
-#include "decoder.h"
 #include "freertos/FreeRTOS.h"
 #include <stdio.h>
 

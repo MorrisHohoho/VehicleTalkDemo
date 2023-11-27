@@ -34,7 +34,7 @@ void VLC_transmitter_init(const int tx_pin,const int baud_rate,const int data_le
     ESP_ERROR_CHECK(uart_param_config(uart_num, &uart_config));
 
     // 2. set the pin for UART
-    ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2,tx_pin,35,UART_PIN_NO_CHANGE,UART_PIN_NO_CHANGE));
+    ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2,tx_pin,UART_PIN_NO_CHANGE,UART_PIN_NO_CHANGE,UART_PIN_NO_CHANGE));
 
     // 3. setup the UART buffered IO with event queue
     int frame_in_bytes = VLC_frame_length*2+2; //payload + header + protection byte
@@ -69,6 +69,6 @@ void VLC_transmitter_send(const char* data)
         uart_write_bytes(UART_NUM_2,tx_buf,VLC_frame_length*2+2);
 
 		// // Transmit the tailer: 0b11111111
-        ets_delay_us(duration);
+        // ets_delay_us(duration);
 	}
 }
