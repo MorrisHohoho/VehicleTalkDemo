@@ -3,12 +3,13 @@
 
 #include <stdint.h>
 
-
-#define PAYLOAD_LEN 59
-#define FRAME_LEN (PAYLOAD_LEN+1)
-
-void manchester_encode(const uint8_t* original_data, uint8_t* encoded_data);
-
+/**
+ * @brief Encapsulate the data in the fixed physical frame
+ * @param data: char*, the original data.
+ * @param frame_num: The physical frame number that indicates different 
+ * data packets.
+ * @param tx_buf: The physical frame in 01 flow.
+*/
 void encode(const char* data, int frame_num, uint8_t* tx_buf);
 
 #endif

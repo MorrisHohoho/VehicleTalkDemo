@@ -4,6 +4,6 @@ file(GLOB_RECURSE SOURCES src/*.c)
 set(included_dirs inc)
 #Register to ESP32
 idf_component_register(SRCS ${SOURCES}
-                       REQUIRES driver
+                       REQUIRES driver VLC_Timer
                        INCLUDE_DIRS ${included_dirs}
                        )

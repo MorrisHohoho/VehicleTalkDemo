@@ -1,5 +1,11 @@
 #include "./include/test.h"
 
+#include "transmitter.h"
+
+#define TX3_GPIO_NUM GPIO_NUM_0
+#define VLC_BAUD_RATE 256000
+#define DATA_LENGTH 59
+
 void test_print_PHY_symbols_buffer(uint8_t *buffer, uint32_t length)
 {
     for (int i = 0; i < length; i++)
@@ -31,3 +37,14 @@ void test_get_orignal_frame(uint8_t* buffer)
     // printf("\n");
 
 }
+
+// void test_short_transmit()
+// {
+//     printf("Start transmitting ABCD loop.\n");
+//     const char* mes = "ABCD";
+//     VLC_transmitter_init(TX3_GPIO_NUM, VLC_BAUD_RATE, DATA_LENGTH);
+//     while(1)
+//     {
+//         VLC_transmitter_send(mes);    
+//     }
+// }

@@ -23,14 +23,14 @@ void TX3_gpitimer_init(){
 /**
  * @brief Helper function, start the timer
 */
-void TX3_gpitmer_start(){
+static void TX3_gpitmer_start(){
     ESP_ERROR_CHECK(gptimer_set_raw_count(TX3_gptimer,0));
     ESP_ERROR_CHECK(gptimer_start(TX3_gptimer));
 }
 /**
  * @brief Helper fucntion, stop the timer
 */
-void TX3_gpitmer_stop(){
+static void TX3_gpitmer_stop(){
     ESP_ERROR_CHECK(gptimer_stop(TX3_gptimer));
     ESP_ERROR_CHECK(gptimer_set_raw_count(TX3_gptimer,0));
 }

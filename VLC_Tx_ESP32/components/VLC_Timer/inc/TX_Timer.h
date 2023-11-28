@@ -1,5 +1,5 @@
-#ifndef __CLOCK_H_
-#define __CLOCK_H_
+#ifndef __TX_TIMER_H_
+#define __TX_TIMER_H_
 
 #include <unistd.h>
 

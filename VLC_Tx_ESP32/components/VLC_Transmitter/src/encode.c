@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-void manchester_encode(const uint8_t* original_data, uint8_t* encoded_data)
+
+#define PAYLOAD_LEN 59
+#define FRAME_LEN (PAYLOAD_LEN+1)
+
+static void manchester_encode(const uint8_t* original_data, uint8_t* encoded_data)
 {
     uint16_t tmp_16=0;
     uint8_t tmp_8 = 0;
@@ -32,7 +36,7 @@ void encode(const char* data, int frame_num, uint8_t* tx_buf)
     // 1. insert the header
     tx_buf[tx_buf_ptr++] = 0x00; //"00000000";
 
-    // 2. encode the payload with manchester encoidng
+    // 2. encode the payload with manchester encoding
     uint8_t original_data[FRAME_LEN];
     uint8_t encoded_data[FRAME_LEN*2];
 
