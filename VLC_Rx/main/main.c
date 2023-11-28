@@ -11,8 +11,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#define TX_GPIO_NUM 27
-#define PD_GPIO_NUM 35
+#define TX_GPIO_NUM GPIO_NUM_0
+#define PD_GPIO_NUM GPIO_NUM_4
 #define VLC_BAUD_RATE 115200
 
 #define PAYLOAD_LEN_BYTES 60

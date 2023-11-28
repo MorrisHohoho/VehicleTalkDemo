@@ -5,7 +5,6 @@
 
 #include "freertos/FreeRTOS.h"
 #include "driver/gpio.h"
-#include "esp32/rom/ets_sys.h"
 
 #define ESP_INTR_FLAG_DEFAULT 0
 #define FRAME_IN_BYTES 120 //118 PAYLOAD + 1  Protection Byte

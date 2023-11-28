@@ -79,7 +79,7 @@ void VLC_transmitter_send(const char *data)
         uart_write_bytes(UART_NUM_2, tx_buf, VLC_frame_length * 2 + 2);
 
         // Transmit the tailer: 0b11111111
-        TX3_udelay(1000000);
+        TX3_udelay(duration);
 
     }
 }

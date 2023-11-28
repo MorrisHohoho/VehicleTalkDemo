@@ -78,4 +78,4 @@ void set_header_detect_state(bool state)
 {
     header_detect_state = state;
 }
-
+ 
