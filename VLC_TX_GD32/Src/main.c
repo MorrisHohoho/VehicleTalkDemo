@@ -104,7 +104,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1) {
         VLC_transmitter_send(mes);
-        VLC_transmitter_idle();
+        for(int i=0;i<10;i++){
+            VLC_transmitter_idle();
+        }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

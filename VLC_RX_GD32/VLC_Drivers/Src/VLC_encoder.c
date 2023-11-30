@@ -32,8 +32,10 @@ void VLC_encode(const char* data, int frame_num, uint8_t* tx_buf)
         data_len = PAYLOAD_LENGTH;
     }
 
+    // 1. insert the header
+    tx_buf[tx_buf_ptr++] = 0x00; //"00000000";
 
-    // 2. encode the payload with manchester encoding
+    // 2. encode the payload with manchester encoidng
     uint8_t original_data[FRAME_LENGTH];
     uint8_t encoded_data[FRAME_LENGTH*2];
 
@@ -59,4 +61,6 @@ void VLC_encode(const char* data, int frame_num, uint8_t* tx_buf)
         tx_buf[tx_buf_ptr++] = encoded_data[i];
     }
 
+    // 3. insert the tailer
+    tx_buf[tx_buf_ptr++] = 0x55; //"01010101";
 }
