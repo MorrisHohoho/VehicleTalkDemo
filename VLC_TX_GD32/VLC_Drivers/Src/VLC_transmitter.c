@@ -2,9 +2,9 @@
 // Created by Administrator on 11/30/2023.
 //
 
-#include "VLC_transmitter.h"
-#include "VLC_encoder.h"
-#include "VLC_timer.h"
+#include "../Inc/VLC_transmitter.h"
+#include "../Inc/VLC_encoder.h"
+#include "../Inc/VLC_timer.h"
 #include "main.h"
 
 #include "usart.h"

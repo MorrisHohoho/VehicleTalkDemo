@@ -1,7 +1,7 @@
 //
 // Created by Administrator on 11/30/2023.
 //
-#include "VLC_encoder.h"
+#include "../Inc/VLC_encoder.h"
 #include "main.h"
 
 #include <string.h>

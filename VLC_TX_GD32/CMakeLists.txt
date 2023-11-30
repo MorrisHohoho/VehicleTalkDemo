@@ -49,11 +49,12 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include)
+include_directories(Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include
+        VLC_Drivers/Inc)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F427xx)
 
-file(GLOB_RECURSE SOURCES "Startup/*.*" "Src/*.*" "Drivers/*.*")
+file(GLOB_RECURSE SOURCES "Startup/*.*" "Src/*.*" "Drivers/*.*" "VLC_Drivers/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F427VITX_FLASH.ld)
 
