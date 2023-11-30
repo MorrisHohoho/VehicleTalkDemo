@@ -33,3 +33,11 @@ void VLC_transmitter_send(const char* data)
         VLC_udelay(duration);
     }
 }
+
+
+void VLC_transmitter_idle(){
+    uint8_t square_wave[]={0xAA};
+    for(int i=0;i<1000;i++){
+        HAL_UART_Transmit(&huart4,square_wave,1,HAL_MAX_DELAY);
+    }
+}

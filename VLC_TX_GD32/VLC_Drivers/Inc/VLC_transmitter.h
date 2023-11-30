@@ -12,4 +12,11 @@
  */
 void VLC_transmitter_send(const char* data);
 
+
+/**
+ * Sending square wave when no messages are sending.
+ * TODO: Use Interrupt to stop the idle state.
+ */
+void VLC_transmitter_idle();
+
 #endif //VLC_TX_GD32_VLC_TRANSMITTER_H
