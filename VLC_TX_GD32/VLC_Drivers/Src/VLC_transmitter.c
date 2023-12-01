@@ -29,10 +29,10 @@ void VLC_transmitter_send(const char* data)
         VLC_encode(data+i*PAYLOAD_LENGTH,i,tx_buf);
 
         //The tailer has to stop the UART transmitting
-        HAL_UART_Transmit(&huart4,tx_buf,FRAME_LENGTH*2,HAL_MAX_DELAY);
+        HAL_UART_Transmit(&huart4,tx_buf,FRAME_LENGTH*2+2,HAL_MAX_DELAY);
 
         //Transmit the tailer: 0b11111111
-        VLC_udelay(duration);
+        VLC_udelay(duration*2);
     }
 }
 

@@ -68,7 +68,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define PAYLOAD_LENGTH 59 //The original data length, in bytes. i.e.: "abcd" length is 4.
-#define FRAME_LENGTH  PAYLOAD_LENGTH+1 //The frame data length (add 1 bytes PSN), in bytes. i.e. : 1+"abdc" length is 5.
+#define FRAME_LENGTH  (PAYLOAD_LENGTH+1) //The frame data length (add 1 bytes PSN), in bytes. i.e. : 1+"abdc" length is 5.
 
 #define VLC_BUAD_RATE 115200
 /* USER CODE END Private defines */

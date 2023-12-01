@@ -6,6 +6,9 @@
 
 #include <string.h>
 
+#define VLC_FRAME_HEADER 0XFF
+#define VLC_FRAME_TAILOR 0X00
+
 static void VLC_manchester_encode(const uint8_t *original_data, uint8_t *encoded_data) {
 
     uint16_t tmp_16 = 0;
@@ -31,6 +34,9 @@ void VLC_encode(const char* data, int frame_num, uint8_t* tx_buf)
     {
         data_len = PAYLOAD_LENGTH;
     }
+
+    // 1. Insert the header
+    tx_buf[tx_buf_ptr++] = VLC_FRAME_HEADER;
 
 
     // 2. encode the payload with manchester encoding
@@ -58,5 +64,8 @@ void VLC_encode(const char* data, int frame_num, uint8_t* tx_buf)
     {
         tx_buf[tx_buf_ptr++] = encoded_data[i];
     }
+
+    // 3. insert the tailor
+    tx_buf[tx_buf_ptr++] = VLC_FRAME_TAILOR;
 
 }
