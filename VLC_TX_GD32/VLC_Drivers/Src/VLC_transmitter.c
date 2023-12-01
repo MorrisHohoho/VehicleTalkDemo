@@ -37,7 +37,7 @@ void VLC_transmitter_send(const char* data)
 }
 
 
-void VLC_transmitter_idle(){
+void VLC_transmitter_idle_signal(){
     uint16_t duration = 1000000/VLC_BUAD_RATE; //us
     duration*=12;
     uint8_t square_wave[]={0xAA};

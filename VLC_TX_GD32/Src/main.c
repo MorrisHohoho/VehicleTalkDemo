@@ -94,7 +94,8 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-    const char *mes = "ABCD";
+    const char *mes1 = "ABCD";
+    const char *mes2 = "1234";
     if(HAL_TIM_Base_Start(&htim2)!=HAL_OK){
         Error_Handler();
     }
@@ -103,10 +104,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
-        VLC_transmitter_send(mes);
-        for(int i=0;i<10;i++){
-            VLC_transmitter_idle();
-        }
+        VLC_transmitter_send(mes1);
+        VLC_transmitter_send(mes2);
+//        for(int i=0;i<10;i++){
+//            VLC_transmitter_idle_signal();
+//        }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

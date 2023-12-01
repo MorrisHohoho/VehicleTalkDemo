@@ -1592,7 +1592,7 @@ __STATIC_INLINE void LL_FLASH_DisablePrefetch(void)
 }
 
 /**
-  * @brief  Check if Prefetch buffer is enabled
+  * @brief  Check if Prefetch VLC_RX_UART_BUFFER is enabled
   * @rmtoll FLASH_ACR    PRFTEN        LL_FLASH_IsPrefetchEnabled
   * @retval State of bit (1 or 0).
   */

@@ -46,9 +46,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t DETECT_DATA_FLAG = 0;
-uint8_t data[FRAME_LENGTH*2+2];
-uint8_t buffer[RX_BUFFER_LENGTH];
+uint8_t DETECT_DATA_FLAG = 0;   // Detected data->1; Else, 0.
+uint8_t VLC_RX_DATA_BUFFER[FRAME_LENGTH * 2 + 2]; // Data VLC_RX_UART_BUFFER: 1 byte header + 120 byte payload + 1 byte tailor
+uint8_t VLC_RX_UART_BUFFER[RX_BUFFER_LENGTH]; // UART VLC_RX_UART_BUFFER
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,8 +107,8 @@ int main(void) {
             DETECT_DATA_FLAG=0;
             HAL_UART_Transmit(&huart1,decoded_data,FRAME_LENGTH,HAL_MAX_DELAY);
         }
-        HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
-        HAL_Delay(1000);
+//        HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
+//        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

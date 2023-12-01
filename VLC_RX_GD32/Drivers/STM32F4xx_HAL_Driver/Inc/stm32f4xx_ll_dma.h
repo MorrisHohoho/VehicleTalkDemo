@@ -94,7 +94,7 @@ typedef struct
 
   uint32_t Mode;                   /*!< Specifies the normal or circular operation mode.
                                         This parameter can be a value of @ref DMA_LL_EC_MODE
-                                        @note The circular buffer mode cannot be used if the memory to memory
+                                        @note The circular VLC_RX_UART_BUFFER mode cannot be used if the memory to memory
                                               data transfer direction is configured on the selected Stream
 
                                         This feature can be modified afterwards using unitary function @ref LL_DMA_SetMode(). */
@@ -124,7 +124,7 @@ typedef struct
                                         This feature can be modified afterwards using unitary function @ref LL_DMA_SetMemorySize(). */
 
   uint32_t NbData;                 /*!< Specifies the number of data to transfer, in data unit.
-                                        The data unit is equal to the source buffer configuration set in PeripheralSize
+                                        The data unit is equal to the source VLC_RX_UART_BUFFER configuration set in PeripheralSize
                                         or MemorySize parameters depending in the transfer direction.
                                         This parameter must be a value between Min_Data = 0 and Max_Data = 0x0000FFFF
 
@@ -1148,7 +1148,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphBurstxfer(DMA_TypeDef *DMAx, uint32_t S
 }
 
 /**
-  * @brief Set Current target (only in double buffer mode) to Memory 1 or Memory 0.
+  * @brief Set Current target (only in double VLC_RX_UART_BUFFER mode) to Memory 1 or Memory 0.
   * @rmtoll CR          CT           LL_DMA_SetCurrentTargetMem 
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -1171,7 +1171,7 @@ __STATIC_INLINE void LL_DMA_SetCurrentTargetMem(DMA_TypeDef *DMAx, uint32_t Stre
 }
 
 /**
-  * @brief Set Current target (only in double buffer mode) to Memory 1 or Memory 0.
+  * @brief Set Current target (only in double VLC_RX_UART_BUFFER mode) to Memory 1 or Memory 0.
   * @rmtoll CR          CT           LL_DMA_GetCurrentTargetMem 
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -1193,7 +1193,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetCurrentTargetMem(DMA_TypeDef *DMAx, uint32_t 
 }
 
 /**
-  * @brief Enable the double buffer mode.
+  * @brief Enable the double VLC_RX_UART_BUFFER mode.
   * @rmtoll CR          DBM           LL_DMA_EnableDoubleBufferMode
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -1213,7 +1213,7 @@ __STATIC_INLINE void LL_DMA_EnableDoubleBufferMode(DMA_TypeDef *DMAx, uint32_t S
 }
 
 /**
-  * @brief Disable the double buffer mode.
+  * @brief Disable the double VLC_RX_UART_BUFFER mode.
   * @rmtoll CR          DBM           LL_DMA_DisableDoubleBufferMode 
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -1592,7 +1592,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef* DMAx, uint32_t Str
 }
 
 /**
-  * @brief Set Memory 1 address (used in case of Double buffer mode).
+  * @brief Set Memory 1 address (used in case of Double VLC_RX_UART_BUFFER mode).
   * @rmtoll M1AR        M1A         LL_DMA_SetMemory1Address
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -1613,7 +1613,7 @@ __STATIC_INLINE void LL_DMA_SetMemory1Address(DMA_TypeDef *DMAx, uint32_t Stream
 }
 
 /**
-  * @brief Get Memory 1 address (used in case of Double buffer mode).
+  * @brief Get Memory 1 address (used in case of Double VLC_RX_UART_BUFFER mode).
   * @rmtoll M1AR        M1A         LL_DMA_GetMemory1Address
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:

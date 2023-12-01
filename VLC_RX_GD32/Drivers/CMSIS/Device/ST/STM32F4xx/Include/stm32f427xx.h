@@ -5549,7 +5549,7 @@ typedef struct
 #define DAC_CR_EN1                  DAC_CR_EN1_Msk                             /*!<DAC channel1 enable */
 #define DAC_CR_BOFF1_Pos            (1U)                                       
 #define DAC_CR_BOFF1_Msk            (0x1UL << DAC_CR_BOFF1_Pos)                 /*!< 0x00000002 */
-#define DAC_CR_BOFF1                DAC_CR_BOFF1_Msk                           /*!<DAC channel1 output buffer disable */
+#define DAC_CR_BOFF1                DAC_CR_BOFF1_Msk                           /*!<DAC channel1 output VLC_RX_UART_BUFFER disable */
 #define DAC_CR_TEN1_Pos             (2U)                                       
 #define DAC_CR_TEN1_Msk             (0x1UL << DAC_CR_TEN1_Pos)                  /*!< 0x00000004 */
 #define DAC_CR_TEN1                 DAC_CR_TEN1_Msk                            /*!<DAC channel1 Trigger enable */
@@ -5586,7 +5586,7 @@ typedef struct
 #define DAC_CR_EN2                  DAC_CR_EN2_Msk                             /*!<DAC channel2 enable */
 #define DAC_CR_BOFF2_Pos            (17U)                                      
 #define DAC_CR_BOFF2_Msk            (0x1UL << DAC_CR_BOFF2_Pos)                 /*!< 0x00020000 */
-#define DAC_CR_BOFF2                DAC_CR_BOFF2_Msk                           /*!<DAC channel2 output buffer disable */
+#define DAC_CR_BOFF2                DAC_CR_BOFF2_Msk                           /*!<DAC channel2 output VLC_RX_UART_BUFFER disable */
 #define DAC_CR_TEN2_Pos             (18U)                                      
 #define DAC_CR_TEN2_Msk             (0x1UL << DAC_CR_TEN2_Pos)                  /*!< 0x00040000 */
 #define DAC_CR_TEN2                 DAC_CR_TEN2_Msk                            /*!<DAC channel2 Trigger enable */
@@ -12659,18 +12659,18 @@ typedef struct
 #define SPI_CR2_ERRIE               SPI_CR2_ERRIE_Msk                          /*!<Error Interrupt Enable               */
 #define SPI_CR2_RXNEIE_Pos          (6U)                                       
 #define SPI_CR2_RXNEIE_Msk          (0x1UL << SPI_CR2_RXNEIE_Pos)               /*!< 0x00000040 */
-#define SPI_CR2_RXNEIE              SPI_CR2_RXNEIE_Msk                         /*!<RX buffer Not Empty Interrupt Enable */
+#define SPI_CR2_RXNEIE              SPI_CR2_RXNEIE_Msk                         /*!<RX VLC_RX_UART_BUFFER Not Empty Interrupt Enable */
 #define SPI_CR2_TXEIE_Pos           (7U)                                       
 #define SPI_CR2_TXEIE_Msk           (0x1UL << SPI_CR2_TXEIE_Pos)                /*!< 0x00000080 */
-#define SPI_CR2_TXEIE               SPI_CR2_TXEIE_Msk                          /*!<Tx buffer Empty Interrupt Enable     */
+#define SPI_CR2_TXEIE               SPI_CR2_TXEIE_Msk                          /*!<Tx VLC_RX_UART_BUFFER Empty Interrupt Enable     */
 
 /********************  Bit definition for SPI_SR register  ********************/
 #define SPI_SR_RXNE_Pos             (0U)                                       
 #define SPI_SR_RXNE_Msk             (0x1UL << SPI_SR_RXNE_Pos)                  /*!< 0x00000001 */
-#define SPI_SR_RXNE                 SPI_SR_RXNE_Msk                            /*!<Receive buffer Not Empty */
+#define SPI_SR_RXNE                 SPI_SR_RXNE_Msk                            /*!<Receive VLC_RX_UART_BUFFER Not Empty */
 #define SPI_SR_TXE_Pos              (1U)                                       
 #define SPI_SR_TXE_Msk              (0x1UL << SPI_SR_TXE_Pos)                   /*!< 0x00000002 */
-#define SPI_SR_TXE                  SPI_SR_TXE_Msk                             /*!<Transmit buffer Empty    */
+#define SPI_SR_TXE                  SPI_SR_TXE_Msk                             /*!<Transmit VLC_RX_UART_BUFFER Empty    */
 #define SPI_SR_CHSIDE_Pos           (2U)                                       
 #define SPI_SR_CHSIDE_Msk           (0x1UL << SPI_SR_CHSIDE_Pos)                /*!< 0x00000004 */
 #define SPI_SR_CHSIDE               SPI_SR_CHSIDE_Msk                          /*!<Channel side             */
@@ -14751,7 +14751,7 @@ typedef struct
   /* combination with EBS[2:0] for GetFlagStatus function */
 #define ETH_DMASR_EBS_DescAccess_Pos                  (25U)                    
 #define ETH_DMASR_EBS_DescAccess_Msk                  (0x1UL << ETH_DMASR_EBS_DescAccess_Pos) /*!< 0x02000000 */
-#define ETH_DMASR_EBS_DescAccess                      ETH_DMASR_EBS_DescAccess_Msk /* Error bits 0-data buffer, 1-desc. access */
+#define ETH_DMASR_EBS_DescAccess                      ETH_DMASR_EBS_DescAccess_Msk /* Error bits 0-data VLC_RX_UART_BUFFER, 1-desc. access */
 #define ETH_DMASR_EBS_ReadTransf_Pos                  (24U)                    
 #define ETH_DMASR_EBS_ReadTransf_Msk                  (0x1UL << ETH_DMASR_EBS_ReadTransf_Pos) /*!< 0x01000000 */
 #define ETH_DMASR_EBS_ReadTransf                      ETH_DMASR_EBS_ReadTransf_Msk /* Error bits 0-write trnsf, 1-read transfr */
@@ -14819,7 +14819,7 @@ typedef struct
 #define ETH_DMASR_RPSS                                ETH_DMASR_RPSS_Msk       /* Receive process stopped status */
 #define ETH_DMASR_RBUS_Pos                            (7U)                     
 #define ETH_DMASR_RBUS_Msk                            (0x1UL << ETH_DMASR_RBUS_Pos) /*!< 0x00000080 */
-#define ETH_DMASR_RBUS                                ETH_DMASR_RBUS_Msk       /* Receive buffer unavailable status */
+#define ETH_DMASR_RBUS                                ETH_DMASR_RBUS_Msk       /* Receive VLC_RX_UART_BUFFER unavailable status */
 #define ETH_DMASR_RS_Pos                              (6U)                     
 #define ETH_DMASR_RS_Msk                              (0x1UL << ETH_DMASR_RS_Pos) /*!< 0x00000040 */
 #define ETH_DMASR_RS                                  ETH_DMASR_RS_Msk         /* Receive status */
@@ -14834,7 +14834,7 @@ typedef struct
 #define ETH_DMASR_TJTS                                ETH_DMASR_TJTS_Msk       /* Transmit jabber timeout status */
 #define ETH_DMASR_TBUS_Pos                            (2U)                     
 #define ETH_DMASR_TBUS_Msk                            (0x1UL << ETH_DMASR_TBUS_Pos) /*!< 0x00000004 */
-#define ETH_DMASR_TBUS                                ETH_DMASR_TBUS_Msk       /* Transmit buffer unavailable status */
+#define ETH_DMASR_TBUS                                ETH_DMASR_TBUS_Msk       /* Transmit VLC_RX_UART_BUFFER unavailable status */
 #define ETH_DMASR_TPSS_Pos                            (1U)                     
 #define ETH_DMASR_TPSS_Msk                            (0x1UL << ETH_DMASR_TPSS_Pos) /*!< 0x00000002 */
 #define ETH_DMASR_TPSS                                ETH_DMASR_TPSS_Msk       /* Transmit process stopped status */
@@ -14916,7 +14916,7 @@ typedef struct
 #define ETH_DMAIER_RPSIE                              ETH_DMAIER_RPSIE_Msk     /* Receive process stopped interrupt enable */
 #define ETH_DMAIER_RBUIE_Pos                          (7U)                     
 #define ETH_DMAIER_RBUIE_Msk                          (0x1UL << ETH_DMAIER_RBUIE_Pos) /*!< 0x00000080 */
-#define ETH_DMAIER_RBUIE                              ETH_DMAIER_RBUIE_Msk     /* Receive buffer unavailable interrupt enable */
+#define ETH_DMAIER_RBUIE                              ETH_DMAIER_RBUIE_Msk     /* Receive VLC_RX_UART_BUFFER unavailable interrupt enable */
 #define ETH_DMAIER_RIE_Pos                            (6U)                     
 #define ETH_DMAIER_RIE_Msk                            (0x1UL << ETH_DMAIER_RIE_Pos) /*!< 0x00000040 */
 #define ETH_DMAIER_RIE                                ETH_DMAIER_RIE_Msk       /* Receive interrupt enable */
@@ -14931,7 +14931,7 @@ typedef struct
 #define ETH_DMAIER_TJTIE                              ETH_DMAIER_TJTIE_Msk     /* Transmit jabber timeout interrupt enable */
 #define ETH_DMAIER_TBUIE_Pos                          (2U)                     
 #define ETH_DMAIER_TBUIE_Msk                          (0x1UL << ETH_DMAIER_TBUIE_Pos) /*!< 0x00000004 */
-#define ETH_DMAIER_TBUIE                              ETH_DMAIER_TBUIE_Msk     /* Transmit buffer unavailable interrupt enable */
+#define ETH_DMAIER_TBUIE                              ETH_DMAIER_TBUIE_Msk     /* Transmit VLC_RX_UART_BUFFER unavailable interrupt enable */
 #define ETH_DMAIER_TPSIE_Pos                          (1U)                     
 #define ETH_DMAIER_TPSIE_Msk                          (0x1UL << ETH_DMAIER_TPSIE_Pos) /*!< 0x00000002 */
 #define ETH_DMAIER_TPSIE                              ETH_DMAIER_TPSIE_Msk     /* Transmit process stopped interrupt enable */
@@ -14966,12 +14966,12 @@ typedef struct
 /* Bit definition for Ethernet DMA Current Host Transmit Buffer Address Register */
 #define ETH_DMACHTBAR_HTBAP_Pos                       (0U)                     
 #define ETH_DMACHTBAR_HTBAP_Msk                       (0xFFFFFFFFUL << ETH_DMACHTBAR_HTBAP_Pos) /*!< 0xFFFFFFFF */
-#define ETH_DMACHTBAR_HTBAP                           ETH_DMACHTBAR_HTBAP_Msk  /* Host transmit buffer address pointer */
+#define ETH_DMACHTBAR_HTBAP                           ETH_DMACHTBAR_HTBAP_Msk  /* Host transmit VLC_RX_UART_BUFFER address pointer */
 
 /* Bit definition for Ethernet DMA Current Host Receive Buffer Address Register */
 #define ETH_DMACHRBAR_HRBAP_Pos                       (0U)                     
 #define ETH_DMACHRBAR_HRBAP_Msk                       (0xFFFFFFFFUL << ETH_DMACHRBAR_HRBAP_Pos) /*!< 0xFFFFFFFF */
-#define ETH_DMACHRBAR_HRBAP                           ETH_DMACHRBAR_HRBAP_Msk  /* Host receive buffer address pointer */
+#define ETH_DMACHRBAR_HRBAP                           ETH_DMACHRBAR_HRBAP_Msk  /* Host receive VLC_RX_UART_BUFFER address pointer */
 
 /******************************************************************************/
 /*                                                                            */

@@ -804,7 +804,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
       /* Multi_Buffering mode enabled */
       if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != RESET)
       {
-        /* Current memory buffer used is Memory 0 */
+        /* Current memory VLC_RX_UART_BUFFER used is Memory 0 */
         if((hdma->Instance->CR & DMA_SxCR_CT) == RESET)
         {
           if(hdma->XferHalfCpltCallback != NULL)
@@ -813,7 +813,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
             hdma->XferHalfCpltCallback(hdma);
           }
         }
-        /* Current memory buffer used is Memory 1 */
+        /* Current memory VLC_RX_UART_BUFFER used is Memory 1 */
         else
         {
           if(hdma->XferM1HalfCpltCallback != NULL)
@@ -877,7 +877,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
 
       if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != RESET)
       {
-        /* Current memory buffer used is Memory 0 */
+        /* Current memory VLC_RX_UART_BUFFER used is Memory 0 */
         if((hdma->Instance->CR & DMA_SxCR_CT) == RESET)
         {
           if(hdma->XferM1CpltCallback != NULL)
@@ -886,7 +886,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
             hdma->XferM1CpltCallback(hdma);
           }
         }
-        /* Current memory buffer used is Memory 1 */
+        /* Current memory VLC_RX_UART_BUFFER used is Memory 1 */
         else
         {
           if(hdma->XferCpltCallback != NULL)

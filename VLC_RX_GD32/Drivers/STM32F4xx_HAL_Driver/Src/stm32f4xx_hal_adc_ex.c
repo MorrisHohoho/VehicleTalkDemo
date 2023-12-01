@@ -591,7 +591,7 @@ uint32_t HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef* hadc, uint32_t InjectedRa
   *
   * @param  hadc pointer to a ADC_HandleTypeDef structure that contains
   *         the configuration information for the specified ADC.
-  * @param  pData   Pointer to buffer in which transferred from ADC peripheral to memory will be stored. 
+  * @param  pData   Pointer to VLC_RX_UART_BUFFER in which transferred from ADC peripheral to memory will be stored.
   * @param  Length  The length of data to be transferred from ADC peripheral to memory.  
   * @retval HAL status
   */
