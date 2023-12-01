@@ -48,7 +48,7 @@
 /* USER CODE BEGIN PV */
 uint8_t DETECT_DATA_FLAG = 0;
 uint8_t data[FRAME_LENGTH];
-uint8_t buffer[120];
+uint8_t buffer[RX_BUFFER_LENGTH];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,18 +94,19 @@ int main(void) {
     MX_ADC1_Init();
     MX_UART4_Init();
 /* USER CODE BEGIN 2 */
-    __HAL_UART_ENABLE_IT(&huart4, UART_IT_IDLE);
-    VLC_demodulator_receive(buffer);
-    HAL_UART_Transmit(&huart1, "while\n", 6, 0xFFFF);
+    VLC_demodulator_receive();
+    HAL_UART_Transmit(&huart1, "Task Start!\n", 10, 0xFFFF);
 /* USER CODE END 2 */
 
 /* Infinite loop */
 /* USER CODE BEGIN WHILE */
     while (1) {
         if (DETECT_DATA_FLAG) {
-            HAL_UART_Transmit(&huart4, buffer, 30, 0XFFFF);
+//            HAL_UART_Transmit(&huart4, buffer, 10, 0);
             DETECT_DATA_FLAG = 0;
         }
+        HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
+        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

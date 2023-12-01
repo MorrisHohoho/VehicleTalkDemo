@@ -68,7 +68,7 @@ void Error_Handler(void);
 
 #define VLC_BUAD_RATE 115200
 
-#define RX_BUFFER_LENGTH 100
+#define RX_BUFFER_LENGTH 200
 
 /* USER CODE END Private defines */
 

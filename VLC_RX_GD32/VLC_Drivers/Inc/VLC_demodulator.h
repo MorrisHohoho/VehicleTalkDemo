@@ -9,8 +9,7 @@
 
 /**
  * Receive the data through VLC by UART.
- * @param buffer The data buffer that stores the data.
  */
-void VLC_demodulator_receive(uint8_t* buffer);
+void VLC_demodulator_receive();
 
 #endif //VLC_RX_GD32_VLC_DEMODULATOR_H

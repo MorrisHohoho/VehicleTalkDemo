@@ -4,11 +4,14 @@
 
 #include "VLC_demodulator.h"
 
+#include "main.h"
 #include "usart.h"
-void VLC_demodulator_receive(uint8_t* buffer){
-    HAL_UART_Receive_DMA(&huart4,buffer,RX_BUFFER_LENGTH);
-}
 
-//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-//    HAL_UART_Transmit(&huart1,(uint8_t*)"hello\n",6,0xFFFF);
-//}
+extern uint8_t DETECT_DATA_FLAG;
+extern uint8_t data[FRAME_LENGTH];
+extern uint8_t buffer[RX_BUFFER_LENGTH];
+
+void VLC_demodulator_receive() {
+    __HAL_UART_ENABLE_IT(&huart4, UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart4, buffer, RX_BUFFER_LENGTH);
+}
