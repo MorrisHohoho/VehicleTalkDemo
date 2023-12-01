@@ -59,8 +59,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define ADC_TEST_Pin GPIO_PIN_1
 #define ADC_TEST_GPIO_Port GPIOB
-#define LED_TEST_Pin GPIO_PIN_15
-#define LED_TEST_GPIO_Port GPIOB
 #define VLC_TX_UART_Pin GPIO_PIN_10
 #define VLC_TX_UART_GPIO_Port GPIOC
 #define VLC_RX_UART_Pin GPIO_PIN_11

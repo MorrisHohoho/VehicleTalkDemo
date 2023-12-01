@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "../VLC_Drivers/Inc/VLC_transmitter.h"
-#include "../VLC_Drivers/Inc/VLC_timer.h"
+#include "../Vehicle_Drivers/Inc/vehicle_servo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,19 +93,31 @@ int main(void)
   MX_UART4_Init();
   MX_TIM2_Init();
   MX_USART1_UART_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
     const char *mes1 = "ABCD";
     const char *mes2 = "1234";
     if(HAL_TIM_Base_Start(&htim2)!=HAL_OK){
         Error_Handler();
     }
+    vehicle_servo_init();
+    vehicle_servo_0();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
-        VLC_transmitter_send(mes1);
-        VLC_transmitter_send(mes2);
+        vehicle_servo_0();
+        HAL_Delay(1000);
+        vehicle_servo_minus_45();
+        HAL_Delay(1000);
+        vehicle_servo_0();
+        HAL_Delay(1000);
+        vehicle_servo_positive_45();
+        HAL_Delay(1000);
+        vehicle_servo_0();
+//        VLC_transmitter_send(mes1);
+//        VLC_transmitter_send(mes2);
 //        for(int i=0;i<10;i++){
 //            VLC_transmitter_idle_signal();
 //        }
