@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "VLC_demodulator.h"
+#include "VLC_receiver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +47,7 @@
 
 /* USER CODE BEGIN PV */
 uint8_t DETECT_DATA_FLAG = 0;
-uint8_t data[FRAME_LENGTH];
+uint8_t data[FRAME_LENGTH*2+2];
 uint8_t buffer[RX_BUFFER_LENGTH];
 /* USER CODE END PV */
 
@@ -94,16 +94,18 @@ int main(void) {
     MX_ADC1_Init();
     MX_UART4_Init();
 /* USER CODE BEGIN 2 */
-    VLC_demodulator_receive();
+    uint8_t decoded_data[FRAME_LENGTH];
+    VLC_receiver_start();
     HAL_UART_Transmit(&huart1, "Task Start!\n", 10, 0xFFFF);
 /* USER CODE END 2 */
 
 /* Infinite loop */
 /* USER CODE BEGIN WHILE */
     while (1) {
-        if (DETECT_DATA_FLAG) {
-//            HAL_UART_Transmit(&huart4, buffer, 10, 0);
-            DETECT_DATA_FLAG = 0;
+        if(DETECT_DATA_FLAG){
+            VLC_receiver_receive(decoded_data);
+            DETECT_DATA_FLAG=0;
+            HAL_UART_Transmit(&huart1,decoded_data,FRAME_LENGTH,HAL_MAX_DELAY);
         }
         HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
         HAL_Delay(1000);

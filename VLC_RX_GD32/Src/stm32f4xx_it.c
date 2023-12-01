@@ -59,7 +59,7 @@ extern DMA_HandleTypeDef hdma_uart4_rx;
 extern UART_HandleTypeDef huart4;
 /* USER CODE BEGIN EV */
 extern uint8_t DETECT_DATA_FLAG;
-extern uint8_t data[FRAME_LENGTH];
+extern uint8_t data[FRAME_LENGTH*2+2];
 extern uint8_t buffer[RX_BUFFER_LENGTH];
 /* USER CODE END EV */
 
@@ -209,10 +209,9 @@ void UART4_IRQHandler(void) {
         __HAL_UART_CLEAR_IDLEFLAG(&huart4);
         HAL_UART_DMAStop(&huart4);
         uint8_t len = RX_BUFFER_LENGTH - __HAL_DMA_GET_COUNTER(huart4.hdmarx);
-        uint8_t data[]={len};
-        if (len >= 30) {
+        if (len >= FRAME_LENGTH) {
+            memcpy(data,buffer,FRAME_LENGTH*2+2);
             DETECT_DATA_FLAG = 1;
-            HAL_UART_Transmit(&huart4, data, 1, 0XFF);
         }
     }
     HAL_UART_Receive_DMA(&huart4, buffer, RX_BUFFER_LENGTH);
