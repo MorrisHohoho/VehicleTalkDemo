@@ -57,8 +57,20 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MOTORB_POSITIVE_Pin GPIO_PIN_1
+#define MOTORB_POSITIVE_GPIO_Port GPIOA
+#define MOTORB_NEGATIVE_Pin GPIO_PIN_2
+#define MOTORB_NEGATIVE_GPIO_Port GPIOA
+#define MOTORB_PWM_Pin GPIO_PIN_5
+#define MOTORB_PWM_GPIO_Port GPIOA
+#define MOTORA_PWM_Pin GPIO_PIN_7
+#define MOTORA_PWM_GPIO_Port GPIOA
 #define ADC_TEST_Pin GPIO_PIN_1
 #define ADC_TEST_GPIO_Port GPIOB
+#define MOTORA_POSITIVE_Pin GPIO_PIN_10
+#define MOTORA_POSITIVE_GPIO_Port GPIOB
+#define MOTORA_NEGATIVE_Pin GPIO_PIN_11
+#define MOTORA_NEGATIVE_GPIO_Port GPIOB
 #define VLC_TX_UART_Pin GPIO_PIN_10
 #define VLC_TX_UART_GPIO_Port GPIOC
 #define VLC_RX_UART_Pin GPIO_PIN_11

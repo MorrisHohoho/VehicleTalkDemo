@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "../VLC_Drivers/Inc/VLC_transmitter.h"
 #include "../Vehicle_Drivers/Inc/vehicle_servo.h"
+#include "../Vehicle_Drivers/Inc/vehicle_motor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,6 +95,8 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   MX_TIM1_Init();
+  MX_TIM8_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
     const char *mes1 = "ABCD";
     const char *mes2 = "1234";
@@ -101,6 +104,7 @@ int main(void)
         Error_Handler();
     }
     vehicle_servo_init();
+    vehicle_motor_init();
     vehicle_servo_0();
   /* USER CODE END 2 */
 
