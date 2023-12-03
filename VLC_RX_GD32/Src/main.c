@@ -63,7 +63,11 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void vehicle_talk_rx_test(uint8_t *decoded_data) {
+//    HAL_UART_Transmit(&huart1, decoded_data, FRAME_LENGTH, HAL_MAX_DELAY);
+    char status = decoded_data[1];
+    vehicle_motor_control(status); // The first byte of decoded data is PSN.
+}
 /* USER CODE END 0 */
 
 /**
@@ -105,7 +109,7 @@ int main(void) {
     vehicle_motor_init();
     uint8_t decoded_data[FRAME_LENGTH];
     VLC_receiver_start();
-    HAL_UART_Transmit(&huart1, "Task Start!\n", 10, 0xFFFF);
+    HAL_UART_Transmit(&huart1, "Rx Task Start!\n", 15, HAL_MAX_DELAY);
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -114,10 +118,8 @@ int main(void) {
         if (DETECT_DATA_FLAG) {
             VLC_receiver_receive(decoded_data);
             DETECT_DATA_FLAG = 0;
-            HAL_UART_Transmit(&huart1, decoded_data, FRAME_LENGTH, HAL_MAX_DELAY);
+            vehicle_talk_rx_test(decoded_data);
         }
-//        HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
-//        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

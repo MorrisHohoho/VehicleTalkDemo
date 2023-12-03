@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 /**
- * Receive the data through VLC by UART.
+ * Enable the receiver to receive the data through VLC by UART.
  */
 void VLC_receiver_start();
 

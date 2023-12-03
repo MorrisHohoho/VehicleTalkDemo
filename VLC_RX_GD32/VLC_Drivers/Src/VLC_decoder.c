@@ -2,9 +2,10 @@
 // Created by Administrator on 12/1/2023.
 //
 
-#include "main.h"
-
 #include "VLC_decoder.h"
+
+#include "main.h"
+#include <string.h>
 
 void VLC_manchester_decoding(uint8_t *encoded_data, uint8_t *decoded_data) {
     int j = 0;

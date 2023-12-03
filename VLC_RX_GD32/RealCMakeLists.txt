@@ -14,7 +14,7 @@ set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
-project(VLC_TX_GD32 C CXX ASM)
+project(VLC_RX_GD32 C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
@@ -50,12 +50,11 @@ else ()
 endif ()
 
 include_directories(Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include
-        VLC_Drivers/Inc Vehicle_Drivers/Inc)
+        VLC_Drivers/Inc Vehicle_Drivers/Inc )
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F427xx)
 
-file(GLOB_RECURSE SOURCES "Startup/*.*" "Src/*.*" "Drivers/*.*"
-        "VLC_Drivers/*.*" "Vehicle_Drivers/*.*")
+file(GLOB_RECURSE SOURCES "Startup/*.*" "Src/*.*" "Drivers/*.*" "VLC_Drivers/*.*" "Vehicle_Drivers/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F427VITX_FLASH.ld)
 

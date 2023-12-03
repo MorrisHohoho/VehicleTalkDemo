@@ -30,7 +30,7 @@ void vehicle_motor_set_velocity(uint16_t Duty, char motor){
 }
 
 void vehicle_motor_init(){
-    HAL_TIMEx_PWMN_Start(MOTORA_PWM,MOTORA_PWM_CHANNEL);
+    HAL_TIM_PWM_Start(MOTORA_PWM,MOTORA_PWM_CHANNEL);
     vehicle_motor_set_velocity(50,'A');
     vehicle_motor_stop('A');
 
@@ -114,11 +114,13 @@ void vehicle_motor_control(char status){
             vehicle_servo_positive_45();
             vehicle_motor_forward('A');
             vehicle_motor_forward('B');
+            break;
         }
         case '0':{
             vehicle_motor_stop('A');
             vehicle_motor_stop('B');
             vehicle_servo_0();
+            break;
         }
     }
 }

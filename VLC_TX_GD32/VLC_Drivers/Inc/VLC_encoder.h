@@ -21,7 +21,7 @@ static void VLC_manchester_encode(const uint8_t* original_data, uint8_t* encoded
  * @param data The manchester encoded data.
  * @param frame_num The frame number that indicates the order of the data.
  * @param tx_buf The fixed physical frame "01" flow that is transmitted.
- * i.e. Header[0x00] + data + Protected Word[0xAA] + Tailer[0xFF].
+ * i.e. Header[0xFF] + data + Tailer[0x00].
  */
 void VLC_encode(const char* data, int frame_num, uint8_t* tx_buf);
 

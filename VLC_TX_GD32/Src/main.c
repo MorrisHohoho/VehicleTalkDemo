@@ -59,7 +59,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define TEST1_IDLE_TIMES 2500
+#define TEST1_IDLE_TIMES 2000
 void temp_idle_delay(uint32_t idle_times){
     for(uint32_t i=0;i<idle_times;i++) {VLC_transmitter_idle_signal();}
 }
@@ -212,7 +212,7 @@ void Error_Handler(void)
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
-        HAL_UART_Transmit(&huart1,'Error\n',6,HAL_MAX_DELAY);
+        HAL_UART_Transmit(&huart1,"Error\n",6,HAL_MAX_DELAY);
     }
   /* USER CODE END Error_Handler_Debug */
 }
