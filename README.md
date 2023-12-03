@@ -6,6 +6,31 @@
 3. LED and its transmitter with 200KHz or above.
 4. PD Receiver.
 
+## Software
+STM32 Cube MX + OpenOcd
+### Remember to modify the CMakeLists
+Every time you change the ```ioc```, remember to overwrite the ```CMakeLists``` with ```RealCMakeLists```
+### OpenOcd configuration
+1. Copy the `GD32F450.cfg` to the openocd `target` directory.  
+2. Use the following `cfg` in the project, which I have already put in the project.
+```
+# Choose the adaptor configuration. I use stlink-v2, which is cheap and easy to get.
+source [find interface/stlink-v2.cfg]
+
+# How to upload. In most case, it is swd.
+transport select hla_swd
+
+# increase working area to 128KB. Default is good.
+set WORKAREASIZE 0x20000
+
+# Choose the target board configuration. The configuration file is not included in the official
+# openocd project. It is developed by others.
+source [find target/gd32f450.cfg]
+
+# Default is good.
+reset_config srst_only
+```
+
 ## IO Usages
 1. UART4 TX/RX: Used for VLC.
 2. UART1 TX/RX: For CH340 TTL. Used for output debuging logs.
