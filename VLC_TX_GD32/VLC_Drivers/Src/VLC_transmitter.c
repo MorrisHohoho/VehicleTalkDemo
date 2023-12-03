@@ -39,7 +39,7 @@ void VLC_transmitter_send(const char* data)
 
 void VLC_transmitter_idle_signal(){
     uint16_t duration = 1000000/VLC_BUAD_RATE; //us
-    duration*=12;
+    duration*=10;
     uint8_t square_wave[]={0xAA};
     for(int i=0;i<10;i++){
         HAL_UART_Transmit(&huart4,square_wave,1,HAL_MAX_DELAY);

@@ -28,7 +28,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include <string.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -57,10 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MOTORB_POSITIVE_Pin GPIO_PIN_1
+#define MOTORB_POSITIVE_GPIO_Port GPIOA
+#define MOTORB_NEGATIVE_Pin GPIO_PIN_2
+#define MOTORB_NEGATIVE_GPIO_Port GPIOA
 #define ADC_TEST_Pin GPIO_PIN_1
 #define ADC_TEST_GPIO_Port GPIOB
-#define LED_TEST_Pin GPIO_PIN_15
-#define LED_TEST_GPIO_Port GPIOB
+#define MOTORA_POSITIVE_Pin GPIO_PIN_10
+#define MOTORA_POSITIVE_GPIO_Port GPIOB
+#define MOTORA_NEGATIVE_Pin GPIO_PIN_11
+#define MOTORA_NEGATIVE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 #define PAYLOAD_LENGTH 59 // The original data length, in bytes. i.e.: "abcd" length is 4.

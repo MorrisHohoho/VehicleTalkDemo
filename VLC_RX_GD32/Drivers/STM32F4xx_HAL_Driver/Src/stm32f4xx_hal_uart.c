@@ -1107,7 +1107,7 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
         Errors are handled as follows :
        (+) Error is considered as Recoverable and non blocking : Transfer could go till end, but error severity is
            to be evaluated by user : this concerns Frame Error, Parity Error or Noise Error in Interrupt mode reception .
-           Received character is then retrieved and stored in Rx VLC_RX_UART_BUFFER, Error code is set to allow user to identify error type,
+           Received character is then retrieved and stored in Rx buffer, Error code is set to allow user to identify error type,
            and HAL_UART_ErrorCallback() user callback is executed. Transfer is kept ongoing on UART side.
            If user wants to abort it, Abort services should be called by user.
        (+) Error is considered as Blocking : Transfer could not be completed properly and is aborted.
@@ -1128,7 +1128,7 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
   *         of u16 provided through pData.
   * @param  huart Pointer to a UART_HandleTypeDef structure that contains
   *               the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be sent
   * @param  Timeout Timeout duration
   * @retval HAL status
@@ -1216,7 +1216,7 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
   *         of u16 available through pData.
   * @param  huart Pointer to a UART_HandleTypeDef structure that contains
   *               the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be received.
   * @param  Timeout Timeout duration
   * @retval HAL status
@@ -1308,7 +1308,7 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, ui
   *         of u16 provided through pData.
   * @param  huart Pointer to a UART_HandleTypeDef structure that contains
   *               the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be sent
   * @retval HAL status
   */
@@ -1353,7 +1353,7 @@ HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, const uint8_t 
   *         of u16 available through pData.
   * @param  huart Pointer to a UART_HandleTypeDef structure that contains
   *               the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be received.
   * @retval HAL status
   */
@@ -1388,7 +1388,7 @@ HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData,
   *         of u16 provided through pData.
   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
   *                the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be sent
   * @retval HAL status
   */
@@ -1455,7 +1455,7 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t
   *         of u16 available through pData.
   * @param  huart Pointer to a UART_HandleTypeDef structure that contains
   *               the configuration information for the specified UART module.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be received.
   * @note   When the UART parity is enabled (PCE = 1) the received data contains the parity bit.
   * @retval HAL status
@@ -1610,12 +1610,12 @@ HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef *huart)
   * @brief Receive an amount of data in blocking mode till either the expected number of data is received or an IDLE event occurs.
   * @note   HAL_OK is returned if reception is completed (expected number of data has been received)
   *         or if reception is stopped after IDLE event (less than the expected number of data has been received)
-  *         In this case, RxLen output parameter indicates number of data available in reception VLC_RX_UART_BUFFER.
+  *         In this case, RxLen output parameter indicates number of data available in reception buffer.
   * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M = 01),
   *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
   *         of uint16_t available through pData.
   * @param huart   UART handle.
-  * @param pData   Pointer to data VLC_RX_UART_BUFFER (uint8_t or uint16_t data elements).
+  * @param pData   Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size    Amount of data elements (uint8_t or uint16_t) to be received.
   * @param RxLen   Number of data elements finally received (could be lower than Size, in case reception ends on IDLE event)
   * @param Timeout Timeout duration expressed in ms (covers the whole reception sequence).
@@ -1744,7 +1744,7 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle(UART_HandleTypeDef *huart, uint8_t *p
   *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
   *         of uint16_t available through pData.
   * @param huart UART handle.
-  * @param pData Pointer to data VLC_RX_UART_BUFFER (uint8_t or uint16_t data elements).
+  * @param pData Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size  Amount of data elements (uint8_t or uint16_t) to be received.
   * @retval HAL status
   */
@@ -1796,7 +1796,7 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_IT(UART_HandleTypeDef *huart, uint8_t
 /**
   * @brief Receive an amount of data in DMA mode till either the expected number of data is received or an IDLE event occurs.
   * @note   Reception is initiated by this function call. Further progress of reception is achieved thanks
-  *         to DMA services, transferring automatically received data elements in user reception VLC_RX_UART_BUFFER and
+  *         to DMA services, transferring automatically received data elements in user reception buffer and
   *         calling registered callbacks at half/end of reception. UART IDLE events are also used to consider
   *         reception phase as ended. In all cases, callback execution will indicate number of received data elements.
   * @note   When the UART parity is enabled (PCE = 1), the received data contain
@@ -1805,7 +1805,7 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_IT(UART_HandleTypeDef *huart, uint8_t
   *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
   *         of uint16_t available through pData.
   * @param huart UART handle.
-  * @param pData Pointer to data VLC_RX_UART_BUFFER (uint8_t or uint16_t data elements).
+  * @param pData Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size  Amount of data elements (uint8_t or uint16_t) to be received.
   * @retval HAL status
   */
@@ -2706,8 +2706,8 @@ __weak void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 /**
   * @brief  Reception Event Callback (Rx event notification called after use of advanced reception service).
   * @param  huart UART handle
-  * @param  Size  Number of data available in application reception VLC_RX_UART_BUFFER (indicates a position in
-  *               reception VLC_RX_UART_BUFFER until which, data are available)
+  * @param  Size  Number of data available in application reception buffer (indicates a position in
+  *               reception buffer until which, data are available)
   * @retval None
   */
 __weak void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
@@ -3203,10 +3203,10 @@ static HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, 
   * @brief  Start Receive operation in interrupt mode.
   * @note   This function could be called by all HAL UART API providing reception in Interrupt mode.
   * @note   When calling this function, parameters validity is considered as already checked,
-  *         i.e. Rx State, VLC_RX_UART_BUFFER address, ...
+  *         i.e. Rx State, buffer address, ...
   *         UART Handle is assumed as Locked.
   * @param  huart UART handle.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be received.
   * @retval HAL status
   */
@@ -3241,10 +3241,10 @@ HAL_StatusTypeDef UART_Start_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pDat
   * @brief  Start Receive operation in DMA mode.
   * @note   This function could be called by all HAL UART API providing reception in DMA mode.
   * @note   When calling this function, parameters validity is considered as already checked,
-  *         i.e. Rx State, VLC_RX_UART_BUFFER address, ...
+  *         i.e. Rx State, buffer address, ...
   *         UART Handle is assumed as Locked.
   * @param  huart UART handle.
-  * @param  pData Pointer to data VLC_RX_UART_BUFFER (u8 or u16 data elements).
+  * @param  pData Pointer to data buffer (u8 or u16 data elements).
   * @param  Size  Amount of data elements (u8 or u16) to be received.
   * @retval HAL status
   */

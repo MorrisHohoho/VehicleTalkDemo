@@ -14,7 +14,7 @@
   ==============================================================================
     [..]
       After reset the device is running from Internal High Speed oscillator
-      (HSI 16MHz) with Flash 0 wait state, Flash prefetch VLC_RX_UART_BUFFER, D-Cache
+      (HSI 16MHz) with Flash 0 wait state, Flash prefetch buffer, D-Cache
       and I-Cache are disabled, and all peripherals are off except internal
       SRAM, Flash and JTAG.
       (+) There is no prescaler on High speed (AHB) and Low speed (APB) busses;

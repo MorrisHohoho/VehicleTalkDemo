@@ -13,12 +13,12 @@
   ==============================================================================
   [..]
   The DMA Extension HAL driver can be used as follows:
-   (#) Start a multi VLC_RX_UART_BUFFER transfer using the HAL_DMA_MultiBufferStart() function
+   (#) Start a multi buffer transfer using the HAL_DMA_MultiBufferStart() function
        for polling mode or HAL_DMA_MultiBufferStart_IT() for interrupt mode.
                    
      -@-  In Memory-to-Memory transfer mode, Multi (Double) Buffer mode is not allowed.
      -@-  When Multi (Double) Buffer mode is enabled the, transfer is circular by default.
-     -@-  In Multi (Double) VLC_RX_UART_BUFFER mode, it is possible to update the base address for
+     -@-  In Multi (Double) buffer mode, it is possible to update the base address for 
           the AHB memory port on the fly (DMA_SxM0AR or DMA_SxM1AR) when the stream is enabled. 
   
   @endverbatim
@@ -93,7 +93,7 @@ static void DMA_MultiBufferSetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddres
   *                     the configuration information for the specified DMA Stream.  
   * @param  SrcAddress The source memory Buffer address
   * @param  DstAddress The destination memory Buffer address
-  * @param  SecondMemAddress The second memory Buffer address in case of multi VLC_RX_UART_BUFFER Transfer
+  * @param  SecondMemAddress The second memory Buffer address in case of multi buffer Transfer  
   * @param  DataLength The length of data to be transferred from source to destination
   * @retval HAL status
   */
@@ -120,7 +120,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t S
       /* Change DMA peripheral state */
       hdma->State = HAL_DMA_STATE_BUSY; 
       
-      /* Enable the double VLC_RX_UART_BUFFER mode */
+      /* Enable the double buffer mode */
       hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
       
       /* Configure DMA Stream destination address */
@@ -147,7 +147,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t S
   *                     the configuration information for the specified DMA Stream.  
   * @param  SrcAddress The source memory Buffer address
   * @param  DstAddress The destination memory Buffer address
-  * @param  SecondMemAddress The second memory Buffer address in case of multi VLC_RX_UART_BUFFER Transfer
+  * @param  SecondMemAddress The second memory Buffer address in case of multi buffer Transfer  
   * @param  DataLength The length of data to be transferred from source to destination
   * @retval HAL status
   */
@@ -183,7 +183,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_
     /* Initialize the error code */
     hdma->ErrorCode = HAL_DMA_ERROR_NONE;
     
-    /* Enable the Double VLC_RX_UART_BUFFER mode */
+    /* Enable the Double buffer mode */
     hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
     
     /* Configure DMA Stream destination address */

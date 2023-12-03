@@ -183,13 +183,13 @@ typedef struct
 #define __HAL_FLASH_GET_LATENCY()     (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY))
 
 /**
-  * @brief  Enable the FLASH prefetch VLC_RX_UART_BUFFER.
+  * @brief  Enable the FLASH prefetch buffer.
   * @retval none
   */ 
 #define __HAL_FLASH_PREFETCH_BUFFER_ENABLE()  (FLASH->ACR |= FLASH_ACR_PRFTEN)
 
 /**
-  * @brief  Disable the FLASH prefetch VLC_RX_UART_BUFFER.
+  * @brief  Disable the FLASH prefetch buffer.
   * @retval none
   */ 
 #define __HAL_FLASH_PREFETCH_BUFFER_DISABLE()   (FLASH->ACR &= (~FLASH_ACR_PRFTEN))

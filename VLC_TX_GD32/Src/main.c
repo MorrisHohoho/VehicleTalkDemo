@@ -59,7 +59,35 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#define TEST1_IDLE_TIMES 2500
+void temp_idle_delay(uint32_t idle_times){
+    for(uint32_t i=0;i<idle_times;i++) {VLC_transmitter_idle_signal();}
+}
+void vehicle_talk_test1(){
+    VLC_transmitter_send("Xvehicle_talk_test1\n");
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("WForward\n");
+    vehicle_motor_control('W');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("ALeft\n");
+    vehicle_motor_control('A');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("WForward\n");
+    vehicle_motor_control('W');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("DRight\n");
+    vehicle_motor_control('D');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("WForward\n");
+    vehicle_motor_control('W');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("SBackward\n");
+    vehicle_motor_control('S');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+    VLC_transmitter_send("0Stop\n");
+    vehicle_motor_control('0');
+    temp_idle_delay(TEST1_IDLE_TIMES);
+}
 /* USER CODE END 0 */
 
 /**
@@ -105,26 +133,12 @@ int main(void)
     }
     vehicle_servo_init();
     vehicle_motor_init();
-    vehicle_servo_0();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
-        vehicle_servo_0();
-        HAL_Delay(1000);
-        vehicle_servo_minus_45();
-        HAL_Delay(1000);
-        vehicle_servo_0();
-        HAL_Delay(1000);
-        vehicle_servo_positive_45();
-        HAL_Delay(1000);
-        vehicle_servo_0();
-//        VLC_transmitter_send(mes1);
-//        VLC_transmitter_send(mes2);
-//        for(int i=0;i<10;i++){
-//            VLC_transmitter_idle_signal();
-//        }
+        vehicle_talk_test1();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -198,6 +212,7 @@ void Error_Handler(void)
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
+        HAL_UART_Transmit(&huart1,'Error\n',6,HAL_MAX_DELAY);
     }
   /* USER CODE END Error_Handler_Debug */
 }

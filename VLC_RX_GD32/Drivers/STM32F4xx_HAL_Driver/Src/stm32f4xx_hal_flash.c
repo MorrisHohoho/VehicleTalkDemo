@@ -53,7 +53,7 @@
       In addition to these functions, this driver includes a set of macros allowing
       to handle the following operations:
        (+) Set the latency
-       (+) Enable/Disable the prefetch VLC_RX_UART_BUFFER
+       (+) Enable/Disable the prefetch buffer
        (+) Enable/Disable the Instruction cache and the Data cache
        (+) Reset the Instruction cache and the Data cache
        (+) Enable/Disable the FLASH interrupts

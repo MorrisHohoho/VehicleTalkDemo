@@ -20,12 +20,15 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "VLC_receiver.h"
+#include "vehicle_motor.h"
+#include "vehicle_servo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +50,8 @@
 
 /* USER CODE BEGIN PV */
 uint8_t DETECT_DATA_FLAG = 0;   // Detected data->1; Else, 0.
-uint8_t VLC_RX_DATA_BUFFER[FRAME_LENGTH * 2 + 2]; // Data VLC_RX_UART_BUFFER: 1 byte header + 120 byte payload + 1 byte tailor
+uint8_t VLC_RX_DATA_BUFFER[
+        FRAME_LENGTH * 2 + 2]; // Data VLC_RX_UART_BUFFER: 1 byte header + 120 byte payload + 1 byte tailor
 uint8_t VLC_RX_UART_BUFFER[RX_BUFFER_LENGTH]; // UART VLC_RX_UART_BUFFER
 /* USER CODE END PV */
 
@@ -63,49 +67,54 @@ void SystemClock_Config(void);
 /* USER CODE END 0 */
 
 /**
-* @brief  The application entry point.
-* @retval int
-*/
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void) {
-/* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-/* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-/* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
 
-/* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-/* USER CODE END Init */
+    /* USER CODE END Init */
 
-/* Configure the system clock */
+    /* Configure the system clock */
     SystemClock_Config();
 
-/* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-/* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-/* Initialize all configured peripherals */
+    /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_DMA_Init();
     MX_USART1_UART_Init();
     MX_ADC1_Init();
     MX_UART4_Init();
-/* USER CODE BEGIN 2 */
+    MX_TIM1_Init();
+    MX_TIM8_Init();
+    MX_TIM14_Init();
+    /* USER CODE BEGIN 2 */
+    vehicle_servo_init();
+    vehicle_motor_init();
     uint8_t decoded_data[FRAME_LENGTH];
     VLC_receiver_start();
     HAL_UART_Transmit(&huart1, "Task Start!\n", 10, 0xFFFF);
-/* USER CODE END 2 */
+    /* USER CODE END 2 */
 
-/* Infinite loop */
-/* USER CODE BEGIN WHILE */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
     while (1) {
-        if(DETECT_DATA_FLAG){
+        if (DETECT_DATA_FLAG) {
             VLC_receiver_receive(decoded_data);
-            DETECT_DATA_FLAG=0;
-            HAL_UART_Transmit(&huart1,decoded_data,FRAME_LENGTH,HAL_MAX_DELAY);
+            DETECT_DATA_FLAG = 0;
+            HAL_UART_Transmit(&huart1, decoded_data, FRAME_LENGTH, HAL_MAX_DELAY);
         }
 //        HAL_UART_Transmit(&huart1,"1s\n",3,HAL_MAX_DELAY);
 //        HAL_Delay(1000);
@@ -113,25 +122,25 @@ int main(void) {
 
         /* USER CODE BEGIN 3 */
     }
-/* USER CODE END 3 */
+    /* USER CODE END 3 */
 }
 
 /**
-* @brief System Clock Configuration
-* @retval None
-*/
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void) {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-/** Configure the main internal regulator output voltage
-*/
+    /** Configure the main internal regulator output voltage
+    */
     __HAL_RCC_PWR_CLK_ENABLE();
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-/** Initializes the RCC Oscillators according to the specified parameters
-* in the RCC_OscInitTypeDef structure.
-*/
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
     RCC_OscInitStruct.HSIState = RCC_HSI_ON;
     RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -145,14 +154,14 @@ void SystemClock_Config(void) {
         Error_Handler();
     }
 
-/** Activate the Over-Drive mode
-*/
+    /** Activate the Over-Drive mode
+    */
     if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
         Error_Handler();
     }
 
-/** Initializes the CPU, AHB and APB buses clocks
-*/
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                                   | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -170,31 +179,31 @@ void SystemClock_Config(void) {
 /* USER CODE END 4 */
 
 /**
-* @brief  This function is executed in case of error occurrence.
-* @retval None
-*/
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void) {
-/* USER CODE BEGIN Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
 /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
     }
-/* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
 /**
-* @brief  Reports the name of the source file and the source line number
-*         where the assert_param error has occurred.
-* @param  file: pointer to the source file name
-* @param  line: assert_param error line source number
-* @retval None
-*/
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-/* USER CODE BEGIN 6 */
+  /* USER CODE BEGIN 6 */
 /* User can add his own implementation to report the file name and line number,
  ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-/* USER CODE END 6 */
+  /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

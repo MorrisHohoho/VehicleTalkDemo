@@ -68,7 +68,7 @@ typedef struct
 
   uint32_t Mode;                 /*!< Specifies the operation mode of the DMAy Streamx.
                                       This parameter can be a value of @ref DMA_mode
-                                      @note The circular VLC_RX_UART_BUFFER mode cannot be used if the memory-to-memory
+                                      @note The circular buffer mode cannot be used if the memory-to-memory
                                             data transfer is configured on the selected Stream                        */
 
   uint32_t Priority;             /*!< Specifies the software priority for the DMAy Streamx.
