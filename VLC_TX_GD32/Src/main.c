@@ -28,6 +28,8 @@
 #include "../VLC_Drivers/Inc/VLC_transmitter.h"
 #include "../Vehicle_Drivers/Inc/vehicle_servo.h"
 #include "../Vehicle_Drivers/Inc/vehicle_motor.h"
+
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -122,8 +124,6 @@ int main(void)
   MX_UART4_Init();
   MX_TIM2_Init();
   MX_USART1_UART_Init();
-  MX_TIM1_Init();
-  MX_TIM8_Init();
   MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
     const char *mes1 = "ABCD";
@@ -132,13 +132,15 @@ int main(void)
         Error_Handler();
     }
     vehicle_servo_init();
-    vehicle_motor_init();
+//    vehicle_motor_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
-        vehicle_talk_test1();
+//        vehicle_talk_test1();
+printf("Wocao\n");
+        HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

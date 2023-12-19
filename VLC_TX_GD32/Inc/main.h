@@ -57,24 +57,22 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define MOTORB_POSITIVE_Pin GPIO_PIN_1
-#define MOTORB_POSITIVE_GPIO_Port GPIOA
-#define MOTORB_NEGATIVE_Pin GPIO_PIN_2
-#define MOTORB_NEGATIVE_GPIO_Port GPIOA
-#define MOTORB_PWM_Pin GPIO_PIN_5
-#define MOTORB_PWM_GPIO_Port GPIOA
-#define MOTORA_PWM_Pin GPIO_PIN_7
-#define MOTORA_PWM_GPIO_Port GPIOA
-#define ADC_TEST_Pin GPIO_PIN_1
-#define ADC_TEST_GPIO_Port GPIOB
-#define MOTORA_POSITIVE_Pin GPIO_PIN_10
-#define MOTORA_POSITIVE_GPIO_Port GPIOB
-#define MOTORA_NEGATIVE_Pin GPIO_PIN_11
-#define MOTORA_NEGATIVE_GPIO_Port GPIOB
-#define VLC_TX_UART_Pin GPIO_PIN_10
-#define VLC_TX_UART_GPIO_Port GPIOC
-#define VLC_RX_UART_Pin GPIO_PIN_11
-#define VLC_RX_UART_GPIO_Port GPIOC
+#define ENCODERA_Pin GPIO_PIN_1
+#define ENCODERA_GPIO_Port GPIOA
+#define ENCODERB_Pin GPIO_PIN_2
+#define ENCODERB_GPIO_Port GPIOA
+#define SERVO_Pin GPIO_PIN_7
+#define SERVO_GPIO_Port GPIOA
+#define MOTORA_Pin GPIO_PIN_11
+#define MOTORA_GPIO_Port GPIOB
+#define MOTORB_Pin GPIO_PIN_12
+#define MOTORB_GPIO_Port GPIOB
+#define WLED_Pin GPIO_PIN_15
+#define WLED_GPIO_Port GPIOB
+#define UART4_TX_Pin GPIO_PIN_10
+#define UART4_TX_GPIO_Port GPIOC
+#define UART4_RX_Pin GPIO_PIN_11
+#define UART4_RX_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 #define PAYLOAD_LENGTH 59 //The original data length, in bytes. i.e.: "abcd" length is 4.

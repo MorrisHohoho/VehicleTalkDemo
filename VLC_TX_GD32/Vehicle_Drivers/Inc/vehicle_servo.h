@@ -7,7 +7,15 @@
 
 #include <stdint.h>
 
+
 void vehicle_servo_init();
+
+
+
+/**
+ * Change the PWM duty
+ * @param Duty From 1-20000. 1 = 1us.
+ */
 void vehicle_servo_control(uint16_t Duty);
 
 
