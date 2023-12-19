@@ -63,10 +63,6 @@ void Error_Handler(void);
 #define ENCODERB_GPIO_Port GPIOA
 #define SERVO_Pin GPIO_PIN_7
 #define SERVO_GPIO_Port GPIOA
-#define MOTORA_Pin GPIO_PIN_11
-#define MOTORA_GPIO_Port GPIOB
-#define MOTORB_Pin GPIO_PIN_12
-#define MOTORB_GPIO_Port GPIOB
 #define WLED_Pin GPIO_PIN_15
 #define WLED_GPIO_Port GPIOB
 #define UART4_TX_Pin GPIO_PIN_10
