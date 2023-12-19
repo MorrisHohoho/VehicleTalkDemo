@@ -19,4 +19,6 @@ void VLC_transmitter_send(const char* data);
  */
 void VLC_transmitter_idle();
 
+void VLC_Gpio_transmitter_send(const char *data);
+
 #endif //VLC_TX_GD32_VLC_TRANSMITTER_H
