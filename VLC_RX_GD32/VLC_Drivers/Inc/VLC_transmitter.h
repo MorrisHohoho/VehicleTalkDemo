@@ -21,4 +21,10 @@ void VLC_transmitter_idle();
 
 void VLC_Gpio_transmitter_send(const char *data);
 
+
+/**
+ * Sending 1 second square wave signal.
+ */
+void VLC_Gpio_transmitter_idle();
+
 #endif //VLC_TX_GD32_VLC_TRANSMITTER_H

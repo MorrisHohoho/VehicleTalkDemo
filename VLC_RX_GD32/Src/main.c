@@ -53,6 +53,7 @@ uint8_t DETECT_DATA_FLAG = 0;   // Detected data->1; Else, 0.
 uint8_t VLC_RX_DATA_BUFFER[
         FRAME_LENGTH * 2 + 2]; // Data VLC_RX_UART_BUFFER: 1 byte header + 120 byte payload + 1 byte tailor
 uint8_t VLC_RX_UART_BUFFER[RX_BUFFER_LENGTH]; // UART VLC_RX_UART_BUFFER
+uint8_t data[100];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,6 +68,14 @@ void vehicle_talk_rx_test(uint8_t *decoded_data) {
 //    HAL_UART_Transmit(&huart1, decoded_data, FRAME_LENGTH, HAL_MAX_DELAY);
     char status = decoded_data[1];
     vehicle_motor_control(status); // The first byte of decoded data is PSN.
+}
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+    VLC_Gpio_transmitter_send(data);
+    HAL_UART_Transmit_DMA(&huart1,data,8);
+    HAL_UART_Receive_DMA(&huart1,data,8);
+
 }
 /* USER CODE END 0 */
 
@@ -102,14 +111,11 @@ int main(void)
   MX_USART1_UART_Init();
   MX_UART4_Init();
   MX_TIM14_Init();
-  MX_TIM1_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 __HAL_TIM_ENABLE(&htim1); // Enable the Timer
-//    vehicle_servo_init();
-//    vehicle_motor_init();
-    uint8_t decoded_data[FRAME_LENGTH];
-//    VLC_receiver_start();
-//    HAL_UART_Transmit(&huart1, "Rx Task Start!\n", 15, HAL_MAX_DELAY);
+char* mes="1234ABCD";
+    HAL_UART_Receive_DMA(&huart1,data,8);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,7 +126,11 @@ __HAL_TIM_ENABLE(&htim1); // Enable the Timer
 //            DETECT_DATA_FLAG = 0;
 //            vehicle_talk_rx_test(decoded_data);
 //        }
-        VLC_Gpio_transmitter_send("1234");
+//        VLC_Gpio_transmitter_send(mes);
+//        HAL_UART_Transmit_DMA(&huart1,mes,FRAME_LENGTH);
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
