@@ -98,14 +98,38 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   VLC_timer_init();
-  char* mes = "ABCD1234";
+  char* mes1 = "WBCD1234";
+  char* mes2 = "ABCD1234";
+  char* mes3 = "DBCD1234";
+  char* mes4 = "XBCD1234";
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
+        VLC_Gpio_transmitter_send("WBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes1,FRAME_LENGTH);
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+
+
         VLC_Gpio_transmitter_send("ABCD1234");
-        HAL_UART_Transmit_DMA(&huart4,mes,FRAME_LENGTH);
+        HAL_UART_Transmit_DMA(&huart4,mes2,FRAME_LENGTH);
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+
+
+        VLC_Gpio_transmitter_send("DBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes3,FRAME_LENGTH);
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+        VLC_Gpio_transmitter_idle();
+
+
+        VLC_Gpio_transmitter_send("XBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes4,FRAME_LENGTH);
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();

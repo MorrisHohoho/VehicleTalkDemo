@@ -15,6 +15,7 @@ void vehicle_gpio_motor_stop(){
 }
 
 void vehicle_gpio_motor_forward(){
+    vehicle_servo_0();
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_12,1);
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_13,1);
 }

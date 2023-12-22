@@ -82,7 +82,6 @@ void Error_Handler(void);
 
 #define RX_BUFFER_LENGTH 200
 /* USER CODE END Private defines */
-/* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }

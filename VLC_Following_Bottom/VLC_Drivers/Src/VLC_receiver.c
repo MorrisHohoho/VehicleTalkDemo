@@ -63,13 +63,13 @@ void VLC_Gpio_DoReceive() {
                 VLC_udelay(VLC_SAMPLING_INTERVAL);
             }
             temp_bit = temp_bit >= 2 ? 1 : 0;
-            temp_bit = PAin(PD1);
+            temp_bit = 1-PAin(PD1);
             VLC_RX_DATA_BUFFER[i] = SET_BIT_OF(VLC_RX_DATA_BUFFER[i], temp_bit, j);
         }
     }
     VLC_decode(VLC_RX_DATA_BUFFER, received_data);
-//    HAL_UART_Transmit(&huart1, received_data, 4, HAL_MAX_DELAY);
-//    HAL_UART_Transmit(&huart1, "A", 1, HAL_MAX_DELAY);
+//    HAL_UART_Transmit(&huart4, received_data, 4, HAL_MAX_DELAY);
+//    HAL_UART_Transmit(&huart4, "A", 1, HAL_MAX_DELAY);
 
     state = VLC_IDLE;
     HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
@@ -84,7 +84,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     switch (state) {
         /** Detect the Message Header **/
         case VLC_IDLE: {
-            if (PAin(PD1) == 1) {
+            if (PAin(PD1) == 0) {
                 __HAL_TIM_SET_COUNTER(&htim4, 0);
                 HAL_TIM_Base_Start_IT(&htim4);
                 state = VLC_PRE;

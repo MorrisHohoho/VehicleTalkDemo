@@ -63,9 +63,9 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-    HAL_UART_Transmit_DMA(&huart1,received_data,PAYLOAD_LENGTH);
+    HAL_UART_Transmit_DMA(&huart4,received_data,PAYLOAD_LENGTH);
     vehicle_gpio_motor_control(received_data[0]);
-    HAL_UART_Receive_DMA(&huart1,received_data,PAYLOAD_LENGTH);
+    HAL_UART_Receive_DMA(&huart4,received_data,PAYLOAD_LENGTH);
 
 }
 
@@ -111,7 +111,7 @@ int main(void)
     vehicle_servo_init();
     vehicle_gpio_motor_init();
 
-    HAL_UART_Receive_DMA(&huart1,received_data,PAYLOAD_LENGTH);
+    HAL_UART_Receive_DMA(&huart4,received_data,PAYLOAD_LENGTH);
   /* USER CODE END 2 */
 
   /* Infinite loop */

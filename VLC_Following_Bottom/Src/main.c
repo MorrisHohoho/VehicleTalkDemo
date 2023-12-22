@@ -115,8 +115,8 @@ int main(void)
         if(DETECT_DATA_FLAG){
 
             /** For debugging **/
-            HAL_UART_Transmit(&huart1,received_data,FRAME_LENGTH,HAL_MAX_DELAY);
-            HAL_UART_Transmit(&huart1,"\n",1,HAL_MAX_DELAY);
+//            HAL_UART_Transmit(&huart1,received_data,FRAME_LENGTH,HAL_MAX_DELAY);
+//            HAL_UART_Transmit(&huart1,"\n",1,HAL_MAX_DELAY);
 
             /** Change car's state **/
             vehicle_gpio_motor_control(received_data[1]);
@@ -191,98 +191,6 @@ void SystemClock_Config(void)
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
   */
 void Error_Handler(void)
 {
