@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="VLC_TX_GD32"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VLC_TX_GD32.elf">
+				<Option output="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/VLC_TX_GD32.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDEBUG"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F427xx"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Inc"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include-fixed"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 VLC_TX_GD32.elf"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="VLC_TX_GD32.elf/fast">
+				<Option output="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/VLC_TX_GD32.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDEBUG"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F427xx"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc"/>
+					<Add directory="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Inc"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include-fixed"/>
+					<Add directory="c:\program files\gcc-arm-none-eabi-10.3-2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 VLC_TX_GD32.elf/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Device/ST/STM32F4xx/LICENSE.txt">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_armcc.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_armclang.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_compiler.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_gcc.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_iccarm.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/cmsis_version.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_armv8mbl.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_armv8mml.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm0.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm0plus.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm1.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm23.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm3.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm33.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm4.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_cm7.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_sc000.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/core_sc300.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/mpu_armv7.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/mpu_armv8.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/Include/tz_context.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/CMSIS/LICENSE.txt">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_cortex.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_exti.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_pwr.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rcc.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usart.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_utils.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/LICENSE.txt">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/STM32F427VITX_FLASH.ld">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/dma.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/gpio.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/main.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/stm32f4xx_hal_msp.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/stm32f4xx_it.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/syscalls.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/sysmem.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/system_stm32f4xx.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/tim.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Src/usart.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Startup/startup_stm32f427vitx.s">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc/VLC_decoder.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc/VLC_encoder.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc/VLC_receiver.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc/VLC_timer.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Inc/VLC_transmitter.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Src/VLC_decoder.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Src/VLC_encoder.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Src/VLC_receiver.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Src/VLC_timer.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/VLC_Drivers/Src/VLC_transmitter.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Inc/vehicle_gpio_motor.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Inc/vehicle_motor.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Inc/vehicle_servo.h">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Src/vehicle_gpio_motor.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Src/vehicle_motor.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/Vehicle_Drivers/Src/vehicle_servo.c">
+			<Option target="VLC_TX_GD32.elf"/>
+		</Unit>
+		<Unit filename="C:/Users/Administrator/Desktop/Codes_VehicleTalkDemo/VLC_Following_Bottom/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

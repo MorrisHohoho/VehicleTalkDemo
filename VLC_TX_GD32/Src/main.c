@@ -105,6 +105,7 @@ int main(void)
     vehicle_gpio_motor_init();
   /* USER CODE END 2 */
 
+    HAL_UART_Transmit(&huart1,"123\n",4,HAL_MAX_DELAY);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {

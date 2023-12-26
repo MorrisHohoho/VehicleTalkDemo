@@ -66,7 +66,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     HAL_UART_Transmit_DMA(&huart4,received_data,PAYLOAD_LENGTH);
     vehicle_gpio_motor_control(received_data[0]);
     HAL_UART_Receive_DMA(&huart4,received_data,PAYLOAD_LENGTH);
-
 }
 
 /* USER CODE END 0 */
@@ -105,12 +104,13 @@ int main(void)
   MX_TIM14_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
     HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);  // Leading Car doesn't need PD receiving.
     VLC_timer_init();
     vehicle_servo_init();
     vehicle_gpio_motor_init();
-
+    HAL_UART_Transmit_DMA(&huart4,"Txstart\n",PAYLOAD_LENGTH);
     HAL_UART_Receive_DMA(&huart4,received_data,PAYLOAD_LENGTH);
   /* USER CODE END 2 */
 

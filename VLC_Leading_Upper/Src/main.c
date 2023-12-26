@@ -108,28 +108,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1) {
         VLC_Gpio_transmitter_send("WBCD1234");
-        HAL_UART_Transmit_DMA(&huart4,mes1,FRAME_LENGTH);
+        HAL_UART_Transmit_DMA(&huart4,mes1,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();
 
 
         VLC_Gpio_transmitter_send("ABCD1234");
-        HAL_UART_Transmit_DMA(&huart4,mes2,FRAME_LENGTH);
+        HAL_UART_Transmit_DMA(&huart4,mes2,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
-        VLC_Gpio_transmitter_idle();
+
+        VLC_Gpio_transmitter_send("WBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes1,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
 
 
         VLC_Gpio_transmitter_send("DBCD1234");
-        HAL_UART_Transmit_DMA(&huart4,mes3,FRAME_LENGTH);
-        VLC_Gpio_transmitter_idle();
-        VLC_Gpio_transmitter_idle();
+        HAL_UART_Transmit_DMA(&huart4,mes3,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
 
+        VLC_Gpio_transmitter_send("WBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes1,PAYLOAD_LENGTH);
+        VLC_Gpio_transmitter_idle();
 
         VLC_Gpio_transmitter_send("XBCD1234");
-        HAL_UART_Transmit_DMA(&huart4,mes4,FRAME_LENGTH);
+        HAL_UART_Transmit_DMA(&huart4,mes4,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();
         VLC_Gpio_transmitter_idle();

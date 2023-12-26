@@ -21,13 +21,13 @@ void vehicle_servo_control(uint16_t Duty){
 }
 
 void vehicle_servo_0(){
-    vehicle_servo_control(1500);
+    vehicle_servo_control(2000);
 }
 
 void vehicle_servo_minus_45(){
-    vehicle_servo_control(1000);
+    vehicle_servo_control(1850);
 }
 
 void vehicle_servo_positive_45(){
-    vehicle_servo_control(2000);
+    vehicle_servo_control(2150);
 }
