@@ -10,6 +10,8 @@
  * data packets.
  * @param tx_buf: The physical frame in 01 flow.
 */
-void encode(const char* data, int frame_num, uint8_t* tx_buf);
+void vlc_encode(const char* data, int frame_num, uint8_t* tx_buf);
+
+void vlc_encoder_init(uint16_t data_packet_length);
 
 #endif

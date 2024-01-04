@@ -17,7 +17,7 @@
  * @param baud_rate: The transmitting baud rate.
  * @param frame_length: The length of the fixed physical frame, in bytes.
 */
-void VLC_transmitter_init(const int tx_pin,const int baud_rate,const int frame_length);
+void VLC_transmitter_init(const uint16_t tx_pin, const int baud_rate, const uint16_t data_length);
 
 
 /**

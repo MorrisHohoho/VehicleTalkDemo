@@ -9,16 +9,15 @@
 #include <string.h>
 #include <unistd.h>
 
-#define TX3_GPIO_NUM GPIO_NUM_0
-#define TX1_GPIO_NUM GPIO_NUM_19
+#define VLC_TX1_GPIO GPIO_NUM_39
 #define VLC_BAUD_RATE 115200
-#define DATA_PACKET_LENGTH 59
+#define DATA_PACKET_LENGTH 4
 
 void app_main(void)
 {
     // const char *mes = "IloveSCUANDIloveSCUMakerANDIloveVLCANDIloveVehicleTalkANDIloveRaptorCodeBUTIhateSpinalCodeBeacuseIt'suselessANDIloveMath:0123456789Somethinglikethat";
     const char *mes = "ABCD";
-    VLC_transmitter_init(TX3_GPIO_NUM, VLC_BAUD_RATE, DATA_PACKET_LENGTH);
+    VLC_transmitter_init(VLC_TX1_GPIO, VLC_BAUD_RATE, DATA_PACKET_LENGTH);
     while (1)
     {
         VLC_transmitter_send(mes);

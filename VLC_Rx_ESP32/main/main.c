@@ -11,11 +11,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#define TX_GPIO_NUM GPIO_NUM_0
-#define PD_GPIO_NUM GPIO_NUM_4
+#define TX_GPIO_NUM GPIO_NUM_0  // For debugging
+#define VLC_RX1_GPIO_NUM GPIO_NUM_4
 #define VLC_BAUD_RATE 115200
-
-#define PAYLOAD_LEN_BYTES 60
+#define VLC_FRAME_LENGTH 5
 
 #define SYMBOLS_BUFFER_SIZE 130
 #define MESSAGE_BUFFER_SIZE 6000
@@ -24,24 +23,25 @@ MessageBufferHandle_t MessageBuffer = NULL;
 
 void vtask_read(void *ptParam)
 {
-    demodulator_config(TX_GPIO_NUM,PD_GPIO_NUM,VLC_BAUD_RATE);
-    uint8_t send_buffer[SYMBOLS_BUFFER_SIZE];
-    int send_bytes=0;
-    while(1)
-    {
-        memset(send_buffer,0,SYMBOLS_BUFFER_SIZE*sizeof(uint8_t));
-        demodulator_receive(send_buffer);
-        send_bytes= xMessageBufferSend(MessageBuffer, 
-                            (void*)send_buffer, 
-                            SYMBOLS_BUFFER_SIZE, 
-                            0);
+    VLC_demodulator_config(VLC_RX1_GPIO_NUM,VLC_BAUD_RATE,VLC_FRAME_LENGTH);
+    // demodulator_config(TX_GPIO_NUM,VLC_RX1_GPIO_NUM,VLC_BAUD_RATE);
+    // uint8_t send_buffer[SYMBOLS_BUFFER_SIZE];
+    // int send_bytes=0;
+    // while(1)
+    // {
+    //     memset(send_buffer,0,SYMBOLS_BUFFER_SIZE*sizeof(uint8_t));
+    //     demodulator_receive(send_buffer);
+    //     send_bytes= xMessageBufferSend(MessageBuffer, 
+    //                         (void*)send_buffer, 
+    //                         SYMBOLS_BUFFER_SIZE, 
+    //                         0);
 
-        if(send_bytes==0)
-        {
-            xMessageBufferReset(MessageBuffer);
-            printf("-2\n");
-        }
-    }
+    //     if(send_bytes==0)
+    //     {
+    //         xMessageBufferReset(MessageBuffer);
+    //         printf("-2\n");
+    //     }
+    // }
 }
 
 void vtask_operate(void *ptParam)
@@ -49,7 +49,7 @@ void vtask_operate(void *ptParam)
 
     uint8_t symbols_buffer[SYMBOLS_BUFFER_SIZE];
     uint8_t temp_buffer[SYMBOLS_BUFFER_SIZE];
-    uint8_t tx_output[PAYLOAD_LEN_BYTES];
+    uint8_t tx_output[VLC_FRAME_LENGTH];
     int recv_bytes=0;
     while(1)
     {
@@ -78,9 +78,9 @@ void vtask_operate(void *ptParam)
         // }
         // printf("\n");
 
-        decode_manchester(temp_buffer,tx_output,PAYLOAD_LEN_BYTES*2);
+        decode_manchester(temp_buffer,tx_output,VLC_FRAME_LENGTH*2);
         printf("%x:",tx_output[0]);
-        for(int i=1;i<PAYLOAD_LEN_BYTES;i++)
+        for(int i=1;i<VLC_FRAME_LENGTH;i++)
         {
             printf("%c",tx_output[i]);
         }
@@ -93,22 +93,12 @@ void vtask_operate(void *ptParam)
 
 void app_main(void)
 {
-
-    // uint8_t test_buffer[TEST_BUFFER_SIZE];
-    // demodulator_config(27,35,115200);
-    // while(1)
-    // {
-    //     test_transmit();
-    //     test_receive();
-    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    // }
-
     MessageBuffer= xMessageBufferCreate(MESSAGE_BUFFER_SIZE*10);
 
     if(MessageBuffer !=NULL)
     {
     xTaskCreatePinnedToCore(vtask_read, "vtask_read", 8192, NULL, 1, NULL, 0);  // Read the Rx pin
-    xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1);    // Decode the symbols and operate
+    // xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1);    // Decode the symbols and operate
     }
     else
     {

@@ -36,8 +36,8 @@ static void TX3_gpitmer_stop(){
 }
 
 void TX3_udelay(uint64_t us){
-    TX3_gpitmer_start();
     uint64_t cur = 0;
+    TX3_gpitmer_start();
     while(cur<us){
         ESP_ERROR_CHECK(gptimer_get_raw_count(TX3_gptimer,&cur));
     }
