@@ -2,7 +2,9 @@
 
 #include "driver/uart.h"
 
+
 static int VLC_rx1_pin = 0;
+
 void VLC_demodulator_config_debugging(const int tx_pin, const int rx_pin,const int baud_rate)
 {
     VLC_rx1_pin = rx_pin;
@@ -57,7 +59,7 @@ void VLC_demodulator_config_debugging(const int tx_pin, const int rx_pin,const i
 
 }
 
-void VLC_demodulator_config(const uint16_t rx_pin, const uint16_t baud_rate, const uin16_t frame_length){
+void VLC_demodulator_config(const uint16_t rx_pin, const int baud_rate, const uint16_t frame_length){
     VLC_rx1_pin = rx_pin;
     // 1. configure the UART
     const uart_port_t uart_num = UART_NUM_2;
@@ -110,6 +112,8 @@ void VLC_demodulator_config(const uint16_t rx_pin, const uint16_t baud_rate, con
     gpio_isr_handler_add(rx_pin,gpio_isr_handler_tim,NULL);
 
 }
+
+
 void demodulator_receive(uint8_t *buffer)
 {
     set_header_detect_state(false);
@@ -130,8 +134,9 @@ void demodulator_receive(uint8_t *buffer)
 
 
 }
-static void IRAM_ATTR gpio_isr_handler_tim(void *ard)
+static void IRAM_ATTR gpio_isr_handler_tim(void *arg)
 {
+
     switch(header_clock_get_state())
     {
         case false:

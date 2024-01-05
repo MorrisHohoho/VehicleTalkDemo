@@ -40,7 +40,7 @@ void vlc_encode(const char* data, int frame_num, uint8_t* tx_buf)
     }
     
     // 1. insert the header
-    tx_buf[tx_buf_ptr++] = 0xFF; 
+    tx_buf[tx_buf_ptr++] = 0x1F; 
 
     // 2. encode the payload with manchester encoding
     uint8_t original_data[VLC_encoder_frame_length];

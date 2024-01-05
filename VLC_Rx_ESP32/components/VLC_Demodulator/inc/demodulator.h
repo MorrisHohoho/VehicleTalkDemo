@@ -9,9 +9,10 @@
 #define ESP_INTR_FLAG_DEFAULT 0
 #define FRAME_IN_BYTES 120 //118 PAYLOAD + 1  Protection Byte
 
+
 void VLC_demodulator_config_debugging(const int tx_pin, const int rx_pin,const int baud_rate);
 
-void VLC_demodulator_config(const uint16_t rx_pin, const uint16_t baud_rate, const uin16_t frame_length);
+void VLC_demodulator_config(const uint16_t rx_pin, const int baud_rate, const uint16_t frame_length);
 
 void demodulator_receive(uint8_t *buffer);
 

@@ -84,12 +84,8 @@ void VLC_transmitter_send(const char *data)
         // }
         // printf("\n");
 
-        // Transmit the header: 0XFF
-        gpio_set_level(VLC_tx1_pin,1);
-        TX3_udelay(VLC_duration);
-
         // Transmit the data and the tailor.
-        uart_write_bytes(UART_NUM_2, &tx_buf[1], VLC_frame_length * 2 + 1);
+        uart_write_bytes(UART_NUM_2, tx_buf, VLC_frame_length * 2 + 2);
 
     }
 }
