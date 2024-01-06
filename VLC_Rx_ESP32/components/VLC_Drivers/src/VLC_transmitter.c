@@ -1,6 +1,7 @@
 #include "VLC_transmitter.h"
 #include "VLC_parameters.h"
 #include "VLC_encoder.h"
+#include "rom/ets_sys.h"
 
 #include "driver/gpio.h"
 #include "driver/uart.h"
@@ -9,6 +10,8 @@
 
 static int VLC_transmitter_tx1_pin = GPIO_NUM_19;
 static int VLC_transmitter_tx2_pin = GPIO_NUM_39;
+
+static uint8_t VLC_data_idle[VLC_PAYLOAD_LENGTH];
 
 void VLC_transmitter_init()
 {
@@ -67,6 +70,9 @@ void VLC_transmitter_init()
                                             NULL,
                                             intr_alloc_flags));
     }
+
+    /* Configure the idle signal buffer */
+    memset(VLC_data_idle,0xAA,VLC_PAYLOAD_LENGTH);
 }
 
 void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
@@ -80,10 +86,13 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
 
     uint16_t phy_frame_length = VLC_FRAME_LENGTH * 2 + 2;
     uint8_t tx_buf[phy_frame_length];
+
+
+
+
     for (uint16_t i = 0; i < frame_counts; i++)
     {
         VLC_encoder_DoEncode(data + i * VLC_PAYLOAD_LENGTH, i, tx_buf);
-
         switch (flag)
         {
         case VLC_TX1:
@@ -103,5 +112,29 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
             break;
         }
         }
+    }
+}
+
+void VLC_transmitter_DoIdle(TransmitterFlag flag)
+{
+    
+    switch (flag)
+    {
+    case VLC_TX1:
+    {
+        uart_write_bytes(UART_NUM_1, VLC_data_idle, VLC_PAYLOAD_LENGTH);
+        break;
+    }
+    case VLC_TX2:
+    {
+        uart_write_bytes(UART_NUM_2, VLC_data_idle, VLC_PAYLOAD_LENGTH);
+        break;
+    }
+    case VLC_TX_BOTH:
+    {
+        uart_write_bytes(UART_NUM_1, VLC_data_idle, VLC_PAYLOAD_LENGTH);
+        uart_write_bytes(UART_NUM_2, VLC_data_idle, VLC_PAYLOAD_LENGTH);
+        break;
+    }
     }
 }

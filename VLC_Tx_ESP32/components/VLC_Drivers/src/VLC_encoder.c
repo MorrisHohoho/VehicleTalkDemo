@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define VLC_FRAME_HEADER 0x1F
-#define VLC_FRAME_TAILOR 0XAA
+#define VLC_FRAME_TAILOR 0X00
 
 static void VLC_encoder_manchester_encoding(const uint8_t* original_data, uint8_t* encoded_data)
 {
