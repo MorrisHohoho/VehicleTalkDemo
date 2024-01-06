@@ -18,6 +18,7 @@ MessageBufferHandle_t MessageBuffer = NULL;
 
 void vtask_read(void *ptParam)
 {
+    printf("Rx start\n");
     VLC_receiver_init();
     uint8_t rx1_buffer[SYMBOLS_BUFFER_SIZE];
     uint8_t rx2_buffer[SYMBOLS_BUFFER_SIZE];
@@ -29,7 +30,8 @@ void vtask_read(void *ptParam)
         {
         case VLC_DATA_RX1:
         {
-            for (int i = 0; i < VLC_FRAME_LENGTH * 2; i++)
+            printf("rx1: ");
+            for (int i = 0; i < VLC_FRAME_LENGTH * 2+1; i++)
             {
                 printf("%x ", rx1_buffer[i]);
             }
@@ -38,7 +40,8 @@ void vtask_read(void *ptParam)
         }
         case VLC_DATA_RX2:
         {
-            for (int i = 0; i < VLC_FRAME_LENGTH * 2; i++)
+            printf("rx2: ");
+            for (int i = 0; i < VLC_FRAME_LENGTH * 2+1; i++)
             {
                 printf("%x ", rx2_buffer[i]);
             }

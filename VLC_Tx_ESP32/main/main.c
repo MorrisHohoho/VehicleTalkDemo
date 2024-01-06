@@ -1,4 +1,5 @@
-#include "transmitter.h"
+#include "VLC_transmitter.h"
+#include "VLC_receiver.h"
 
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -9,17 +10,19 @@
 #include <string.h>
 #include <unistd.h>
 
-#define VLC_TX1_GPIO GPIO_NUM_39
-#define VLC_BAUD_RATE 115200
-#define DATA_PACKET_LENGTH 4
 
 void app_main(void)
 {
     // const char *mes = "IloveSCUANDIloveSCUMakerANDIloveVLCANDIloveVehicleTalkANDIloveRaptorCodeBUTIhateSpinalCodeBeacuseIt'suselessANDIloveMath:0123456789Somethinglikethat";
-    const char *mes = "ABCD";
-    VLC_transmitter_init(VLC_TX1_GPIO, VLC_BAUD_RATE, DATA_PACKET_LENGTH);
-    while (1)
+    const char *mes = "ABCDEFG";
+    // uint8_t tx_buf[100];
+    VLC_transmitter_init();
+    VLC_receiver_init();
+    TransmitterFlag tx_state = VLC_TX2;
+    printf("TX start\n");
+    while(1)
     {
-        VLC_transmitter_send(mes);
+        VLC_transmitter_DoSend(mes,tx_state);
     }
+
 }

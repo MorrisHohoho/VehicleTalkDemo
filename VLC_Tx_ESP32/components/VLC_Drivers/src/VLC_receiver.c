@@ -20,23 +20,26 @@ extern gptimer_handle_t VLC_timer_rx2_handler;
 /*
  * The logic of detecting the header.
  */
-static void VLC_receiver_detect_header(RecvState *state, gptimer_handle_t timer_handler)
+static void VLC_receiver_detect_header(RecvState *state, int current_level, gptimer_handle_t timer_handler)
 {
     switch (*state)
     {
     case VLC_IDLE:
     {
+        if (current_level == 1)
+        {
             gptimer_set_raw_count(timer_handler, 0);
             ESP_ERROR_CHECK(gptimer_start(timer_handler));
             *state = VLC_PRE;
+        }
         break;
     }
 
     case VLC_PRE:
     {
-        // gptimer_stop(timer_handler);
+        gptimer_stop(timer_handler);
         gptimer_set_raw_count(timer_handler, 0);
-        // *state = VLC_IDLE;
+        *state = VLC_IDLE;
         break;
     }
 
@@ -53,11 +56,13 @@ static void IRAM_ATTR gpio_isr_handler_tim(void *arg)
     if (pin == VLC_receiver_rx1_pin)
     {
         VLC_receiver_detect_header(&VLC_receiver_rx1_state,
+                                   gpio_get_level(pin),
                                    VLC_timer_rx1_handler);
     }
     else if (pin == VLC_receiver_rx2_pin)
     {
         VLC_receiver_detect_header(&VLC_receiver_rx2_state,
+                                   gpio_get_level(pin),
                                    VLC_timer_rx2_handler);
     }
 }
@@ -153,8 +158,9 @@ void IRAM_ATTR VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer, void *arg
         gptimer_stop(VLC_timer_rx1_handler);
         gpio_intr_disable(VLC_receiver_rx1_pin);
         gptimer_set_raw_count(VLC_timer_rx1_handler, 0);
-        uart_flush(VLC_RX1_UART_PORT);
+        // uart_flush(VLC_RX1_UART_PORT);
         VLC_receiver_rx1_state = VLC_RECEIVING;
+        // ets_printf("timer1\n");
     }
     else if (timer == VLC_timer_rx2_handler)
     {
@@ -163,6 +169,7 @@ void IRAM_ATTR VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer, void *arg
         gptimer_set_raw_count(VLC_timer_rx2_handler, 0);
         uart_flush(VLC_RX2_UART_PORT);
         VLC_receiver_rx2_state = VLC_RECEIVING;
+        ets_printf("timer2\n");
     }
 }
 
@@ -171,7 +178,9 @@ DataState VLC_receiver_DoReceive(uint8_t *rx1_buffer, uint8_t *rx2_buffer)
     DataState ret = VLC_DATA_NONE;
     if (VLC_receiver_rx1_state == VLC_RECEIVING)
     {
-        uart_read_bytes(VLC_RX1_UART_PORT, rx1_buffer, VLC_FRAME_LENGTH * 2+1, portMAX_DELAY);
+        // uart_flush(VLC_RX1_UART_PORT);
+        uart_read_bytes(VLC_RX1_UART_PORT, rx1_buffer, VLC_FRAME_LENGTH * 2, portMAX_DELAY);
+        uart_flush(VLC_RX1_UART_PORT);
         VLC_receiver_rx1_state = VLC_IDLE;
         ret = VLC_DATA_RX1;
         gpio_intr_enable(VLC_receiver_rx1_pin);
@@ -179,7 +188,7 @@ DataState VLC_receiver_DoReceive(uint8_t *rx1_buffer, uint8_t *rx2_buffer)
     if (VLC_receiver_rx2_state == VLC_RECEIVING)
     {
 
-        uart_read_bytes(VLC_RX2_UART_PORT, rx2_buffer, VLC_FRAME_LENGTH * 2+1, portMAX_DELAY);
+        uart_read_bytes(VLC_RX2_UART_PORT, rx2_buffer, VLC_FRAME_LENGTH * 2, portMAX_DELAY);
         VLC_receiver_rx2_state = VLC_IDLE;
         ret = ret == VLC_DATA_NONE ? VLC_DATA_RX2 : VLC_DATA_BOTH;
         gpio_intr_enable(VLC_receiver_rx2_pin);
