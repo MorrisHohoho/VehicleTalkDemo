@@ -1,5 +1,5 @@
-#ifndef VLC_TIMER_H
-#define VLC_TIMER_H
+#ifndef __VLC_TIMER_H__
+#define __VLC_TIMER_H__
 
 #include  "driver/gptimer.h"
 

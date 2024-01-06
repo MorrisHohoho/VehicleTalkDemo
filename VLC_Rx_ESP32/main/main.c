@@ -2,6 +2,8 @@
 #include "VLC_decoder.h"
 #include "VLC_parameters.h"
 
+#include "Vehicle_motor.h"
+
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -116,6 +118,25 @@ void vtask_operate(void *ptParam)
     //     printf("\n");
     //     }
     // }
+    Vehicle_motor_init();
+    Vehicle_Rmotor_stop();
+    Vehicle_Lmotor_stop();
+    while(1)
+    {
+        printf("Stop\n");
+        Vehicle_Lmotor_stop();
+        vTaskDelay(500);
+        printf("fowr\n");
+        Vehicle_Lmotor_forward();
+        vTaskDelay(500);
+        printf("stop\n");
+        Vehicle_Lmotor_stop();
+        vTaskDelay(500);
+        printf("back\n");
+        Vehicle_Lmotor_backward();
+        vTaskDelay(500);
+        
+    }
 }
 
 void app_main(void)
@@ -125,7 +146,7 @@ void app_main(void)
     if (MessageBuffer != NULL)
     {
         xTaskCreatePinnedToCore(vtask_read, "vtask_read", 8192, NULL, 1, NULL, 0); // Read the Rx pin
-        // xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1);    // Decode the symbols and operate
+        xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1);    // Decode the symbols and operate
     }
     else
     {

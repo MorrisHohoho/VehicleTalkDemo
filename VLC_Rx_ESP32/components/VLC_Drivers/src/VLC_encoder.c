@@ -4,8 +4,13 @@
 #include <string.h>
 
 #define VLC_FRAME_HEADER 0x1F
-#define VLC_FRAME_TAILOR 0X00
+#define VLC_FRAME_TAIL 0X00
 
+
+/**
+ * Inner function
+ * Manchester encoding, i.e., 1->01, 0->10.
+*/
 static void VLC_encoder_manchester_encoding(const uint8_t* original_data, uint8_t* encoded_data)
 {
     uint16_t tmp_16=0;
@@ -63,5 +68,5 @@ void VLC_encoder_DoEncode(const char* data, int frame_num, uint8_t* tx_buf){
     }
 
     // 3. insert the tailer
-    tx_buf[tx_buf_ptr++] = VLC_FRAME_TAILOR;
+    tx_buf[tx_buf_ptr++] = VLC_FRAME_TAIL;
 }

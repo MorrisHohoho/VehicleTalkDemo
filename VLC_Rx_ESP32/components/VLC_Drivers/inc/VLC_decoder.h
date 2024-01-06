@@ -1,5 +1,5 @@
-#ifndef VLC_DECODER_H
-#define VLC_DECODER_H
+#ifndef __VLC_DECODER_H__
+#define __VLC_DECODER_H__
 
 #include <stdint.h>
 
@@ -11,4 +11,4 @@
  */
 void VLC_decoder_Dodecode(uint8_t *encoded_data, uint8_t *decoded_data);
 
-#endif VLC_DECODER_H
+#endif

@@ -11,7 +11,7 @@
 static int VLC_transmitter_tx1_pin = GPIO_NUM_19;
 static int VLC_transmitter_tx2_pin = GPIO_NUM_39;
 
-static uint8_t VLC_data_idle[VLC_PAYLOAD_LENGTH];
+static uint8_t VLC_data_idle[VLC_PAYLOAD_LENGTH]; // 0XAA, for DC-balance
 
 void VLC_transmitter_init()
 {

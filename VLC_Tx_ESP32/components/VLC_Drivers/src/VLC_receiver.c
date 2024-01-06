@@ -18,6 +18,7 @@ extern gptimer_handle_t VLC_timer_rx2_handler;
 #define VLC_RX2_UART_PORT UART_NUM_2
 
 /*
+ * Inner function
  * The logic of detecting the header.
  */
 static void VLC_receiver_detect_header(RecvState *state, gptimer_handle_t timer_handler)
@@ -47,6 +48,9 @@ static void VLC_receiver_detect_header(RecvState *state, gptimer_handle_t timer_
     }
 }
 
+/**
+ * Gpio interrupt handler, which is used to detect the header.
+*/
 static void IRAM_ATTR gpio_isr_handler_tim(void *arg)
 {
     int pin = (int)arg;
@@ -144,7 +148,7 @@ void VLC_receiver_init()
 }
 
 /**
- * Rewrite the __weak function in VLC_timer.c
+ * Rewrite the __weak function in VLC_timer.c, also used to detect the header.
  */
 void IRAM_ATTR VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer, void *arg)
 {
