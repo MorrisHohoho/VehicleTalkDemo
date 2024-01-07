@@ -3,9 +3,6 @@
 
 #include <string.h>
 
-#define VLC_FRAME_HEADER 0x1F
-#define VLC_FRAME_TAIL 0X00
-
 
 /**
  * Inner function

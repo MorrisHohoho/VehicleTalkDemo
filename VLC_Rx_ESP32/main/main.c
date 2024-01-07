@@ -14,7 +14,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define SYMBOLS_BUFFER_SIZE 130
+#define SYMBOLS_BUFFER_SIZE (VLC_FRAME_LENGTH * 2 + 4)
 #define MESSAGE_BUFFER_SIZE 6000
 
 MessageBufferHandle_t MessageBuffer = NULL;
@@ -33,113 +33,70 @@ void vtask_read(void *ptParam)
         {
         case VLC_DATA_RX1:
         {
-            printf("rx1: ");
-            for (int i = 0; i < VLC_FRAME_LENGTH * 2+1; i++)
+            if (rx1_buffer[1] == VLC_FRAME_HEADER)
             {
-                printf("%x ", rx1_buffer[i]);
+                xMessageBufferSend(MessageBuffer,
+                                   (void *)&rx1_buffer[1], // discard the header
+                                   VLC_FRAME_LENGTH * 2,
+                                   0);
             }
-            printf("\n");
             break;
         }
         case VLC_DATA_RX2:
         {
-            printf("rx2: ");
-            for (int i = 0; i < VLC_FRAME_LENGTH * 2+1; i++)
+            // for (int i = 0; i < VLC_FRAME_LENGTH * 2 + 1; i++)
+            // {
+            //     printf("%x ", rx2_buffer[i]);
+            // }
+            // printf("\n");
+            if (rx2_buffer[0] == VLC_FRAME_HEADER)
             {
-                printf("%x ", rx2_buffer[i]);
+                xMessageBufferSend(MessageBuffer,
+                                   (void *)&rx2_buffer[1], // discard the header
+                                   VLC_FRAME_LENGTH * 2,
+                                   0);
             }
-            printf("\n");
             break;
         }
         default:
             break;
         }
     }
-
-    // VLC_demodulator_config(VLC_RX1_GPIO_NUM,VLC_BAUD_RATE,VLC_FRAME_LENGTH);
-    // demodulator_config(TX_GPIO_NUM,VLC_RX1_GPIO_NUM,VLC_BAUD_RATE);
-    // uint8_t send_buffer[SYMBOLS_BUFFER_SIZE];
-    // int send_bytes=0;
-    // while(1)
-    // {
-    //     memset(send_buffer,0,SYMBOLS_BUFFER_SIZE*sizeof(uint8_t));
-    //     demodulator_receive(send_buffer);
-    //     send_bytes= xMessageBufferSend(MessageBuffer,
-    //                         (void*)send_buffer,
-    //                         SYMBOLS_BUFFER_SIZE,
-    //                         0);
-
-    //     if(send_bytes==0)
-    //     {
-    //         xMessageBufferReset(MessageBuffer);
-    //         printf("-2\n");
-    //     }
-    // }
 }
 
 void vtask_operate(void *ptParam)
 {
-
-    // uint8_t symbols_buffer[SYMBOLS_BUFFER_SIZE];
-    // uint8_t temp_buffer[SYMBOLS_BUFFER_SIZE];
-    // uint8_t tx_output[VLC_FRAME_LENGTH];
-    // int recv_bytes=0;
-    // while(1)
-    // {
-
-    //     memset(symbols_buffer,0,SYMBOLS_BUFFER_SIZE*sizeof(uint8_t));
-    //     memset(tx_output,0,33*sizeof(uint8_t));
-    //     recv_bytes=xMessageBufferReceive(MessageBuffer,
-    //                             (void*)symbols_buffer,
-    //                             sizeof(symbols_buffer),
-    //                             portMAX_DELAY);
-
-    //     if(recv_bytes!=0)
-    //     {
-    //         if(symbols_buffer[0]!=0x00)
-    //         {
-    //             memcpy(temp_buffer,symbols_buffer,SYMBOLS_BUFFER_SIZE*sizeof(uint8_t));
-    //         }
-    //         else
-    //         {
-    //             memcpy(temp_buffer,symbols_buffer+1,(SYMBOLS_BUFFER_SIZE-1)*sizeof(uint8_t));
-    //         }
-    //     // for(int i=0;i<118;i++)
-    //     // {
-    //     //     printf("%x ",temp_buffer[i]);
-    //     // }
-    //     // printf("\n");
-
-    //     decode_manchester(temp_buffer,tx_output,VLC_FRAME_LENGTH*2);
-    //     printf("%x:",tx_output[0]);
-    //     for(int i=1;i<VLC_FRAME_LENGTH;i++)
-    //     {
-    //         printf("%c",tx_output[i]);
-    //     }
-    //     printf("\n");
-    //     }
-    // }
     Vehicle_motor_init();
     Vehicle_Rmotor_stop();
     Vehicle_Lmotor_stop();
     Vehicle_servo_init();
     Vehicle_servo_change_angle(90);
-    while(1)
+
+    uint8_t temp_recv_buffer[SYMBOLS_BUFFER_SIZE];
+    uint8_t tx_output[VLC_FRAME_LENGTH];
+    int recv_bytes = 0;
+    while (1)
     {
-        vTaskDelay(500);
-        printf("90\n");
-        Vehicle_servo_change_angle(90);
-        vTaskDelay(500);
-        printf("45\n");
-        Vehicle_servo_change_angle(45);
-        vTaskDelay(500);
-        printf("90\n");
-        Vehicle_servo_change_angle(90);
-        vTaskDelay(500);
-        printf("135\n");
-        Vehicle_servo_change_angle(135);
-        vTaskDelay(500);
-        
+
+        memset(temp_recv_buffer, 0, SYMBOLS_BUFFER_SIZE * sizeof(uint8_t));
+        recv_bytes = xMessageBufferReceive(MessageBuffer,
+                                           (void *)temp_recv_buffer,
+                                           sizeof(temp_recv_buffer),
+                                           portMAX_DELAY);
+
+        if (recv_bytes != 0)
+        {
+            VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
+
+            // printf("%x ",tx_output[0]);
+            // for(int i=1;i<VLC_FRAME_LENGTH;i++)
+            // {
+            //     printf("%c ",tx_output[i]);
+            // }
+            // printf("\n");
+
+            Vehicle_motor_control(tx_output[1]);
+        }
     }
 }
 
@@ -149,8 +106,8 @@ void app_main(void)
 
     if (MessageBuffer != NULL)
     {
-        xTaskCreatePinnedToCore(vtask_read, "vtask_read", 8192, NULL, 1, NULL, 0); // Read the Rx pin
-        xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1);    // Decode the symbols and operate
+        xTaskCreatePinnedToCore(vtask_read, "vtask_read", 8192, NULL, 1, NULL, 0);       // Read the Rx pin
+        xTaskCreatePinnedToCore(vtask_operate, "vtask_operate", 8192, NULL, 1, NULL, 1); // Decode the symbols and operate
     }
     else
     {

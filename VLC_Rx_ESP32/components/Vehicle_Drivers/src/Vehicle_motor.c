@@ -1,4 +1,5 @@
 #include "Vehicle_motor.h"
+#include "Vehicle_servo.h"
 
 #include "driver/ledc.h"
 #include "driver/gpio.h"
@@ -36,7 +37,7 @@ void Vehicle_motor_init()
     ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
 
     // 2. Setup the PWM GPIO
-    int init_duty = helper_duty2real(0.3);
+    int init_duty = helper_duty2real(0.15);
     ledc_channel_config_t ledc_channel = {
         .speed_mode = LEDC_LOW_SPEED_MODE,
         .channel = VEHICLE_RMOTOR_PWM_CHANNEL,
@@ -55,15 +56,14 @@ void Vehicle_motor_init()
         .pin_bit_mask = 1ULL << VEHICLE_RMOTOR_POS_PIN,
         .mode = GPIO_MODE_OUTPUT,
         .pull_down_en = GPIO_PULLDOWN_ENABLE,
-        .intr_type = GPIO_INTR_DISABLE
-    };
+        .intr_type = GPIO_INTR_DISABLE};
     gpio_config(&io_conf);
-    io_conf.pin_bit_mask=1ULL<<VEHICLE_RMOTOR_NEG_PIN;
+    io_conf.pin_bit_mask = 1ULL << VEHICLE_RMOTOR_NEG_PIN;
     gpio_config(&io_conf);
 
-    io_conf.pin_bit_mask=1ULL<<VEHICLE_LMOTOR_POS_PIN;
+    io_conf.pin_bit_mask = 1ULL << VEHICLE_LMOTOR_POS_PIN;
     gpio_config(&io_conf);
-    io_conf.pin_bit_mask=1ULL<<VEHICLE_LMOTOR_NEG_PIN;
+    io_conf.pin_bit_mask = 1ULL << VEHICLE_LMOTOR_NEG_PIN;
     gpio_config(&io_conf);
 }
 
@@ -71,52 +71,93 @@ void Vehicle_Rmotor_change_speed(double duty)
 {
     ledc_set_duty(LEDC_LOW_SPEED_MODE, VEHICLE_RMOTOR_PWM_CHANNEL,
                   helper_duty2real(duty));
-    ledc_update_duty(LEDC_LOW_SPEED_MODE,VEHICLE_RMOTOR_PWM_CHANNEL);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, VEHICLE_RMOTOR_PWM_CHANNEL);
 }
 
 void Vehicle_Lmotor_change_speed(double duty)
 {
     ledc_set_duty(LEDC_LOW_SPEED_MODE, VEHICLE_LMOTOR_PWM_CHANNEL,
                   helper_duty2real(duty));
-    ledc_update_duty(LEDC_LOW_SPEED_MODE,VEHICLE_LMOTOR_PWM_CHANNEL);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, VEHICLE_LMOTOR_PWM_CHANNEL);
 }
 
 void Vehicle_Rmotor_stop()
 {
-    gpio_set_level(VEHICLE_RMOTOR_POS_PIN,0);
-    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN,0);
+    gpio_set_level(VEHICLE_RMOTOR_POS_PIN, 0);
+    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN, 0);
 }
 
 void Vehicle_Lmotor_stop()
 {
-    gpio_set_level(VEHICLE_LMOTOR_POS_PIN,0);
-    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN,0);
+    gpio_set_level(VEHICLE_LMOTOR_POS_PIN, 0);
+    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN, 0);
 }
 
 void Vehicle_Rmotor_forward()
 {
-    gpio_set_level(VEHICLE_RMOTOR_POS_PIN,1);
-    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN,0);
+    Vehicle_Rmotor_stop();
+    gpio_set_level(VEHICLE_RMOTOR_POS_PIN, 1);
+    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN, 0);
 }
 
 void Vehicle_Lmotor_forward()
 {
-    gpio_set_level(VEHICLE_LMOTOR_POS_PIN,1);
-    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN,0);
+    Vehicle_Lmotor_stop();
+    gpio_set_level(VEHICLE_LMOTOR_POS_PIN, 1);
+    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN, 0);
 }
 
 void Vehicle_Rmotor_backward()
 {
-    gpio_set_level(VEHICLE_RMOTOR_POS_PIN,0);
-    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN,1);
+    Vehicle_Rmotor_stop();
+    gpio_set_level(VEHICLE_RMOTOR_POS_PIN, 0);
+    gpio_set_level(VEHICLE_RMOTOR_NEG_PIN, 1);
 }
 
 void Vehicle_Lmotor_backward()
 {
-    gpio_set_level(VEHICLE_LMOTOR_POS_PIN,0);
-    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN,1);
+    Vehicle_Lmotor_stop();
+    gpio_set_level(VEHICLE_LMOTOR_POS_PIN, 0);
+    gpio_set_level(VEHICLE_LMOTOR_NEG_PIN, 1);
 }
 
-// void Vehicle_motor_control(char state){
-    
-// }
+void Vehicle_motor_control(char state)
+{
+    switch (state)
+    {
+    case 'X':
+    {
+        Vehicle_Lmotor_stop();
+        Vehicle_Rmotor_stop();
+        break;
+    }
+    case 'W':
+    {
+        Vehicle_servo_change_angle(90);
+        Vehicle_Lmotor_forward();
+        Vehicle_Rmotor_forward();
+        break;
+    }
+    case 'S':
+    {
+        Vehicle_servo_change_angle(90);
+        Vehicle_Lmotor_backward();
+        Vehicle_Rmotor_backward();
+        break;
+    }
+    case 'A':
+    {
+        Vehicle_servo_change_angle(75);
+        Vehicle_Lmotor_forward();
+        Vehicle_Rmotor_forward();
+        break;
+    }
+    case 'D':
+    {
+        Vehicle_servo_change_angle(105);
+        Vehicle_Lmotor_forward();
+        Vehicle_Rmotor_forward();
+        break;
+    }
+    }
+}

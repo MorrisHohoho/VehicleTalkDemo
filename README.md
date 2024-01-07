@@ -1,6 +1,6 @@
 # Pin Settings
 
-## LED灯
+## LED
 
 PC2-右上角灯-VLC_TX1: **IO19,**  UART1
 
@@ -10,7 +10,7 @@ CPB0-左下角灯-VLC_TX2: **IO 39,**  UART2
 
 PC10-VLC_RX1： **IO8,**  UART1
 
-PC6-VLC_RX2:	  **IO4,**  UART2
+PC6-VLC_RX2:	  **IO1,**  UART2
 
 ## 电机
 
@@ -23,6 +23,11 @@ PB5 -AN-:   **IO11**
 PA8-左轮-PWMB ：**IO15**
 PB4-BN+: **IO10**
 PA12-BN-: **IO17**
+## 舵机
+
+**Timer:**  `LEDC_TIMER_1`
+
+PC9-舵机： **IO7**
 
 # Data Packet Structure
 

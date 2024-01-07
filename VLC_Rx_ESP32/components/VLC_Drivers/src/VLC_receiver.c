@@ -7,7 +7,7 @@
 #include "rom/ets_sys.h"
 
 static int VLC_receiver_rx1_pin = GPIO_NUM_8;
-static int VLC_receiver_rx2_pin = GPIO_NUM_4;
+static int VLC_receiver_rx2_pin = GPIO_NUM_1;
 static RecvState VLC_receiver_rx1_state = VLC_IDLE;
 static RecvState VLC_receiver_rx2_state = VLC_IDLE;
 

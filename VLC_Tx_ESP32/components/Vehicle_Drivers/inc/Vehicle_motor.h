@@ -25,5 +25,7 @@ void Vehicle_Rmotor_backward();
 void Vehicle_Lmotor_forward();
 void Vehicle_Lmotor_backward();
 
+void Vehicle_motor_control(char state);
+
 
 #endif
