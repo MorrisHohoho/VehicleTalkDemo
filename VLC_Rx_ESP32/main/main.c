@@ -3,6 +3,7 @@
 #include "VLC_parameters.h"
 
 #include "Vehicle_motor.h"
+#include "Vehicle_servo.h"
 
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -121,19 +122,22 @@ void vtask_operate(void *ptParam)
     Vehicle_motor_init();
     Vehicle_Rmotor_stop();
     Vehicle_Lmotor_stop();
+    Vehicle_servo_init();
+    Vehicle_servo_change_angle(90);
     while(1)
     {
-        printf("Stop\n");
-        Vehicle_Lmotor_stop();
         vTaskDelay(500);
-        printf("fowr\n");
-        Vehicle_Lmotor_forward();
+        printf("90\n");
+        Vehicle_servo_change_angle(90);
         vTaskDelay(500);
-        printf("stop\n");
-        Vehicle_Lmotor_stop();
+        printf("45\n");
+        Vehicle_servo_change_angle(45);
         vTaskDelay(500);
-        printf("back\n");
-        Vehicle_Lmotor_backward();
+        printf("90\n");
+        Vehicle_servo_change_angle(90);
+        vTaskDelay(500);
+        printf("135\n");
+        Vehicle_servo_change_angle(135);
         vTaskDelay(500);
         
     }

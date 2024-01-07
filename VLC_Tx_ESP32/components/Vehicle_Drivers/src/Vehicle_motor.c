@@ -71,12 +71,14 @@ void Vehicle_Rmotor_change_speed(double duty)
 {
     ledc_set_duty(LEDC_LOW_SPEED_MODE, VEHICLE_RMOTOR_PWM_CHANNEL,
                   helper_duty2real(duty));
+    ledc_update_duty(LEDC_LOW_SPEED_MODE,VEHICLE_RMOTOR_PWM_CHANNEL);
 }
 
 void Vehicle_Lmotor_change_speed(double duty)
 {
     ledc_set_duty(LEDC_LOW_SPEED_MODE, VEHICLE_LMOTOR_PWM_CHANNEL,
                   helper_duty2real(duty));
+    ledc_update_duty(LEDC_LOW_SPEED_MODE,VEHICLE_LMOTOR_PWM_CHANNEL);
 }
 
 void Vehicle_Rmotor_stop()

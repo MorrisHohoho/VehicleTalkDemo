@@ -59,5 +59,7 @@ The detect logic is shown as below:
 This component is used to control the motor. Currently, the controller is just simply fixed `PWM`
 
 ## Vehicle_servo
+The PWM frequency is set to 20 ms. We can use 
+The mapping between duty and angle is shown as below:
 
-Not finished yet.
+![image](./Vehicle_servo_logic.png)
