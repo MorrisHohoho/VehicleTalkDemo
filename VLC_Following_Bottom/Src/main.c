@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "vehicle_servo.h"
-#include "vehicle_gpio_motor.h"
+#include "vehicle_pwm_motor.h"
 #include "VLC_timer.h"
 
 /* USER CODE END Includes */
@@ -95,15 +95,15 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_UART4_Init();
-  MX_USART1_UART_Init();
   MX_TIM14_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
     VLC_timer_init();
     vehicle_servo_init();
-    vehicle_gpio_motor_init();
+    vehicle_pwm_motor_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,7 +120,7 @@ int main(void)
 //            HAL_UART_Transmit(&huart1,"\n",1,HAL_MAX_DELAY);
 
             /** Change car's state **/
-            vehicle_gpio_motor_control(received_data[1]);
+            vehicle_pwm_motor_control(received_data[1]);
 
             /** Send the data to the upper GD32 **/
             HAL_UART_Transmit_DMA(&huart4,received_data,FRAME_LENGTH);
@@ -198,9 +198,9 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
-    while (1) {
-        HAL_UART_Transmit(&huart1,"Error\n",6,HAL_MAX_DELAY);
-    }
+//    while (1) {
+//        HAL_UART_Transmit(&huart1,"Error\n",6,HAL_MAX_DELAY);
+//    }
   /* USER CODE END Error_Handler_Debug */
 }
 

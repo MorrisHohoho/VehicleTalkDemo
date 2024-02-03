@@ -70,6 +70,8 @@ void Error_Handler(void);
 #define UART4_RX_Pin GPIO_PIN_11
 #define UART4_RX_GPIO_Port GPIOC
 
+/* USER CODE BEGIN Private defines */
+
 /** Left motor*/
 #define VEHICLE_LEFT_MOTOR_PWMA_PORT GPIOA
 #define VEHICLE_LEFT_MOTOR_PWMA_PIN GPIO_PIN_10
@@ -92,7 +94,6 @@ void Error_Handler(void);
 #define VEHICLE_RIGHT_MOTOR_PWMB_TIMx (&htim1)
 #define VEHICLE_RIGHT_MOTOR_PWMB_CHANNELN TIM_CHANNEL_1
 
-/* USER CODE BEGIN Private defines */
 /* USER CODE BEGIN Private defines */
 #define PAYLOAD_LENGTH 8 //The original data length, in bytes. i.e.: "abcd" length is 4.
 #define FRAME_LENGTH  (PAYLOAD_LENGTH+1) //The frame data length (add 1 bytes PSN), in bytes. i.e. : 1+"abdc" length is 5.

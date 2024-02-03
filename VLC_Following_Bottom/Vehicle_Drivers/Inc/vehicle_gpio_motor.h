@@ -2,7 +2,8 @@
 #define VLC_TX_GD32_VEHICLE_MOTOR_H
 
 /**
- * Motor control logic without velocity adjustment. Only gpio is used.
+ * Motor control logic without velocity adjustment.
+ * Mode: PWM, GPIO.
  */
 
 #include <stdint.h>
