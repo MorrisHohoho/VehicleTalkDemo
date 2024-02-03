@@ -4,15 +4,20 @@
 #include "gpio.h"
 #include "tim.h"
 
+#include "main.h"
+
 
 void vehicle_gpio_motor_init() {
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_12,0);
 }
 
+
 void vehicle_gpio_motor_stop(){
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_12,0);
     HAL_TIMEx_PWMN_Stop(&htim1,TIM_CHANNEL_1);
 }
+
+
 
 void vehicle_gpio_motor_forward(){
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_12,1);
