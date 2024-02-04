@@ -131,6 +131,10 @@ int main(void)
         HAL_UART_Transmit_DMA(&huart4,mes1,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
 
+        VLC_Gpio_transmitter_send("SBCD1234");
+        HAL_UART_Transmit_DMA(&huart4,mes1,PAYLOAD_LENGTH);
+        VLC_Gpio_transmitter_idle();
+
         VLC_Gpio_transmitter_send("XBCD1234");
         HAL_UART_Transmit_DMA(&huart4,mes4,PAYLOAD_LENGTH);
         VLC_Gpio_transmitter_idle();
