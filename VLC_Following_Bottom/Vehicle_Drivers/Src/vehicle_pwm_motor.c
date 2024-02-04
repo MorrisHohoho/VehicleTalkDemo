@@ -8,7 +8,6 @@
 
 #include"gpio.h"
 #include"tim.h"
-#include "main.h"
 
 #define PWM_FREQ 10000
 #define PWM_DUTY_MUL_FACTOR (PWM_FREQ/100)
@@ -66,9 +65,11 @@ void vehicle_pwm_motor_set_velocity(int16_t duty, char motor) {
 
 void vehicle_pwm_motor_init() {
     HAL_TIM_PWM_Start(VEHICLE_LEFT_MOTOR_PWMA_TIM, VEHICLE_LEFT_MOTOR_PWMA_CHANNEL);
+    HAL_TIM_PWM_Start(VEHICLE_LEFT_MOTOR_PWMB_TIM, VEHICLE_LEFT_MOTOR_PWMB_CHANNEL);
     vehicle_pwm_motor_stop('A');
 
-    HAL_TIMEx_PWMN_Start(VEHICLE_RIGHT_MOTOR_PWMA_TIM, VEHICLE_RIGHT_MOTOR_PWMA_CHANNEL);
+    HAL_TIM_PWM_Start(VEHICLE_RIGHT_MOTOR_PWMA_TIM, VEHICLE_RIGHT_MOTOR_PWMA_CHANNEL);
+    HAL_TIMEx_PWMN_Start(VEHICLE_RIGHT_MOTOR_PWMB_TIMx, VEHICLE_RIGHT_MOTOR_PWMB_CHANNELN);
     vehicle_pwm_motor_stop('B');
 }
 
