@@ -96,7 +96,7 @@ void VLC_Gpio_transmitter_send(const char *data) {
 }
 
 void VLC_Gpio_transmitter_idle(){
-    for(int i=0;i<50000;i++)
+    for(int i=0;i<25000;i++)
     {
         HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_1);
         HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_2);
