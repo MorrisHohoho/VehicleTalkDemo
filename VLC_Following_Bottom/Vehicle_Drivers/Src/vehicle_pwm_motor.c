@@ -12,6 +12,9 @@
 #define PWM_FREQ 10000
 #define PWM_DUTY_MUL_FACTOR (PWM_FREQ/100)
 
+#define FORWARD_SPEED (10)
+#define BACKWARD_SPEED (10)
+
 
 void vehicle_pwm_motor_set_velocity(int16_t duty, char motor) {
     int isBack = 0;
@@ -89,11 +92,11 @@ void vehicle_pwm_motor_stop(char motor) {
 void vehicle_pwm_motor_forward(char motor) {
     switch (motor) {
         case 'A': {
-            vehicle_pwm_motor_set_velocity(20, 'A');
+            vehicle_pwm_motor_set_velocity(FORWARD_SPEED, 'A');
             break;
         }
         case 'B': {
-            vehicle_pwm_motor_set_velocity(20, 'B');
+            vehicle_pwm_motor_set_velocity(FORWARD_SPEED, 'B');
             break;
         }
     }
@@ -102,11 +105,11 @@ void vehicle_pwm_motor_forward(char motor) {
 void vehicle_pwm_motor_backward(char motor) {
     switch (motor) {
         case 'A': {
-            vehicle_pwm_motor_set_velocity(-20, 'A');
+            vehicle_pwm_motor_set_velocity(BACKWARD_SPEED, 'A');
             break;
         }
         case 'B': {
-            vehicle_pwm_motor_set_velocity(-20, 'B');
+            vehicle_pwm_motor_set_velocity(BACKWARD_SPEED, 'B');
             break;
         }
     }

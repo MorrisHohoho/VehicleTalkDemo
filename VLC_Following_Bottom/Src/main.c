@@ -104,6 +104,7 @@ int main(void)
     VLC_timer_init();
     vehicle_servo_init();
     vehicle_pwm_motor_init();
+    HAL_UART_Transmit_DMA(&huart4,"RxStart\n",8);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,7 +115,6 @@ int main(void)
          * The data receiving logic is in VLC_receiver.c
          */
         if(DETECT_DATA_FLAG){
-
             /** For debugging **/
 //            HAL_UART_Transmit(&huart1,received_data,FRAME_LENGTH,HAL_MAX_DELAY);
 //            HAL_UART_Transmit(&huart1,"\n",1,HAL_MAX_DELAY);
