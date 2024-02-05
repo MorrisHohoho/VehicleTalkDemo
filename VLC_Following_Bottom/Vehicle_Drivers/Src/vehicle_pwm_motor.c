@@ -12,8 +12,8 @@
 #define PWM_FREQ 10000
 #define PWM_DUTY_MUL_FACTOR (PWM_FREQ/100)
 
-#define FORWARD_SPEED (10)
-#define BACKWARD_SPEED (10)
+#define FORWARD_SPEED (11)
+#define BACKWARD_SPEED (11)
 
 
 void vehicle_pwm_motor_set_velocity(int16_t duty, char motor) {

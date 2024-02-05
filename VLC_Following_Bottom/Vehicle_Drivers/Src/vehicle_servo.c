@@ -11,7 +11,7 @@
 
 #define SERVO_DUTY_0 (1428)
 #define SERVO_DUTY_MINUS_45 (1528)
-#define SERVO_DUTY_POSITIVE_45 (1315)
+#define SERVO_DUTY_POSITIVE_45 (1362)
 
 void vehicle_servo_init(){
     HAL_TIM_PWM_Start(SERVO_TIM,SERVO_TIM_CH);
