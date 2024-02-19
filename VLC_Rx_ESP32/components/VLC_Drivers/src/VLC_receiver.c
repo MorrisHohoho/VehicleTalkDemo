@@ -125,6 +125,10 @@ void VLC_receiver_init()
                                             intr_alloc_flags));
     }
 
+    /* Configure the Timer */
+    uint64_t VLC_bit_duration_temp = 1000000 / VLC_BAUD_RATE;
+    VLC_timer_rx1N2_init(VLC_bit_duration_temp);
+
     /*Configure the ISR of the GPIO*/
     gpio_config_t io_conf = {
         .pin_bit_mask = 1ULL << VLC_receiver_rx1_pin,
@@ -142,9 +146,6 @@ void VLC_receiver_init()
     gpio_isr_handler_add(VLC_receiver_rx2_pin, gpio_isr_handler_tim,
                          (void *)VLC_receiver_rx2_pin);
 
-    /* Configure the Timer */
-    uint64_t VLC_bit_duration_temp = 1000000 / VLC_BAUD_RATE;
-    VLC_timer_rx1N2_init(VLC_bit_duration_temp);
 }
 
 /**

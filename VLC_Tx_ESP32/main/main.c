@@ -31,82 +31,12 @@ void app_main(void)
     Vehicle_servo_init();
 
     printf("TX start\n");
-    TransmitterFlag tx_state = VLC_TX2;
+    TransmitterFlag tx_pin = VLC_TX2;
     VLC_timer_general_init(1500000);
     int test_temp_state = 0;
 
     while (1)
     {
-        VLC_transmitter_DoIdle(tx_state);
-        if (isSend)
-        {
-            switch (test_temp_state)
-            {
-            case 0:
-            {
-                VLC_transmitter_DoSend("Xtop1111", VLC_TX2);
-                Vehicle_motor_control('X');
-                test_temp_state++;
-                break;
-            }
-            case 1:
-            {
-                VLC_transmitter_DoSend("WXXXSCU!", VLC_TX2);
-                Vehicle_motor_control('W');
-                test_temp_state++;
-                break;
-            }
-            case 2:
-            {
-                VLC_transmitter_DoSend("Aeftturn", VLC_TX2);
-                Vehicle_motor_control('A');
-                test_temp_state++;
-                break;
-            }
-            case 3:
-            {
-                VLC_transmitter_DoSend("WYYYWIN!", VLC_TX2);
-                Vehicle_motor_control('W');
-                test_temp_state++;
-                break;
-            }
-            case 4:
-            {
-                VLC_transmitter_DoSend("DightHAX", VLC_TX2);
-                Vehicle_motor_control('D');
-                test_temp_state++;
-                break;
-            }
-            case 5:
-            {
-                VLC_transmitter_DoSend("WYYYWIN!", VLC_TX2);
-                Vehicle_motor_control('W');
-                test_temp_state++;
-                break;
-            }
-            case 6:
-            {
-                VLC_transmitter_DoSend("Xtop0011", VLC_TX2);
-                Vehicle_motor_control('X');
-                test_temp_state++;
-                break;
-            }
-            case 7:
-            {
-                VLC_transmitter_DoSend("Sback123", VLC_TX2);
-                Vehicle_motor_control('S');
-                test_temp_state++;
-                break;
-            }
-            case 8:
-            {
-                VLC_transmitter_DoSend("XOOO9988", VLC_TX2);
-                Vehicle_motor_control('X');
-                test_temp_state = 0;
-                break;
-            }
-            }
-            isSend = false;
-        }
+        VLC_transmitter_DoSend("HAHA1234XAXA4321ZZZZ1234",tx_pin);
     }
 }

@@ -1,5 +1,10 @@
+/**
+ * Transmitter module for VLC defination.
+*/
+
 #ifndef __VLC_TRANSMITTER_H__
 #define __VLC_TRANSMITTER_H__
+
 
 
 /**

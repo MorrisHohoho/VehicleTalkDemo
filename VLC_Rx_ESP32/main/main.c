@@ -33,7 +33,7 @@ void vtask_read(void *ptParam)
         {
         case VLC_DATA_RX1:
         {
-            if (rx1_buffer[1] == VLC_FRAME_HEADER)
+            if (rx1_buffer[0] == VLC_FRAME_HEADER)
             {
                 xMessageBufferSend(MessageBuffer,
                                    (void *)&rx1_buffer[1], // discard the header
@@ -44,11 +44,6 @@ void vtask_read(void *ptParam)
         }
         case VLC_DATA_RX2:
         {
-            // for (int i = 0; i < VLC_FRAME_LENGTH * 2 + 1; i++)
-            // {
-            //     printf("%x ", rx2_buffer[i]);
-            // }
-            // printf("\n");
             if (rx2_buffer[0] == VLC_FRAME_HEADER)
             {
                 xMessageBufferSend(MessageBuffer,
@@ -88,12 +83,12 @@ void vtask_operate(void *ptParam)
         {
             VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
 
-            // printf("%x ",tx_output[0]);
-            // for(int i=1;i<VLC_FRAME_LENGTH;i++)
-            // {
-            //     printf("%c ",tx_output[i]);
-            // }
-            // printf("\n");
+            printf("%x ", tx_output[0]);
+            for (int i = 1; i < VLC_FRAME_LENGTH; i++)
+            {
+                printf("%c ", tx_output[i]);
+            }
+            printf("\n");
 
             Vehicle_motor_control(tx_output[1]);
         }
