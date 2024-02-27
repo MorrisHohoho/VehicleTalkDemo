@@ -19,6 +19,8 @@
  * along with libRaptorQ.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "CRC.h"
+
 #include "RaptorQ/RaptorQ_v1_hdr.hpp"
 #include <algorithm>
 #include <fstream>
@@ -348,6 +350,13 @@ int main(int argc, char **argv) {
     rnd.seed(seed);
     std::vector<std::pair<uint32_t, std::vector<uint8_t>>>
             symbols = generate_symbols(64, rnd, 4, 2);
+
+    const char myString[] = { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D' };
+
+    std::uint32_t crc = CRC::Calculate(myString, sizeof(myString), CRC::CRC_8());
+
+    std::cout << std::hex << crc;
+    
     // Todo:
     // 3. Add Hamming code or CRC to ensure that each received symbol is correct.
     // 4. Start testing.
