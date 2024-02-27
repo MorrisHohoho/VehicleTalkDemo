@@ -73,9 +73,34 @@ The mapping between duty and angle is shown as below:
 
 ## FEC Scheme
 
-### Raptor Codes
+I will not implement `FEC` on ESP32 because there is no correct implementation for embeded system. I will choose to use ESP32 to send data and decode them on my PC.
+
+### Raptor Code
+
+RFC documents: [RFC 5053 - Raptor Forward Error Correction Scheme for Object Delivery (ietf.org)](https://datatracker.ietf.org/doc/html/rfc5053)
 
 Some implementation:
+
+1. [OpenRQ (openrq-team.github.io)](https://openrq-team.github.io/openrq/)
+
+    1. Java version. The wiki page is worth reading.
+    2. [Where is error correction? · Issue #10 · openrq-team/OpenRQ (github.com)](https://github.com/openrq-team/OpenRQ/issues/10)
+
+        1. This answer about why raptor codes can't corret intra-symbol error is good.
+2. [obolo/freeRaptor: A free and open implementation of Raptor codes (github.com)](https://github.com/obolo/freeRaptor)
+
+    1. The decoder implementation is wrong. :(
+3. [LucaFulchir/libRaptorQ: RaptorQ RFC6330 C++11 implementation (github.com)](https://github.com/LucaFulchir/libRaptorQ)
+
+    1. Cpp version. I choose this one.
+
+### Reed-Soloman Code
+
+1. [reedsolomon-c/rs.c at master · jannson/reedsolomon-c (github.com)](https://github.com/jannson/reedsolomon-c/blob/master/rs.c)
+
+### Spinal Code
+
+My version or john perry's version.
 
 1. [OpenRQ (openrq-team.github.io)](https://openrq-team.github.io/openrq/)
 2. [obolo/freeRaptor: A free and open implementation of Raptor codes (github.com)](https://github.com/obolo/freeRaptor)
