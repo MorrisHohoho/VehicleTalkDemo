@@ -101,6 +101,3 @@ Some implementation:
 ### Spinal Code
 
 My version or john perry's version.
-
-1. [OpenRQ (openrq-team.github.io)](https://openrq-team.github.io/openrq/)
-2. [obolo/freeRaptor: A free and open implementation of Raptor codes (github.com)](https://github.com/obolo/freeRaptor)
