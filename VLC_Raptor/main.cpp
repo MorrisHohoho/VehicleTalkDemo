@@ -46,7 +46,7 @@ bool verbose = false;
  * @param overhead N repair symbols
  */
 
-std::vector<std::pair<uint32_t, std::vector<uint8_t>>>
+std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
 generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
                  const uint16_t symbol_size, const uint16_t overhead) {
 
@@ -130,7 +130,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
 
     // we will store here all encoded and transmitted symbols
     // std::pair<symbol id (esi), symbol data>
-    using symbol_id = uint32_t; // just a better name
+    using symbol_id = uint8_t; // just a better name
     std::vector<std::pair<symbol_id, std::vector<uint8_t>>> received;
     uint32_t received_tot = 0;
 
@@ -193,7 +193,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
     std::cout << "===== Encoded Symbols =====" << std::endl;
     std::cout << "Symbol ID \t Symbol\n";
     for (auto p: received) {
-        std::cout << p.first << "\t";
+        printf("%d\t", p.first);
         for (auto s: p.second) {
             printf("%d ", s);
         }
@@ -210,7 +210,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
  * @param mysize The original data size.
  * @param symbol_size N bytes in a symbol.
  */
-void decode_symbols(std::vector<std::pair<uint32_t, std::vector<uint8_t>>> received,
+void decode_symbols(std::vector<std::pair<uint8_t, std::vector<uint8_t>>> received,
                     const uint32_t mysize, const uint16_t symbol_size) {
     using symbol_id = uint32_t;
 
@@ -263,7 +263,7 @@ void decode_symbols(std::vector<std::pair<uint32_t, std::vector<uint8_t>>> recei
             std::cout << std::endl;
         }
     }
-    if(verbose){
+    if (verbose) {
         std::cout << "===== Received Symbols =====\n" << std::endl;
     }
 
@@ -313,11 +313,11 @@ void decode_symbols(std::vector<std::pair<uint32_t, std::vector<uint8_t>>> recei
 //        std::cout << "Decoded: " << mysize << "\n";
     }
     // byte-wise check: did we actually decode everything the right way?
-    std::cout<<"===== Decoded Data====="<<std::endl;
+    std::cout << "===== Decoded Data=====" << std::endl;
     for (uint64_t i = 0; i < mysize; ++i) {
         printf("%d ", output[i]);
     }
-    std::cout<<"\n===== Decoded Data=====\n"<<std::endl;
+    std::cout << "\n===== Decoded Data=====\n" << std::endl;
 }
 
 
@@ -348,19 +348,32 @@ int main(int argc, char **argv) {
     rand.read(reinterpret_cast<char *> (&seed), sizeof(seed));
     rand.close();
     rnd.seed(seed);
-    std::vector<std::pair<uint32_t, std::vector<uint8_t>>>
+    std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
             symbols = generate_symbols(64, rnd, 4, 2);
 
-    const char myString[] = { 'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D' };
+    // Compute CRC
+    std::cout << "===== Add CRC =====" << std::endl;
+    // Using lookup table is much faster
+    CRC::Table<std::uint8_t, 8> table(CRC::CRC_8());
+    char temp[5];
+    for (auto i: symbols) {
+        temp[0] = i.first;
+        printf("%d\t", i.first);
+        int x = 1;
+        for (auto j: i.second) {
+            printf("%d ", j);
+            temp[x] = j;
+            ++x;
+        }
+        uint8_t crc = CRC::Calculate(temp, sizeof(temp), table);
+        printf("%d\n", crc);
+    }
 
-    std::uint32_t crc = CRC::Calculate(myString, sizeof(myString), CRC::CRC_8());
+    std::cout << "===== Add CRC =====\n" << std::endl;
 
-    std::cout << std::hex << crc;
-    
-    // Todo:
-    // 3. Add Hamming code or CRC to ensure that each received symbol is correct.
-    // 4. Start testing.
+    // Verify CRC
 
+    // Raptor Decode
     decode_symbols(symbols, 64, 4);
 
     return 0;
