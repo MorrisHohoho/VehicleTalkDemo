@@ -82,15 +82,13 @@ void vtask_operate(void *ptParam)
         if (recv_bytes != 0)
         {
             VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
-
-            printf("%x ", tx_output[0]);
-            for (int i = 1; i < VLC_FRAME_LENGTH; i++)
+            for (int i = 0; i < VLC_FRAME_LENGTH; i++)
             {
-                printf("%c ", tx_output[i]);
+                printf("%x ", tx_output[i]);
             }
             printf("\n");
 
-            Vehicle_motor_control(tx_output[1]);
+            // Vehicle_motor_control(tx_output[1]);
         }
     }
 }

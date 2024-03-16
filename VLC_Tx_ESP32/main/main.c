@@ -14,6 +14,10 @@
 #include <string.h>
 #include <unistd.h>
 
+/* Testing Messages*/
+const char* testing_8bytes_mes = "SCU:No1!";
+/* Testing Messages End*/
+
 bool isSend = false;
 
 void IRAM_ATTR VLC_timer_generalCallback(gptimer_handle_t timer, void *arg)
@@ -37,6 +41,6 @@ void app_main(void)
 
     while (1)
     {
-        VLC_transmitter_DoSend("HAHA1234XAXA4321ZZZZ1234",tx_pin);
+        VLC_transmitter_DoSend(testing_8bytes_mes,tx_pin);
     }
 }

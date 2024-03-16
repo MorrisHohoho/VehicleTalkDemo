@@ -1,3 +1,11 @@
+# Intro
+
+This repository is for the VehicleTalk project, which will be presented on XXXX. I will refind this document later.
+
+# Bugs
+
+1. The PD receiver works properly only when the voltage source is 3.3V, 5V is not working.
+
 # Pin Settings
 
 ## LED灯
