@@ -84,7 +84,7 @@ void vtask_operate(void *ptParam)
             VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
             for (int i = 0; i < VLC_FRAME_LENGTH; i++)
             {
-                printf("%x ", tx_output[i]);
+                printf("%d,", tx_output[i]);
             }
             printf("\n");
 
