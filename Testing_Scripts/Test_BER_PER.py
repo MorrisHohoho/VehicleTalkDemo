@@ -6,6 +6,12 @@ testing_8bytes_mes = "SCU:No1!"
 ### Global Varibales End ###
 
 
+def findAllFile(base):
+    for root, ds, fs in os.walk(base):
+        for f in fs:
+            fullname = os.path.join(root, f)
+            yield fullname
+
 def get_corrupted_bits(r,t):
     '''
     Check whether each bit is corrupted in r compared to t.
@@ -75,10 +81,11 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
-# Read the input testing data file and discard the first and final line
-df = pd.read_csv('test_data.txt',engine='python',header=None,skiprows=1,skipfooter=1)
-# Drop the last column, which is all NaN
-df = df.drop(df.columns[-1],axis=1)
-# Check BER and PER
-ret = check_BER_PER(df,testing_8bytes_mes)
-print(ret)
+for i in findAllFile(dname+'/baseline'):
+    # Read the input testing data file and discard the first and final line
+    df = pd.read_csv(i,engine='python',header=None,skiprows=1,skipfooter=1)
+    # Drop the last column, which is all NaN
+    df = df.drop(df.columns[-1],axis=1)
+    # Check BER and PER
+    ret = check_BER_PER(df,testing_8bytes_mes)
+    print(ret)

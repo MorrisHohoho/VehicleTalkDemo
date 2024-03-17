@@ -6,6 +6,8 @@
 #include "driver/uart.h"
 #include "rom/ets_sys.h"
 
+#include <math.h>
+
 static int VLC_receiver_rx1_pin = GPIO_NUM_8;
 static int VLC_receiver_rx2_pin = GPIO_NUM_1;
 static RecvState VLC_receiver_rx1_state = VLC_IDLE;
@@ -126,7 +128,10 @@ void VLC_receiver_init()
     }
 
     /* Configure the Timer */
-    uint64_t VLC_bit_duration_temp = 1000000 / VLC_BAUD_RATE;
+    // double XXtemp = 1000000/ (double) VLC_BAUD_RATE;
+    // uint64_t VLC_bit_duration_temp = round(XXtemp);
+
+    uint64_t VLC_bit_duration_temp = 1000000/VLC_BAUD_RATE;
     VLC_timer_rx1N2_init(VLC_bit_duration_temp);
 
     /*Configure the ISR of the GPIO*/

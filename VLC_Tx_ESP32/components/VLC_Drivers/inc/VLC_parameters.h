@@ -8,7 +8,7 @@
 #define VLC_FRAME_HEADER 0x1F
 #define VLC_FRAME_TAIL 0XAA
 
-#define VLC_BAUD_RATE 115200
+#define VLC_BAUD_RATE 180000
 
 
 #endif

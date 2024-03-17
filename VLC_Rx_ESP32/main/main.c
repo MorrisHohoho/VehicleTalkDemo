@@ -33,24 +33,24 @@ void vtask_read(void *ptParam)
         {
         case VLC_DATA_RX1:
         {
-            if (rx1_buffer[0] == VLC_FRAME_HEADER)
-            {
+            // if (rx1_buffer[0] == VLC_FRAME_HEADER)
+            // {
                 xMessageBufferSend(MessageBuffer,
                                    (void *)&rx1_buffer[1], // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
-            }
+            // }
             break;
         }
         case VLC_DATA_RX2:
         {
-            if (rx2_buffer[0] == VLC_FRAME_HEADER)
-            {
+            // if (rx2_buffer[0] == VLC_FRAME_HEADER)
+            // {
                 xMessageBufferSend(MessageBuffer,
                                    (void *)&rx2_buffer[1], // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
-            }
+            // }
             break;
         }
         default:

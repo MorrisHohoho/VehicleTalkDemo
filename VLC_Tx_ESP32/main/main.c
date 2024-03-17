@@ -16,6 +16,7 @@
 
 /* Testing Messages*/
 const char* testing_8bytes_mes = "SCU:No1!";
+const char* testing_16bytes_mes = "SCU:No1!SCU:No1!";
 /* Testing Messages End*/
 
 bool isSend = false;
