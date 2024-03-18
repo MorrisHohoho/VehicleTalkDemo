@@ -1,4 +1,5 @@
 #include "VLC_timer.h"
+#include "VLC_parameters.h"
 #include "rom/ets_sys.h"
 
 gptimer_handle_t VLC_timer_rx1_handler = NULL;

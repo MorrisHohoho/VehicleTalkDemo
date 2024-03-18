@@ -7,6 +7,7 @@
 #include "rom/ets_sys.h"
 
 #include <math.h>
+#include <string.h>
 
 static int VLC_receiver_rx1_pin = GPIO_NUM_8;
 static int VLC_receiver_rx2_pin = GPIO_NUM_1;
@@ -18,6 +19,8 @@ extern gptimer_handle_t VLC_timer_rx2_handler;
 
 #define VLC_RX1_UART_PORT UART_NUM_1
 #define VLC_RX2_UART_PORT UART_NUM_2
+
+#define VLC_RECEIVER_DEBUG 1
 
 /*
  * Inner function
@@ -51,7 +54,8 @@ static void VLC_receiver_detect_header(RecvState *state, gptimer_handle_t timer_
 }
 
 /**
- * Gpio interrupt handler, which is used to detect the header.
+* Gpio interrupt handler, which is used to detect the header.
+* Positive edge interrupt.
 */
 static void IRAM_ATTR gpio_isr_handler_tim(void *arg)
 {
@@ -126,6 +130,10 @@ void VLC_receiver_init()
                                             NULL,
                                             intr_alloc_flags));
     }
+    
+    /* Key UART buffer bug fixed */
+    uart_set_rx_full_threshold(UART_NUM_1,VLC_FRAME_LENGTH*2);
+    uart_set_rx_full_threshold(UART_NUM_2,VLC_FRAME_LENGTH*2);
 
     /* Configure the Timer */
     // double XXtemp = 1000000/ (double) VLC_BAUD_RATE;
@@ -162,6 +170,10 @@ void IRAM_ATTR VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer, void *arg
     {
         gptimer_stop(VLC_timer_rx1_handler);
         gpio_intr_disable(VLC_receiver_rx1_pin);
+
+        #ifdef VLC_RECEIVER_DEBUG
+        gpio_set_level(GPIO_NUM_18,1);
+        #endif
         gptimer_set_raw_count(VLC_timer_rx1_handler, 0);
         uart_flush(VLC_RX1_UART_PORT);
         VLC_receiver_rx1_state = VLC_RECEIVING;
@@ -181,15 +193,23 @@ DataState VLC_receiver_DoReceive(uint8_t *rx1_buffer, uint8_t *rx2_buffer)
     DataState ret = VLC_DATA_NONE;
     if (VLC_receiver_rx1_state == VLC_RECEIVING)
     {
-        uart_read_bytes(VLC_RX1_UART_PORT, rx1_buffer, VLC_FRAME_LENGTH * 2+1, portMAX_DELAY);
+
+        #ifdef VLC_RECEIVER_DEBUG
+        gpio_set_level(GPIO_NUM_18,0);
+        #endif
+        
+        uart_read_bytes(VLC_RX1_UART_PORT, rx1_buffer, VLC_FRAME_LENGTH*2, portMAX_DELAY);
+
         VLC_receiver_rx1_state = VLC_IDLE;
         ret = VLC_DATA_RX1;
         gpio_intr_enable(VLC_receiver_rx1_pin);
     }
     if (VLC_receiver_rx2_state == VLC_RECEIVING)
     {
-
-        uart_read_bytes(VLC_RX2_UART_PORT, rx2_buffer, VLC_FRAME_LENGTH * 2+1, portMAX_DELAY);
+        // The lost byte will be filled in 0XAA.
+        int length = uart_read_bytes(VLC_RX2_UART_PORT, rx2_buffer, VLC_FRAME_LENGTH * 2+1, 15/portTICK_PERIOD_MS);
+        memset(&rx2_buffer[length-1],0xAA,(VLC_FRAME_LENGTH * 2+1)-length);
+        
         VLC_receiver_rx2_state = VLC_IDLE;
         ret = ret == VLC_DATA_NONE ? VLC_DATA_RX2 : VLC_DATA_BOTH;
         gpio_intr_enable(VLC_receiver_rx2_pin);

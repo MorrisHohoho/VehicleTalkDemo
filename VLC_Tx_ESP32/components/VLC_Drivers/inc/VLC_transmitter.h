@@ -35,4 +35,5 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag);
 */
 void VLC_transmitter_DoIdle(TransmitterFlag flag);
 
+
 #endif

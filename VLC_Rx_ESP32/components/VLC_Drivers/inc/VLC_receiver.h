@@ -38,5 +38,4 @@ void VLC_receiver_init();
 */
 DataState VLC_receiver_DoReceive(uint8_t* rx1_buffer,uint8_t* rx2_buffer);
 
-
 #endif

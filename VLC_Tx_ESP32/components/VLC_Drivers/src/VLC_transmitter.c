@@ -87,9 +87,8 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
     uint16_t phy_frame_length = VLC_FRAME_LENGTH * 2 + 2;
     uint8_t tx_buf[phy_frame_length];
 
-
-
-
+    // uint64_t VLC_bit_duration_temp = 1000000/VLC_BAUD_RATE;
+    // uint64_t VLC_header_duration = VLC_bit_duration_temp*5;
     for (uint16_t i = 0; i < frame_counts; i++)
     {
         VLC_encoder_DoEncode(data + i * VLC_PAYLOAD_LENGTH, i, tx_buf);
@@ -98,13 +97,16 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
         case VLC_TX1:
         {
             uart_write_bytes(UART_NUM_1, tx_buf, phy_frame_length);
+            // uart_wait_tx_done(UART_NUM_1,portMAX_DELAY);
             break;
         }
         case VLC_TX2:
         {
             uart_write_bytes(UART_NUM_2, tx_buf, phy_frame_length);
+            // uart_wait_tx_done(UART_NUM_2,portMAX_DELAY);
             break;
         }
+
         case VLC_TX_BOTH:
         {
             uart_write_bytes(UART_NUM_1, tx_buf, phy_frame_length);

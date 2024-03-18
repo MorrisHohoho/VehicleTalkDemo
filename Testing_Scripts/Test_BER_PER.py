@@ -7,6 +7,15 @@ testing_8bytes_mes = "SCU:No1!"
 
 
 def findAllFile(base):
+    '''
+    Find all files in the `base` directory, in absolute path.
+
+    Args:
+        base (string): The searching directory in absolute path.
+
+    Returns:
+        (string): File path in abosulte.
+    '''
     for root, ds, fs in os.walk(base):
         for f in fs:
             fullname = os.path.join(root, f)
@@ -31,7 +40,7 @@ def get_corrupted_bits(r,t):
         if binary_t[i]!=binary_r[i]:
             ret+=1
     return ret
-
+    
 def check_BER_PER(df,original_data):
     '''
     Check bit error ratio, BER = corrupted_bits/all_bits
@@ -88,4 +97,4 @@ for i in findAllFile(dname+'/baseline'):
     df = df.drop(df.columns[-1],axis=1)
     # Check BER and PER
     ret = check_BER_PER(df,testing_8bytes_mes)
-    print(ret)
+    print(i,ret)
