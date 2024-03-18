@@ -3,6 +3,9 @@ import pandas as pd
 
 ### Global Varibales ###
 testing_8bytes_mes = "SCU:No1!"
+testing_16bytes_mes = "SCU?No1!no1?vlc!"
+
+cur_test_mes = testing_16bytes_mes
 ### Global Varibales End ###
 
 
@@ -40,7 +43,7 @@ def get_corrupted_bits(r,t):
         if binary_t[i]!=binary_r[i]:
             ret+=1
     return ret
-    
+
 def check_BER_PER(df,original_data):
     '''
     Check bit error ratio, BER = corrupted_bits/all_bits
@@ -96,5 +99,5 @@ for i in findAllFile(dname+'/baseline'):
     # Drop the last column, which is all NaN
     df = df.drop(df.columns[-1],axis=1)
     # Check BER and PER
-    ret = check_BER_PER(df,testing_8bytes_mes)
+    ret = check_BER_PER(df,cur_test_mes)
     print(i,ret)

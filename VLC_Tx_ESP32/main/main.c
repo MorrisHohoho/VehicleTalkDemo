@@ -16,7 +16,7 @@
 
 /* Testing Messages*/
 const char* testing_8bytes_mes = "SCU:No1!";
-const char* testing_16bytes_mes = "SCU:No1!SCU:No1!";
+const char* testing_16bytes_mes = "SCU?No1!no1?vlc!";
 /* Testing Messages End*/
 
 bool isSend = false;
@@ -42,6 +42,6 @@ void app_main(void)
 
     while (1)
     {
-        VLC_transmitter_DoSend(testing_8bytes_mes,tx_pin);
+        VLC_transmitter_DoSend(testing_16bytes_mes,tx_pin);
     }
 }

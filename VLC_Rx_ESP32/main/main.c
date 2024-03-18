@@ -16,6 +16,7 @@
 
 #define SYMBOLS_BUFFER_SIZE (VLC_FRAME_LENGTH * 2 + 4)
 #define MESSAGE_BUFFER_SIZE 6000
+#define VERBOSE_OUTPUT 0
 
 MessageBufferHandle_t MessageBuffer = NULL;
 
@@ -33,24 +34,26 @@ void vtask_read(void *ptParam)
         {
         case VLC_DATA_RX1:
         {
-            // if (rx1_buffer[0] == VLC_FRAME_HEADER)
-            // {
+            #if VERBOSE_OUTPUT
+            printf("Ori:");
+            for(int i=0;i<VLC_FRAME_LENGTH * 2+2;i++)
+            {
+                printf("%x ",rx1_buffer[i]);
+            }
+            printf("\n");
+            #endif
                 xMessageBufferSend(MessageBuffer,
                                    (void *)&rx1_buffer[1], // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
-            // }
             break;
         }
         case VLC_DATA_RX2:
         {
-            // if (rx2_buffer[0] == VLC_FRAME_HEADER)
-            // {
                 xMessageBufferSend(MessageBuffer,
                                    (void *)&rx2_buffer[1], // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
-            // }
             break;
         }
         default:
