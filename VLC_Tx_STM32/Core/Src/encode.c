@@ -33,24 +33,9 @@ void encode(const char* data, int frame_num, uint8_t* tx_buf)
     tx_buf[tx_buf_ptr++] = 0x00; //"00000000";
 
     // 2. encode the payload with manchester encoidng
-    uint8_t original_data[FRAME_LEN];
     uint8_t encoded_data[FRAME_LEN*2];
 
-    // init the frame.
-    for(int i=0;i<FRAME_LEN;i++)
-    {
-        original_data[i] = 0;
-    }
-
-    original_data[0]=frame_num;  // the first byte is the frame number
-
-    // copy the data, if the data is not enough, fill the rest with 0
-    for(int i=0;i<data_len;i++)
-    {
-        original_data[i+1] = data[i];
-    }
-
-    manchester_encode(original_data, encoded_data); //manchester encoding
+    manchester_encode(data, encoded_data); //manchester encoding
 
     // copy the encoded data to the tx_buf
     for(int i=0;i<FRAME_LEN*2;i++)

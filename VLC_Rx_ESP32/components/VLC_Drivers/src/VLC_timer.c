@@ -6,6 +6,8 @@ gptimer_handle_t VLC_timer_rx2_handler = NULL;
 
 gptimer_handle_t VLC_timer_general = NULL;
 
+static bool VLC_timer_rx1_state = false;
+
 void __attribute__((weak)) VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer,void *arg){}
 
 esp_err_t VLC_timer_rx1N2_init(uint64_t count)
@@ -26,7 +28,7 @@ esp_err_t VLC_timer_rx1N2_init(uint64_t count)
     // 2. set the alarm conut and reload count
     gptimer_alarm_config_t alarm_config = {
         .alarm_count = header_alarm_count*VLC_TIMER_RESOULUTION,
-        .flags.auto_reload_on_alarm = true,
+        .flags.auto_reload_on_alarm = false,
     };
     ESP_ERROR_CHECK(gptimer_set_alarm_action(VLC_timer_rx1_handler, &alarm_config));
     ESP_ERROR_CHECK(gptimer_set_alarm_action(VLC_timer_rx2_handler, &alarm_config));
@@ -43,6 +45,7 @@ esp_err_t VLC_timer_rx1N2_init(uint64_t count)
     ESP_ERROR_CHECK(gptimer_enable(VLC_timer_rx1_handler));
     ESP_ERROR_CHECK(gptimer_enable(VLC_timer_rx2_handler));
 
+    VLC_timer_rx1_state = false;
     return ret;
 }
 
@@ -86,4 +89,22 @@ esp_err_t VLC_timer_general_init(uint64_t count)
     return ret;
 }
 
+void VLC_timer_rx1_start()
+{
+    if(!VLC_timer_rx1_state)
+    {
+        VLC_timer_rx1_state = true;
+        gptimer_set_raw_count(VLC_timer_rx1_handler, 0);
+        gptimer_start(VLC_timer_rx1_handler);
+    }   
+}
+void VLC_timer_rx1_stop()
+{
+    if(VLC_timer_rx1_state)
+    {
+        VLC_timer_rx1_state = false;
+        gptimer_stop(VLC_timer_rx1_handler);
+        gptimer_set_raw_count(VLC_timer_rx1_handler, 0);
+    }   
+}
 

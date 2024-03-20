@@ -25,7 +25,7 @@ void transmitter_send(const char* data)
 		encode(data+i*PAYLOAD_LEN,i,tx_buf);
 
 		//The tailer has to stop the UART transmitting
-		HAL_UART_Transmit(&huart1,tx_buf,FRAME_LEN*2+2,HAL_MAX_DELAY); 	// Header + payload
+		HAL_UART_Transmit(&huart1,tx_buf,FRAME_LEN*2+1,HAL_MAX_DELAY); 	// Header + payload
 
 		// // Transmit the tailer: 0b11111111
 		user_delay_us_tim(duration);

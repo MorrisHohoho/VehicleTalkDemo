@@ -9,7 +9,7 @@
 #include <string.h>
 
 static int VLC_transmitter_tx1_pin = GPIO_NUM_19;
-static int VLC_transmitter_tx2_pin = GPIO_NUM_39;
+static int VLC_transmitter_tx2_pin = GPIO_NUM_0;
 
 static uint8_t VLC_data_idle[VLC_PAYLOAD_LENGTH]; // 0XAA, for DC-balance
 
@@ -87,8 +87,8 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
     uint16_t phy_frame_length = VLC_FRAME_LENGTH * 2 + 2;
     uint8_t tx_buf[phy_frame_length];
 
-    // uint64_t VLC_bit_duration_temp = 1000000/VLC_BAUD_RATE;
-    // uint64_t VLC_header_duration = VLC_bit_duration_temp*5;
+    uint64_t VLC_bit_duration_temp = 1000000/VLC_BAUD_RATE;
+    uint64_t VLC_header_duration = VLC_bit_duration_temp*8;
     for (uint16_t i = 0; i < frame_counts; i++)
     {
         VLC_encoder_DoEncode(data + i * VLC_PAYLOAD_LENGTH, i, tx_buf);
@@ -96,14 +96,16 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
         {
         case VLC_TX1:
         {
-            uart_write_bytes(UART_NUM_1, tx_buf, phy_frame_length);
-            // uart_wait_tx_done(UART_NUM_1,portMAX_DELAY);
+            ets_delay_us(VLC_header_duration);
+            uart_write_bytes(UART_NUM_1, tx_buf+1, phy_frame_length-1);
+            uart_wait_tx_done(UART_NUM_1,portMAX_DELAY);
             break;
         }
         case VLC_TX2:
         {
-            uart_write_bytes(UART_NUM_2, tx_buf, phy_frame_length);
-            // uart_wait_tx_done(UART_NUM_2,portMAX_DELAY);
+            ets_delay_us(VLC_header_duration);
+            uart_write_bytes(UART_NUM_2, tx_buf+1, phy_frame_length-1);
+            uart_wait_tx_done(UART_NUM_2,portMAX_DELAY);
             break;
         }
 

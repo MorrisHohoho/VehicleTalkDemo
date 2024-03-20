@@ -60,6 +60,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 const char* mes = "IloveSCUANDIloveSCUMakerANDIloveVLCANDIloveVehicleTalkANDIloveRaptorCodeBUTIhateSpinalCodeBeacuseIt'suselessANDIloveMath:0123456789Somethinglikethat";
+const char* testing_16bytes_mes = "SCU?No1!no1?vlc!";
 /* USER CODE END 0 */
 
 /**
@@ -102,7 +103,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  transmitter_send(mes);
+	  transmitter_send(testing_16bytes_mes);
     // HAL_UART_Transmit(&huart1,tx_buf,128,HAL_MAX_DELAY);
   }
   /* USER CODE END 3 */

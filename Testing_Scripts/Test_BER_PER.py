@@ -66,7 +66,7 @@ def check_BER_PER(df,original_data):
     packet_corrupted_flag = False
     
     # Convert the original_data to ASCII first
-    data_in_ascii =[0] # The SQN
+    data_in_ascii =[]
     for ch in original_data:
         data_in_ascii.append(ord(ch))
 

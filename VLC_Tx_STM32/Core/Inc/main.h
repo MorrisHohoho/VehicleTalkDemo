@@ -41,9 +41,9 @@ extern "C" {
 #define LED_Pin GPIO_PIN_1
 #define LED_GPIO_Port GPIOB
 
-#define PAYLOAD_LEN 59
-#define FRAME_LEN (PAYLOAD_LEN+1)
-#define VLC_BUAD_RATE 115200
+#define PAYLOAD_LEN 16
+#define FRAME_LEN (PAYLOAD_LEN) // Why need PSN in physical frame?
+#define VLC_BUAD_RATE 120000
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -52,7 +52,7 @@ extern "C" {
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
-/* USER CODE BEGIN EM */
+/* USER CODE BEGIN EM */ 
 
 /* USER CODE END EM */
 

@@ -23,6 +23,8 @@ MessageBufferHandle_t MessageBuffer = NULL;
 void vtask_read(void *ptParam)
 {
     printf("Rx start\n");
+    printf("BAUD_RATE:%d\n",VLC_BAUD_RATE);
+    printf("PAYLOAD_Length:%d\n",VLC_PAYLOAD_LENGTH);
     VLC_receiver_init();
     uint8_t rx1_buffer[SYMBOLS_BUFFER_SIZE];
     uint8_t rx2_buffer[SYMBOLS_BUFFER_SIZE];
@@ -43,7 +45,7 @@ void vtask_read(void *ptParam)
             printf("\n");
             #endif
                 xMessageBufferSend(MessageBuffer,
-                                   (void *)&rx1_buffer[1], // discard the header
+                                   (void *)&rx1_buffer, // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
             break;
@@ -51,7 +53,7 @@ void vtask_read(void *ptParam)
         case VLC_DATA_RX2:
         {
                 xMessageBufferSend(MessageBuffer,
-                                   (void *)&rx2_buffer[1], // discard the header
+                                   (void *)&rx2_buffer, // discard the header
                                    VLC_FRAME_LENGTH * 2,
                                    0);
             break;
@@ -85,11 +87,13 @@ void vtask_operate(void *ptParam)
         if (recv_bytes != 0)
         {
             VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
+            #if !VERBOSE_OUTPUT
             for (int i = 0; i < VLC_FRAME_LENGTH; i++)
             {
                 printf("%d,", tx_output[i]);
             }
             printf("\n");
+            #endif
 
             // Vehicle_motor_control(tx_output[1]);
         }
