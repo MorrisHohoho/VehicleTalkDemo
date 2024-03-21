@@ -26,7 +26,7 @@ static void VLC_encoder_manchester_encoding(const char* original_data, uint8_t* 
     }
 }
 
-void VLC_encoder_DoEncode(const char* data, int frame_num, uint8_t* tx_buf){
+void VLC_encoder_DoEncode(const char* data, uint8_t* tx_buf){
 
     int tx_buf_ptr = 0;
     int data_len =strlen(data);
@@ -39,23 +39,7 @@ void VLC_encoder_DoEncode(const char* data, int frame_num, uint8_t* tx_buf){
     tx_buf[tx_buf_ptr++] = VLC_FRAME_HEADER;
 
     // 2. encode the payload with manchester encoding
-    // uint8_t original_data[VLC_FRAME_LENGTH];
     uint8_t encoded_data[VLC_FRAME_LENGTH*2];
-
-    // init the frame.
-    // for(int i=0;i<VLC_FRAME_LENGTH;i++)
-    // {
-    //     original_data[i] = 0;
-    // }
-
-    // original_data[0]=frame_num;  // the first byte is the frame number
-
-    // copy the data, if the data is not enough, fill the rest with 0
-    // for(int i=0;i<data_len;i++)
-    // {
-    //     original_data[i+1] = data[i];
-    // }
-
     VLC_encoder_manchester_encoding(data, encoded_data); //manchester encoding
 
     // copy the encoded data to the tx_buf

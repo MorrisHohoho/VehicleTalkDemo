@@ -18,6 +18,8 @@
 const char* testing_8bytes_mes = "SCU:No1!";
 const char* testing_16bytes_mes = "SCU?No1!no1?vlc!";
 const char* testing_32bytes_mes = "SCU?No1!no1?vlc!SCU?No1!no1?vlc!";
+const char* testing_64bytes_mes = "SCU?No1!no1?vlc!SCU?No1!no1?vlc!TCU?No1!no1?vlc!SCU?No1!no1?vlc!";
+const char testing_temp_mes[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,'\0'};
 /* Testing Messages End*/
 
 bool isSend = false;
@@ -43,6 +45,6 @@ void app_main(void)
 
     while (1)
     {
-        VLC_transmitter_DoSend(testing_32bytes_mes,tx_pin);
+        VLC_transmitter_DoSend(testing_64bytes_mes,tx_pin);
     }
 }
