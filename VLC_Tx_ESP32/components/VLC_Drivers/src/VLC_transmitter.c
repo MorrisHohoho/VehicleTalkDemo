@@ -1,6 +1,7 @@
 #include "VLC_transmitter.h"
 #include "VLC_parameters.h"
 #include "VLC_encoder.h"
+#include "VLC_timer.h"
 #include "rom/ets_sys.h"
 
 #include "driver/gpio.h"
@@ -75,11 +76,10 @@ void VLC_transmitter_init()
     memset(VLC_data_idle,0xAA,VLC_PAYLOAD_LENGTH);
 }
 
-void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
+void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag, int arr_len)
 {
-    uint16_t temp_data_length = strlen(data);
-    uint16_t frame_counts = temp_data_length / VLC_PAYLOAD_LENGTH;
-    if (temp_data_length % VLC_PAYLOAD_LENGTH != 0)
+    uint16_t frame_counts = arr_len / VLC_PAYLOAD_LENGTH;
+    if (arr_len % VLC_PAYLOAD_LENGTH != 0)
     {
         frame_counts++;
     }
@@ -91,7 +91,9 @@ void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag)
     uint64_t VLC_header_duration = VLC_bit_duration_temp*8;
     for (uint16_t i = 0; i < frame_counts; i++)
     {
+        // printf("S:%ld\n",get_VLC_general_timer_count());
         VLC_encoder_DoEncode(data + i * VLC_PAYLOAD_LENGTH,tx_buf);
+        // printf("E:%ld\n",get_VLC_general_timer_count());
         switch (flag)
         {
         case VLC_TX1:

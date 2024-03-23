@@ -12,6 +12,6 @@ void VLC_timer_PeriodElapsedCallback(gptimer_handle_t timer,void *arg);
 esp_err_t VLC_timer_rx1N2_init(uint64_t count);
 
 void VLC_timer_generalCallback(gptimer_handle_t timer,void *arg);
-esp_err_t VLC_timer_general_init(uint64_t count);
-
+esp_err_t VLC_timer_general_init(uint64_t count, bool is_wallclock);
+uint32_t get_VLC_general_timer_count();
 #endif

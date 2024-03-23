@@ -1,7 +1,7 @@
 #include "VLC_receiver.h"
 #include "VLC_decoder.h"
 #include "VLC_parameters.h"
-
+#include "VLC_timer.h"
 #include "Vehicle_motor.h"
 #include "Vehicle_servo.h"
 
@@ -72,6 +72,9 @@ void vtask_operate(void *ptParam)
     Vehicle_servo_init();
     Vehicle_servo_change_angle(90);
 
+    VLC_timer_general_init(1500000,true);
+    
+
     uint8_t temp_recv_buffer[SYMBOLS_BUFFER_SIZE];
     uint8_t tx_output[VLC_FRAME_LENGTH];
     int recv_bytes = 0;
@@ -86,7 +89,9 @@ void vtask_operate(void *ptParam)
 
         if (recv_bytes != 0)
         {
+            // printf("S:%ld\n",get_VLC_general_timer_count());
             VLC_decoder_Dodecode(temp_recv_buffer, tx_output);
+            // printf("E:%ld\n",get_VLC_general_timer_count());
             #if !VERBOSE_OUTPUT
             for (int i = 0; i < VLC_FRAME_LENGTH; i++)
             {

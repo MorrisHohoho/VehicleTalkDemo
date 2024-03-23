@@ -26,8 +26,9 @@ void VLC_transmitter_init();
  * Send the data through VLC
  * @param data: The data will be sent. Must have '\0' as the end indicator.
  * @param flag: Which transmitter is used.
+ * @param arr_len: The length of the data array. If the data is a string, use strlen(data) as the parameter.
 */
-void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag);
+void VLC_transmitter_DoSend(const char *data, TransmitterFlag flag, int arr_len);
 
 /**
  * Transmit Idle signal 0XAA to maintain DC balance
