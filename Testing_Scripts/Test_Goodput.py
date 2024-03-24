@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np 
+import subprocess
 
 RS_160_32_original_data = "SCUNO1koNavS4Ts/TsDrR A3<oSvoGt6^{KmWKS0Ld%;I7=a5m*WAPkr(L<!#+Q| y%Wc4Gp^Idj_ky5L[64j+Q9]ApsJrF#Jp-W";
 RS_160_32_block_len = 160
@@ -26,7 +27,7 @@ def findAllFile(base):
             yield fullname
 
 def FEC_decode(block,latency):
-    print("I should fec decoding and add latency")
+    p = subprocess.Popen('')
 
 
 def generate_FEC_block(df,FEC_pass_len):
