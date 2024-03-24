@@ -59,20 +59,29 @@ def generate_FEC_block(df,FEC_pass_len):
                 this_latency = 0
 
 
-# Set the working directory to the python file location
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
 
-for i in findAllFile(dname+'/RS'):
-    # Read the input testing data file and discard the first and final line
-    df = pd.read_csv(i,engine='python',header=None,skiprows=1,skipfooter=1)
-    # Drop the last column, which is all NaN
-    df = df.drop(df.columns[-1],axis=1)
-    df = df.astype(np.int64)
-    # Get original block
-    for block in generate_FEC_block(df,RS_160_32_block_len):
-        this_block = block[0:RS_160_32_block_len]
-        this_latency = block[1]
-        # FEC decode
-        FEC_decode(this_block,this_latency)
+
+if __name__ == "__main__":
+
+# Set the working directory to the python file location
+    abspath = os.path.abspath(__file__)
+    dname = os.path.dirname(abspath)
+    os.chdir(dname)
+
+    total_correct_packets = 0
+    total_latency = 0
+
+    for i in findAllFile(dname+'/RS'):
+        # Read the input testing data file and discard the first and final line
+        df = pd.read_csv(i,engine='python',header=None,skiprows=1,skipfooter=1)
+        # Drop the last column, which is all NaN
+        df = df.drop(df.columns[-1],axis=1)
+        # Convert to int64
+        df = df.astype(np.int64)
+
+        # Get original block
+        for block in generate_FEC_block(df,RS_160_32_block_len):
+            this_block = block[0:RS_160_32_block_len]
+            this_latency = block[1]
+            # FEC decode
+            FEC_decode(this_block,this_latency)
