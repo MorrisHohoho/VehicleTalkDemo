@@ -41,13 +41,14 @@
 #include "schifra_error_processes.hpp"
 #include "schifra_utilities.hpp"
 
-#define VLC_VERBOSE 1
+#define VLC_VERBOSE 0
 #define VLC_FRMAE_LENGTH 32
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     /* Timer */
     schifra::utils::timer timer;
+    int ret  = 0;
     /* Finite Field Parameters */
     const std::size_t field_descriptor = 8;
     const std::size_t generator_polynomial_index = 120;
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
     const encoder_t encoder(field, generator_polynomial);
     const decoder_t decoder(field, generator_polynomial_index);
 
-    std::string message = "SCUNO1koNavS4Ts/TsDrR A3<oSvoGt6^{KmWKS0Ld%;I7=a5m*WAPkr(L<!#+Q| y%Wc4Gp^Idj_ky5L[64j+Q9]ApsJrF#Jp-W";
+    std::string message = "SCUNO1MsA7yYslHg2fXYO0oolrtsYQc8VeRF0JxFE8Zwrhk47KaJQ1ZnRKzmEC54PcRoTpmQWWPo1urzixZdvlmYtMnTx1mPWwShSD9pJ2HDGgBjC8yeJyqd8QPrUwl6";
 
     /* Pad message with nulls up until the code-word length */
     message.resize(code_length, 0x00);
@@ -104,7 +105,7 @@ int main(int argc, char *argv[]) {
     if (!encoder.encode(message, block)) {
         std::cout << "Error - Critical encoding failure! "
                   << "Msg: " << block.error_as_string() << std::endl;
-        return 1;
+        ret = 1;
     }
     timer.stop();
     std::cout<<"RS encode time:"<<timer.time()<<std::endl;
@@ -118,19 +119,31 @@ int main(int argc, char *argv[]) {
     printf("\n");
 #endif
 
+    schifra::reed_solomon::block<code_length, fec_length> received_block;
+    for (int i = 1; i<argc;i++)
+    {
+//        std::cout<<atoi(argv[i])<<" ";
+        received_block.data[i-1] = atoi(argv[i]);
+    }
+
+
 
     timer.start();
-    if (!decoder.decode(block)) {
+    if (!decoder.decode(received_block)) {
         std::cout << "Error - Critical decoding failure! "
                   << "Msg: " << block.error_as_string() << std::endl;
-        return 1;
+        ret  = 1;
     }
     timer.stop();
     std::cout<<"RS decode time:"<<timer.time()<<std::endl;
+    if(!schifra::is_block_equivelent(received_block, message))
+    {
+        std::cout<<"decode failed!"<<std::endl;
+        ret  = 1;
+    }
 
+#if VLC_VERBOSE
     block.data_to_string(message);
-
-#if!VLC_VERBOSE
     std::cout << "Corrected Message: [" << message << "]" << std::endl;
 
     std::cout << "Encoder Parameters [" << encoder_t::trait::code_length << ","
@@ -141,5 +154,5 @@ int main(int argc, char *argv[]) {
               << decoder_t::trait::data_length << ","
               << decoder_t::trait::fec_length << "]" << std::endl;
 #endif
-    return 0;
+    return ret;
 }
