@@ -16,7 +16,10 @@ int main(int argc, char**argv)
         printf("%d,",symbols[i]);
     }
     printf("\n");
-    
+
+    symbols[2] = 5;
+    symbols[3] = 5;
+
 
     uint8_t decoded_message[MES_LENGTH+1];
     decoded_message[MES_LENGTH]='\0';

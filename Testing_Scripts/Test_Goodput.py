@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np 
 import subprocess
+import re
 from crc import Calculator,Crc8
 
 
@@ -34,6 +35,9 @@ RAPTOR_160_6_original_data = [6,59,123,67,188,244,52,37,229,205,125,35,183,193,8
 RAPTOR_160_6_symbol_size = 6 + 1 +1 # Symbol + id + CRC
 RAPTOR_160_6_total_symbols = 36
 RAPTOR_160_6_decode_threhold = 0.8
+#Spinal
+SPINAL_symbol_size = 5
+SPINAL_encoded_data = [0, 218, 150, 134, 159, 238, 229, 70, 81, 58, 102, 2, 105, 81, 23, 166, 77, 72, 192, 230, 108, 150, 205, 101, 245, 200, 114, 219, 170, 60, 217, 174, 1, 159, 45, 212, 61, 110, 171, 115, 211, 33, 10, 252, 117, 21, 19, 45, 61, 235, 85, 15, 111, 177, 136, 40, 19, 96, 121, 37, 187, 113, 52, 244, 2, 187, 98, 118, 8, 222, 196, 71, 86, 54, 147, 183, 141, 74, 26, 51, 76, 153, 118, 2, 14, 178, 64, 170, 180, 67, 87, 8, 135, 62, 129, 250, 3, 30, 132, 20, 34, 81, 115, 81, 235, 76, 133, 247, 143, 51, 241, 6, 237, 137, 186, 182, 245, 179, 251, 43, 58, 236, 66, 250, 243, 137, 248, 74, 4, 254, 178, 233, 132, 189, 180, 133, 31, 107, 141, 127, 195, 122, 109, 205, 37, 155, 113, 57, 222, 174, 197, 93, 72, 192, 49, 231, 9, 197, 194, 37, 5, 53, 45, 54, 24, 249, 61, 237, 93, 45, 66, 106, 247, 159, 229, 168, 187, 237, 206, 101, 207, 119, 239, 35, 192, 231, 244, 33, 108, 160, 151, 208, 6, 245, 12, 93, 93, 231, 75, 171, 211, 180, 252, 228, 178, 63, 140, 6, 82, 23, 105, 122, 214, 101, 64, 78, 250, 117, 12, 52, 186, 12, 37, 209, 7, 101, 66, 14, 109, 107, 57, 77, 112, 163, 56, 243, 216, 75, 165, 218, 168, 173, 48, 85, 184, 124, 100, 184, 21, 107, 139, 138, 115, 56, 191, 194, 8, 188, 221, 52, 32, 179, 44, 80, 91, 94, 36, 35, 230, 66, 165, 46, 36, 75, 194, 90, 64, 233, 138, 234, 126, 218, 106, 217, 46, 15, 146, 81, 9, 135, 197, 55, 208, 201, 33, 184, 206, 70, 199, 20, 179, 146, 109, 181, 64, 32, 236, 142, 180, 206, 10, 209, 182, 96, 112, 8, 74, 59, 39, 117, 10, 162, 107, 197, 213, 85, 58, 39, 200, 30, 46, 128, 169, 114, 120, 31, 144, 94, 152, 213, 174, 198, 186, 0, 101, 239, 121, 144, 188, 40, 249, 147, 11, 16, 90, 170, 246, 176, 92, 99, 8, 242, 242, 23, 254, 139, 232, 73, 17, 85, 157, 15, 205, 213, 194, 144, 70, 210, 105, 39, 88, 212, 212, 49, 12, 113, 29, 255, 158, 197, 111, 228, 60, 213, 5, 131, 131, 106, 104, 148, 17, 36, 43, 239, 27, 96, 243, 245, 4, 198, 19, 161, 219, 71, 223, 11, 13, 78, 131, 11, 183, 147, 163, 228, 111, 199, 215, 60, 111, 210, 218, 235, 89, 125, 8, 115, 13, 35, 86, 64, 158]
 # FEC parameters ends
 
 # FEC executable programs location starts
@@ -43,12 +47,15 @@ RS_testing_files_path = dname + "/RS"
 RAPTOR_exe ="../VLC_Raptor/cmake-build-debug/VLC_Raptor"
 RAPTOR_testing_files_path = dname + "/Raptor"
 
+SPINAL_exe = "../VLC_Spinal/cmake-build-debug/VLC_Spinal"
+SPINAL_testing_files_path = dname + "/Spinal"
+
 # FEC executable programs location ends
 
 # This testing setting
-which_data = RAPTOR_160_6_original_data
-testing_files_path = RAPTOR_testing_files_path
-which_fec = "raptor" # "rs", "raptor", "spinal" "none"
+which_data = SPINAL_encoded_data
+testing_files_path = SPINAL_testing_files_path
+which_fec = "spinal" # "rs", "raptor", "spinal" "none"
 
 def findAllFile(base):
     '''
@@ -88,6 +95,9 @@ def FEC_decode(which_fec,block):
     # Raptor decoding
     elif which_fec == "raptor":
         fec_exe =RAPTOR_exe
+    
+    elif which_fec == "spinal":
+        fec_exe = SPINAL_exe
     
     pass_str  = [fec_exe]
     for i in block:
@@ -187,6 +197,64 @@ def generate_Raptor_block(df):
             symbols_collector = [None] * RAPTOR_160_6_total_symbols
     return [[],0]
 
+
+def helper_spinal_generator(frame):
+    symbols_str = ''
+    for symbol in frame:
+        bin_str = bin(symbol)[2:].zfill(8)
+        symbols_str+=bin_str
+        
+    # Spilt them into 8 bits per symbol
+    symbols_arr = re.findall(r'.{5}',symbols_str)
+    symbols_arr = list(map(lambda x: "0b"+x,symbols_arr))
+    symbols_arr = list(map(lambda x: int(x,2),symbols_arr))
+
+    return symbols_arr
+
+def generate_Spinal_FEC_block(df):
+    ret = [[],0]
+    this_latency = 0
+
+    # This time we need to add PSN
+    total_frames_in_block = len(which_data)//(VLC_FRAME_LENGHT)
+    if(len(which_data)%(VLC_FRAME_LENGHT) != 0):
+        total_frames_in_block +=1
+
+    # Init the frame_collector
+    frame_collector = [None]*total_frames_in_block
+    collect_frame_num = 0
+
+    for row in df.itertuples():
+        # Read each row, add one frame latency
+        this_latency += RECEIVING_ONE_FRAME_LATENCY
+
+        # The first column is the panda dataframe index
+        # The second column is our pass number
+
+        # Check the frame number
+        this_frame_num = row[1]
+        if this_frame_num > total_frames_in_block or frame_collector[this_frame_num] != None:
+            continue
+
+        # Discard the frame number
+        temp =  list(row)[2:]
+        frame_collector[this_frame_num] = temp
+        collect_frame_num+=1
+
+        # Check whether we have enough frames
+        if(collect_frame_num>=total_frames_in_block):
+            for i in range(total_frames_in_block):
+                ret[0].extend(frame_collector[i])
+            ret[0] = ret[0][:len(which_data)]
+            ret[0] = helper_spinal_generator(ret[0])
+            ret[1] = this_latency
+            yield ret
+            ret = [[],0]
+            this_latency = 0
+            frame_collector = [None] * total_frames_in_block
+            collect_frame_num = 0
+    return [[],0]
+
 def generate_FEC_block(which_fec,df):
     '''
     Generate a FEC block from the dataframe.
@@ -203,6 +271,9 @@ def generate_FEC_block(which_fec,df):
 
     if which_fec == "raptor":
         yield from generate_Raptor_block(df)
+    
+    if which_fec == "spinal":
+        yield from generate_Spinal_FEC_block(df)
 
 
 
