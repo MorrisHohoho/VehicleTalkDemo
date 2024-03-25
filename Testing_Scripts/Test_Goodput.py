@@ -27,14 +27,14 @@ calculator = Calculator(Crc8.CCITT, optimized=True)
 
 # FEC parameters starts
 
+ORIGINAL_128bytes_data = "SCUNO1MsA7yYslHg2fXYO0oolrtsYQc8VeRF0JxFE8Zwrhk47KaJQ1ZnRKzmEC54PcRoTpmQWWPo1urzixZdvlmYtMnTx1mPWwShSD9pJ2HDGgBjC8yeJyqd8QPrUwl6"
+
 # RS
-RS_160_32_orignal_data = "SCUNO1MsA7yYslHg2fXYO0oolrtsYQc8VeRF0JxFE8Zwrhk47KaJQ1ZnRKzmEC54PcRoTpmQWWPo1urzixZdvlmYtMnTx1mPWwShSD9pJ2HDGgBjC8yeJyqd8QPrUwl6"
 RS_160_32_encoded_data = [83,67,85,78,79,49,77,115,65,55,121,89,115,108,72,103,50,102,88,89,79,48,111,111,108,114,116,115,89,81,99,56,86,101,82,70,48,74,120,70,69,56,90,119,114,104,107,52,55,75,97,74,81,49,90,110,82,75,122,109,69,67,53,52,80,99,82,111,84,112,109,81,87,87,80,111,49,117,114,122,105,120,90,100,118,108,109,89,116,77,110,84,120,49,109,80,87,119,83,104,83,68,57,112,74,50,72,68,71,103,66,106,67,56,121,101,74,121,113,100,56,81,80,114,85,119,108,54,85,235,49,170,121,233,186,54,133,116,231,1,40,58,237,4,139,210,243,98,135,152,99,180,26,67,30,63,172,180,237,6]
 # Raptor
-RAPTOR_160_6_original_data = [6,59,123,67,188,244,52,37,229,205,125,35,183,193,84,90,29,125,175,228,76,131,201,48,36,235,39,223,94,28,68,201,249,16,160,149,85,46,161,27,136,50,249,135,238,234,82,232,39,242,100,119,122,30,57,154,199,174,179,76,191,104,185,140,253,217,108,227,11,126,180,116,51,64,81,166,30,23,122,150,4,134,73,80,113,20,94,100,184,54,36,219,24,221,151,190,94,173,252,139,222,59,64,58,212,246,7,148,80,242,47,87,27,123,62,234,10,240,142,70,215,37,206,171,209,134,101,235,149,48,35,52,206,65,93,239,89,253,127,242,17,122,28,250,124,35,32,47,234,56,244,143,209,178,48,13,34,143,201,197]
 RAPTOR_160_6_symbol_size = 6 + 1 +1 # Symbol + id + CRC
-RAPTOR_160_6_total_symbols = 36
-RAPTOR_160_6_decode_threhold = 0.8
+RAPTOR_160_6_total_symbols = 32
+RAPTOR_160_6_decode_threshold = 0.8
 #Spinal
 SPINAL_symbol_size = 5
 SPINAL_encoded_data = [0, 218, 150, 134, 159, 238, 229, 70, 81, 58, 102, 2, 105, 81, 23, 166, 77, 72, 192, 230, 108, 150, 205, 101, 245, 200, 114, 219, 170, 60, 217, 174, 1, 159, 45, 212, 61, 110, 171, 115, 211, 33, 10, 252, 117, 21, 19, 45, 61, 235, 85, 15, 111, 177, 136, 40, 19, 96, 121, 37, 187, 113, 52, 244, 2, 187, 98, 118, 8, 222, 196, 71, 86, 54, 147, 183, 141, 74, 26, 51, 76, 153, 118, 2, 14, 178, 64, 170, 180, 67, 87, 8, 135, 62, 129, 250, 3, 30, 132, 20, 34, 81, 115, 81, 235, 76, 133, 247, 143, 51, 241, 6, 237, 137, 186, 182, 245, 179, 251, 43, 58, 236, 66, 250, 243, 137, 248, 74, 4, 254, 178, 233, 132, 189, 180, 133, 31, 107, 141, 127, 195, 122, 109, 205, 37, 155, 113, 57, 222, 174, 197, 93, 72, 192, 49, 231, 9, 197, 194, 37, 5, 53, 45, 54, 24, 249, 61, 237, 93, 45, 66, 106, 247, 159, 229, 168, 187, 237, 206, 101, 207, 119, 239, 35, 192, 231, 244, 33, 108, 160, 151, 208, 6, 245, 12, 93, 93, 231, 75, 171, 211, 180, 252, 228, 178, 63, 140, 6, 82, 23, 105, 122, 214, 101, 64, 78, 250, 117, 12, 52, 186, 12, 37, 209, 7, 101, 66, 14, 109, 107, 57, 77, 112, 163, 56, 243, 216, 75, 165, 218, 168, 173, 48, 85, 184, 124, 100, 184, 21, 107, 139, 138, 115, 56, 191, 194, 8, 188, 221, 52, 32, 179, 44, 80, 91, 94, 36, 35, 230, 66, 165, 46, 36, 75, 194, 90, 64, 233, 138, 234, 126, 218, 106, 217, 46, 15, 146, 81, 9, 135, 197, 55, 208, 201, 33, 184, 206, 70, 199, 20, 179, 146, 109, 181, 64, 32, 236, 142, 180, 206, 10, 209, 182, 96, 112, 8, 74, 59, 39, 117, 10, 162, 107, 197, 213, 85, 58, 39, 200, 30, 46, 128, 169, 114, 120, 31, 144, 94, 152, 213, 174, 198, 186, 0, 101, 239, 121, 144, 188, 40, 249, 147, 11, 16, 90, 170, 246, 176, 92, 99, 8, 242, 242, 23, 254, 139, 232, 73, 17, 85, 157, 15, 205, 213, 194, 144, 70, 210, 105, 39, 88, 212, 212, 49, 12, 113, 29, 255, 158, 197, 111, 228, 60, 213, 5, 131, 131, 106, 104, 148, 17, 36, 43, 239, 27, 96, 243, 245, 4, 198, 19, 161, 219, 71, 223, 11, 13, 78, 131, 11, 183, 147, 163, 228, 111, 199, 215, 60, 111, 210, 218, 235, 89, 125, 8, 115, 13, 35, 86, 64, 158]
@@ -47,8 +47,10 @@ RS_testing_files_path = dname + "/RS"
 RAPTOR_exe ="../VLC_Raptor/cmake-build-debug/VLC_Raptor"
 RAPTOR_testing_files_path = dname + "/Raptor"
 
-SPINAL_exe = "../VLC_Spinal/cmake-build-debug/VLC_Spinal"
+SPINAL_exe = "../VLC_Spinal/bin/Test"
 SPINAL_testing_files_path = dname + "/Spinal"
+
+BASELINE_testing_files_path = dname + "/baseline"
 
 # FEC executable programs location ends
 
@@ -109,18 +111,28 @@ def FEC_decode(which_fec,block):
     # Get the decode time
     temp = stdout.decode('utf-8')
     out = temp.split('\n')
+    print(out)
     decode_time = 0
+    encode_time = 0
     for i in out:
         index = i.find("decode time:")
         last_index = i.find("decode_time_end")
         if index != -1:
             decode_time = i[index+len("decode time:"):last_index]
             decode_time = float(decode_time)
-        
+
+    for i in out:
+        index = i.find("encode time:")
+        last_index = i.find("encode_time_end")
+        if index != -1:
+            encode_time = i[index+len("encode time:"):last_index]
+            encode_time = float(encode_time)
+            
+        time = encode_time*1000000 + decode_time*1000000
     if p.returncode:
-        return (0,decode_time)
+        return (0,time)
     else:
-        return (len(which_data), decode_time)
+        return (len(ORIGINAL_128bytes_data), time)
         
 def generte_RS_FEC_block(df):
     ret = [[],0]
@@ -186,7 +198,7 @@ def generate_Raptor_block(df):
                 symbols_collector_num+=1
         
         # Check whether we have enough symbols
-        if symbols_collector_num >= RAPTOR_160_6_total_symbols*RAPTOR_160_6_decode_threhold:
+        if symbols_collector_num >= RAPTOR_160_6_total_symbols*RAPTOR_160_6_decode_threshold:
             ret = []
             for i in symbols_collector:
                 if i!=None:
@@ -309,4 +321,4 @@ if __name__ == "__main__":
     print("total correct packets in bytes:",total_correct_packets)
     print("total latency:", total_latency)
     goodput = (total_correct_packets*8)/(total_latency/1000000)
-    print("goodput",goodput,"bps")
+    print(which_fec," goodput ",goodput,"bps")

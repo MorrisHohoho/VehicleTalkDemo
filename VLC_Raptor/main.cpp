@@ -38,6 +38,7 @@ RaptorQ::Block_Size globalBlockSize;
 schifra::utils::timer timer;
 
 // input data
+std::string orignal_mes = "SCUNO1MsA7yYslHg2fXYO0oolrtsYQc8VeRF0JxFE8Zwrhk47KaJQ1ZnRKzmEC54PcRoTpmQWWPo1urzixZdvlmYtMnTx1mPWwShSD9pJ2HDGgBjC8yeJyqd8QPrUwl6";
 std::vector<uint8_t> global_input_data;
 
 
@@ -55,27 +56,24 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
                  const uint16_t symbol_size, const uint16_t overhead) {
 
     // The input vector.
-    std::vector<uint8_t> input;
-    input.reserve(mysize);
+    std::vector<uint8_t> input(mysize);
 
     // Fill it with random data
     std::uniform_int_distribution<int16_t> distr(0,
                                                  std::numeric_limits<uint8_t>::max());
     // fill our input with random data
+    std::copy_n(global_input_data.begin(),mysize,input.begin());
 #if VLC_VERBOSE_OUTPUT
     std::cout << "===== Input data =====" << std::endl;
-    for (size_t idx = 0; idx < mysize; ++idx) {
-        uint8_t iiidata = static_cast<uint8_t> (distr(rnd));
-        printf("%d,", iiidata);
-        input.push_back(iiidata);
+//    for (size_t idx = 0; idx < mysize; ++idx) {
+//        uint8_t iiidata = static_cast<uint8_t> (distr(rnd));
+//        printf("%d,", iiidata);
+//        input.push_back(iiidata);
+//    }
+    for(auto i:input){
+        printf("%d,",i);
     }
     std::cout << std::endl << "===== Input data =====\n" << std::endl;
-#else
-    for (size_t idx = 0; idx < mysize; ++idx) {
-        uint8_t iiidata = static_cast<uint8_t> (distr(rnd));
-        input.push_back(iiidata);
-        global_input_data.push_back(iiidata);
-    }
 #endif
 
     // how many symbols do we need to encode all our input in a single block?
@@ -202,7 +200,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
         received.emplace_back(tmp_id, std::move(repair_sym_data));
     }
     timer.stop();
-    std::cout<<"Raptor encode time:"<<timer.time()<<std::endl;
+    std::cout<<"Raptor encode time:"<<timer.time()<<"encode_time_end"<<std::endl;
 
 #if VLC_VERBOSE_OUTPUT
     std::cout << "===== Encoded Symbols =====" << std::endl;
@@ -350,9 +348,13 @@ int main(int argc, char **argv) {
     uint64_t seed = 114514;
     rnd.seed(seed);
 
+    for(auto ch:orignal_mes){
+        global_input_data.push_back(ch);
+    }
     // Generate encoded symbols
     std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
-            symbols = generate_symbols(160, rnd, SYMBOL_SIZE, SYMBOL_SIZE);
+            symbols = generate_symbols(128, rnd, SYMBOL_SIZE, SYMBOL_SIZE);
+
 
 
     std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
@@ -361,16 +363,16 @@ int main(int argc, char **argv) {
     for (int i = 1; i< argc; i+=SYMBOL_SIZE+1)
     {
         uint8_t id = atoi(argv[i]);
-        std::vector<uint8_t> symbols;
+        std::vector<uint8_t> temp_symbols;
         for(int j = i + 1;j<i+1+SYMBOL_SIZE;j++)
         {
-            symbols.push_back(atoi(argv[j]));
+            temp_symbols.push_back(atoi(argv[j]));
         }
-        received_symbols.emplace_back(id,std::move(symbols));
+        received_symbols.emplace_back(id,std::move(temp_symbols));
 
     }
     // Raptor Decode
-    decode_symbols(received_symbols, 160, SYMBOL_SIZE);
+    decode_symbols(received_symbols, 128, SYMBOL_SIZE);
 
     return 0;
 }

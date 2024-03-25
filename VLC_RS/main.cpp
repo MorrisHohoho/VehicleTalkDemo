@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
         ret = 1;
     }
     timer.stop();
-    std::cout<<"RS encode time:"<<timer.time()<<std::endl;
+    std::cout<<"RS encode time:"<<timer.time()<<"encode_time_end"<<std::endl;
 
 #if VLC_VERBOSE
     std::cout<<"encoded:"<<std::endl;
@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
         ret  = 1;
     }
     timer.stop();
-    std::cout<<"RS decode time:"<<timer.time()<<std::endl;
+    std::cout<<"RS decode time:"<<timer.time()<<"decode_time_end"<<std::endl;
     if(!schifra::is_block_equivelent(received_block, message))
     {
         std::cout<<"decode failed!"<<std::endl;
