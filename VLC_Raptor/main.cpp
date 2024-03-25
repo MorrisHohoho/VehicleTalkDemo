@@ -18,9 +18,6 @@
  * and a copy of the GNU Lesser General Public License
  * along with libRaptorQ.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include "CRC.h"
-
 #include "RaptorQ/RaptorQ_v1_hdr.hpp"
 #include <algorithm>
 #include <fstream>
@@ -29,13 +26,20 @@
 #include <random>
 #include <stdlib.h>
 #include <vector>
+#include "schifra_utilities.hpp"
+
+#define VLC_VERBOSE_OUTPUT 0
+#define SYMBOL_SIZE 6
 
 // rename the main namespace for ease of use
 namespace RaptorQ = RaptorQ__v1;
 
 RaptorQ::Block_Size globalBlockSize;
+schifra::utils::timer timer;
 
-bool verbose = false;
+// input data
+std::vector<uint8_t> global_input_data;
+
 
 
 /**
@@ -58,13 +62,21 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
     std::uniform_int_distribution<int16_t> distr(0,
                                                  std::numeric_limits<uint8_t>::max());
     // fill our input with random data
+#if VLC_VERBOSE_OUTPUT
     std::cout << "===== Input data =====" << std::endl;
     for (size_t idx = 0; idx < mysize; ++idx) {
         uint8_t iiidata = static_cast<uint8_t> (distr(rnd));
-        printf("%d ", iiidata);
+        printf("%d,", iiidata);
         input.push_back(iiidata);
     }
     std::cout << std::endl << "===== Input data =====\n" << std::endl;
+#else
+    for (size_t idx = 0; idx < mysize; ++idx) {
+        uint8_t iiidata = static_cast<uint8_t> (distr(rnd));
+        input.push_back(iiidata);
+        global_input_data.push_back(iiidata);
+    }
+#endif
 
     // how many symbols do we need to encode all our input in a single block?
     auto min_symbols = (input.size() * sizeof(uint8_t)) / symbol_size;
@@ -103,8 +115,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
     // actual symbols. you could just use static_cast<uint16_t> (blok)
     // but this way you can actually query the encoder.
     uint16_t _symbols = enc.symbols();
-
-    if (verbose) {
+#if VLC_VERBOSE_OUTPUT
         std::cout << "===== Encoder Parameters =====" << std::endl;
 
         std::cout << "Block Size: " << static_cast<uint16_t>(block) << std::endl;
@@ -114,7 +125,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
                   "Symbol Size: " << static_cast<int32_t>(enc.symbol_size()) << "\n";
 
         std::cout << "===== Encoder Parameters =====\n" << std::endl;
-    }
+#endif
     // RQ need to do its magic on the input before you can ask the symbols.
     // multiple ways to do this are available.
     // The simplest is to run the computation and block everything until
@@ -171,6 +182,7 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
     auto repair_sym_it = enc.begin_repair();
     auto max_repair = enc.max_repair();
 
+    timer.start();
     for (uint32_t i = 0; i < overhead && repair_sym_it != enc.end_repair(max_repair); ++repair_sym_it, ++i) {
         std::vector<uint8_t> repair_sym_data(symbol_size, 0);
         auto it = repair_sym_data.begin();
@@ -189,18 +201,21 @@ generate_symbols(const uint32_t mysize, std::mt19937_64 &rnd,
         symbol_id tmp_id = (*repair_sym_it).id();
         received.emplace_back(tmp_id, std::move(repair_sym_data));
     }
+    timer.stop();
+    std::cout<<"Raptor encode time:"<<timer.time()<<std::endl;
 
+#if VLC_VERBOSE_OUTPUT
     std::cout << "===== Encoded Symbols =====" << std::endl;
-    std::cout << "Symbol ID \t Symbol\n";
+//    std::cout << "Symbol ID \t Symbol\n";
     for (auto p: received) {
-        printf("%d\t", p.first);
+        printf("%d,", p.first);
         for (auto s: p.second) {
-            printf("%d ", s);
+            printf("%d,", s);
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
     }
     std::cout << "===== Encoded Symbols =====\n" << std::endl;
-
+#endif
     return received;
 }
 
@@ -231,18 +246,18 @@ void decode_symbols(std::vector<std::pair<uint8_t, std::vector<uint8_t>>> receiv
     std::vector<uint8_t> output(mysize, 0);
 
     // now push every received symbol into the decoder
-    if (verbose) {
+#if VLC_VERBOSE_OUTPUT
         std::cout << "===== Received Symbols =====" << std::endl;
         std::cout << "Symbol ID \t Symbol \n";
-    }
+#endif
     for (auto &rec_sym: received) {
         // as a reminder:
         //  rec_sym.first = symbol_id (uint32_t)
         //  rec_sym.second = std::vector<uint8_t> symbol_data
         symbol_id tmp_id = rec_sym.first;
-        if (verbose) {
+#if VLC_VERBOSE_OUTPUT
             std::cout << tmp_id << "\t";
-        }
+#endif
         auto it = rec_sym.second.begin();
         auto err = dec.add_symbol(it, rec_sym.second.end(), tmp_id);
         if (err != RaptorQ::Error::NONE && err != RaptorQ::Error::NOT_NEEDED) {
@@ -256,16 +271,16 @@ void decode_symbols(std::vector<std::pair<uint8_t, std::vector<uint8_t>>> receiv
             std::cout << "error adding?\n";
             exit(1);
         }
-        if (verbose) {
+#if  VLC_VERBOSE_OUTPUT
             for (uint8_t data: rec_sym.second) {
                 printf("%d ", data);
             }
             std::cout << std::endl;
-        }
+#endif
     }
-    if (verbose) {
+#if VLC_VERBOSE_OUTPUT
         std::cout << "===== Received Symbols =====\n" << std::endl;
-    }
+#endif
 
     // by now we now there will be no more input, so we tell this to the
     // decoder. You can skip this call, but if the decoder does not have
@@ -277,11 +292,16 @@ void decode_symbols(std::vector<std::pair<uint8_t, std::vector<uint8_t>>> receiv
     //                                          RaptorQ::Fill_With_Zeros::YES);
 
     // decode, and do not return until the computation is finished.
+    timer.start();
     auto res = dec.wait_sync();
     if (res.error != RaptorQ::Error::NONE) {
         std::cout << "Couldn't decode.\n";
+        timer.stop();
+        std::cout<<"Raptor decode time:"<<timer.time()<<"decode_time_end"<<std::endl;
         exit(1);
     }
+    timer.stop();
+    std::cout<<"Raptor decode time:"<<timer.time()<<"decode_time_end"<<std::endl;
 
     // now save the decoded data in our output
     size_t decode_from_byte = 0;
@@ -313,68 +333,44 @@ void decode_symbols(std::vector<std::pair<uint8_t, std::vector<uint8_t>>> receiv
 //        std::cout << "Decoded: " << mysize << "\n";
     }
     // byte-wise check: did we actually decode everything the right way?
-    std::cout << "===== Decoded Data=====" << std::endl;
     for (uint64_t i = 0; i < mysize; ++i) {
-        printf("%d ", output[i]);
-    }
-    std::cout << "\n===== Decoded Data=====\n" << std::endl;
-}
-
-
-/**
- * Parse the command line arguments
- */
-void parse(int argc, char **argv) {
-    for (int i = 1; i < argc; i++) {
-        switch (argv[i][1]) {
-            case 'h':
-                std::cout << "-v: enable verbose output" << std::endl;
-                exit(0);
-            case 'v':
-                verbose = true;
-                break;
+        if(output[i]!=global_input_data[i])
+        {
+            std::cout<<"decode failed"<<std::endl;
+            exit(1);
         }
     }
 }
+
+
 
 int main(int argc, char **argv) {
-    // Parse command line parameters
-    parse(argc, argv);
-
-    // get a random number generator
+    // Get a random number generator and fixed its seed.
     std::mt19937_64 rnd;
-    std::ifstream rand("/dev/urandom");
-    uint64_t seed = 0;
-    rand.read(reinterpret_cast<char *> (&seed), sizeof(seed));
-    rand.close();
+    uint64_t seed = 114514;
     rnd.seed(seed);
+
+    // Generate encoded symbols
     std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
-            symbols = generate_symbols(64, rnd, 4, 2);
+            symbols = generate_symbols(160, rnd, SYMBOL_SIZE, SYMBOL_SIZE);
 
-    // Compute CRC
-    std::cout << "===== Add CRC =====" << std::endl;
-    // Using lookup table is much faster
-    CRC::Table<std::uint8_t, 8> table(CRC::CRC_8());
-    char temp[5];
-    for (auto i: symbols) {
-        temp[0] = i.first;
-        printf("%d\t", i.first);
-        int x = 1;
-        for (auto j: i.second) {
-            printf("%d ", j);
-            temp[x] = j;
-            ++x;
+
+    std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
+            received_symbols;
+    // Get the real input from the VLC link
+    for (int i = 1; i< argc; i+=SYMBOL_SIZE+1)
+    {
+        uint8_t id = atoi(argv[i]);
+        std::vector<uint8_t> symbols;
+        for(int j = i + 1;j<i+1+SYMBOL_SIZE;j++)
+        {
+            symbols.push_back(atoi(argv[j]));
         }
-        uint8_t crc = CRC::Calculate(temp, sizeof(temp), table);
-        printf("%d\n", crc);
+        received_symbols.emplace_back(id,std::move(symbols));
+
     }
-
-    std::cout << "===== Add CRC =====\n" << std::endl;
-
-    // Verify CRC
-
     // Raptor Decode
-    decode_symbols(symbols, 64, 4);
+    decode_symbols(received_symbols, 160, SYMBOL_SIZE);
 
     return 0;
 }
