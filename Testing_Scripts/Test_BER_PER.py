@@ -4,8 +4,9 @@ import pandas as pd
 ### Global Varibales ###
 testing_8bytes_mes = "SCU:No1!"
 testing_16bytes_mes = "SCU?No1!no1?vlc!"
+testing_32bytes_mes = "SCU?No1!no1?vlc!SCU?Win!VLC?Yes!"
 
-cur_test_mes = testing_16bytes_mes
+cur_test_mes = testing_32bytes_mes
 ### Global Varibales End ###
 
 
