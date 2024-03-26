@@ -9,7 +9,7 @@
 #define VLC_FRAME_HEADER 0xFF
 #define VLC_FRAME_TAIL 0X00
 
-#define VLC_BAUD_RATE 160000        // Maxinum is 160000
+#define VLC_BAUD_RATE 120000        // Maxinum is 160000
 
 
 #endif

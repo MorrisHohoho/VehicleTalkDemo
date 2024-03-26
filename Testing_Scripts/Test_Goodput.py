@@ -55,9 +55,9 @@ BASELINE_testing_files_path = dname + "/baseline"
 # FEC executable programs location ends
 
 # This testing setting
-which_data = SPINAL_encoded_data
-testing_files_path = SPINAL_testing_files_path
-which_fec = "spinal" # "rs", "raptor", "spinal" "none"
+which_data = ORIGINAL_128bytes_data
+testing_files_path = BASELINE_testing_files_path
+which_fec = "none" # "rs", "raptor", "spinal" "none"
 
 def findAllFile(base):
     '''
@@ -323,7 +323,10 @@ if __name__ == "__main__":
 
             
 
-    print("total correct packets in bytes:",total_correct_packets)
-    print("total latency:", total_latency)
-    goodput = (total_correct_packets*8)/(total_latency/1000000)
-    print(which_fec," goodput ",goodput,"bps")
+        print("total correct packets in bytes:",total_correct_packets)
+        print("total latency:", total_latency)
+        goodput = (total_correct_packets*8)/(total_latency/1000000)
+        print(i,which_fec," goodput ",goodput,"bps")
+        total_correct_packets = 0
+        total_latency = 0
+        

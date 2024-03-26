@@ -47,14 +47,15 @@ void app_main(void)
     while (1)
     {
 
-        VLC_transmitter_DoSend(testing_32bytes_mes,tx_pin,strlen(testing_32bytes_mes));
+        // VLC_transmitter_DoSend(testing_32bytes_mes,tx_pin,strlen(testing_32bytes_mes));
+
+        // VLC_transmitter_DoSend(orignal_128bytes_data,tx_pin,sizeof(orignal_128bytes_data));
 
         // VLC_transmitter_DoSend(RS_160_32_encoded_data,tx_pin,sizeof(RS_160_32_encoded_data));
-        // VLC_transmitter_DoSend(RS_160_32_orignal_data,tx_pin,sizeof(RS_160_32_orignal_data));
 
         // VLC_transmitter_DoSend(Raptor_encoded_data,tx_pin,sizeof(Raptor_encoded_data));
 
-        // VLC_transmitter_DoSend(Spinal_encoded_data,tx_pin,sizeof(Spinal_encoded_data));
+        VLC_transmitter_DoSend(Spinal_encoded_data,tx_pin,sizeof(Spinal_encoded_data));
 
 
     }
