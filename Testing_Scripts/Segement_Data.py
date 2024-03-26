@@ -20,8 +20,8 @@ Spinal_encoded_data = [27,10,11,8,13,7,31,14,28,21,3,5,2,14,19,6,0,9,20,21,2,5,2
 Spinal_symbol_size = 5
 # FEC encoded data ends
 
-data = Raptor_encoded_data
-which_fec = "raptor" # "rs", "raptor", "spinal"
+data = Spinal_encoded_data
+which_fec = "spinal" # "rs", "raptor", "spinal"
 
 
 def rs_segment_data(this_data):
@@ -48,6 +48,11 @@ def raptor_segment_data(this_data):
         ret.append(crc_checksum)
     return ret
 
+def cut_text(text,lenth): 
+    textArr = re.findall('.{'+str(lenth)+'}', text)
+    textArr.append(text[(len(textArr)*lenth):]) 
+    return textArr 
+  
 def spinal_segment_data(this_data):
     symbols_str = ''
     for symbol in this_data:
@@ -55,7 +60,10 @@ def spinal_segment_data(this_data):
         symbols_str+=bin_str
         
     # Spilt them into 8 bits per symbol
-    symbols_arr = re.findall(r'.{8}',symbols_str)
+    symbols_arr = cut_text(symbols_str,8)
+    for i in range(len(symbols_arr)):
+        if(len(symbols_arr[i])<8):
+            symbols_arr[i] = symbols_arr[i].ljust(8,'0')
     symbols_arr = list(map(lambda x: "0b"+x,symbols_arr))
     symbols_arr = list(map(lambda x: int(x,2),symbols_arr))
 
