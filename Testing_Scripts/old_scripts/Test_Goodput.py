@@ -55,9 +55,9 @@ BASELINE_testing_files_path = dname + "/baseline"
 # FEC executable programs location ends
 
 # This testing setting
-which_data = ORIGINAL_128bytes_data
-testing_files_path = BASELINE_testing_files_path
-which_fec = "none" # "rs", "raptor", "spinal" "none"
+which_data = "raptor"
+testing_files_path = RAPTOR_testing_files_path
+which_fec = "raptor" # "rs", "raptor", "spinal" "none"
 
 def findAllFile(base):
     '''
@@ -111,7 +111,7 @@ def FEC_decode(which_fec,block):
     # Get the decode time
     temp = stdout.decode('utf-8')
     out = temp.split('\n')
-    print(out)
+    # print(out)
     decode_time = 0
     encode_time = 0
     for i in out:
@@ -193,7 +193,7 @@ def generate_Raptor_block(df):
         for symbol in each_symbol_arr:
             data = symbol.tolist()[:-1]
             data_bytes = bytes(data)
-            if calculator.verify(data_bytes, symbol[-1]):
+            if calculator.verify(data_bytes, symbol[-1]) and symbol[0]<RAPTOR_160_6_total_symbols and symbols_collector[symbol[0]] == None:
                 symbols_collector[symbol[0]] = data
                 symbols_collector_num+=1
         
@@ -325,6 +325,9 @@ if __name__ == "__main__":
 
         print("total correct packets in bytes:",total_correct_packets)
         print("total latency:", total_latency)
+        if total_latency == 0:
+            print(i, "Can't find a vaild block!")
+            continue
         goodput = (total_correct_packets*8)/(total_latency/1000000)
         print(i,which_fec," goodput ",goodput,"bps")
         total_correct_packets = 0

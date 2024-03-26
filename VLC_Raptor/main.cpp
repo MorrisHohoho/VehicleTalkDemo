@@ -30,6 +30,7 @@
 
 #define VLC_VERBOSE_OUTPUT 0
 #define SYMBOL_SIZE 6
+#define OVERHEAD_SIZE 10
 
 // rename the main namespace for ease of use
 namespace RaptorQ = RaptorQ__v1;
@@ -351,9 +352,10 @@ int main(int argc, char **argv) {
     for(auto ch:orignal_mes){
         global_input_data.push_back(ch);
     }
+    int mysize = orignal_mes.size();
     // Generate encoded symbols
     std::vector<std::pair<uint8_t, std::vector<uint8_t>>>
-            symbols = generate_symbols(128, rnd, SYMBOL_SIZE, SYMBOL_SIZE);
+            symbols = generate_symbols(mysize, rnd, SYMBOL_SIZE, OVERHEAD_SIZE);
 
 
 
@@ -372,7 +374,7 @@ int main(int argc, char **argv) {
 
     }
     // Raptor Decode
-    decode_symbols(received_symbols, 128, SYMBOL_SIZE);
+    decode_symbols(received_symbols, mysize, SYMBOL_SIZE);
 
     return 0;
 }
